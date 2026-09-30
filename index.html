@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PopovWeb — Independent design & Framer development</title>
+  <meta name="description" content="Thoughtful websites by Fedor Popov. Independent website design, Framer development and purposeful motion.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1B1C1A">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('popovweb-theme')==='light'?'light':'dark';document.documentElement.lang=localStorage.getItem('popovweb-lang')==='en'?'en':'ru'}catch{}</script>
+  <link rel="preload" href="./assets/font-3.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./fonts.css">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./studio.css">
+  <script type="module" src="./app.js"></script>
+</head>
+<body id="top">
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="moon" viewBox="0 0 24 24"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></symbol>
+    <symbol id="design" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12"/></symbol>
+    <symbol id="framer" viewBox="0 0 24 24"><path d="M5 3h14v7H5Zm0 7h7l7 7H5Zm0 7h7v7l-7-7Z"/></symbol>
+    <symbol id="motion" viewBox="0 0 24 24"><path d="M3 12c3-9 6 9 9 0s6 9 9 0M3 5h3m12 14h3"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <div class="brand"><a href="#top" aria-label="PopovWeb">Popov</a><button class="logo-globe" type="button" aria-label="Spin the globe. Drag, or use the arrow keys." data-i18n-aria="globe.label"><canvas width="88" height="88" aria-hidden="true"></canvas></button></div>
+      <nav class="desktop-nav" aria-label="Main navigation" data-i18n-aria="navigation"><a href="#pricing" data-i18n="nav.pricing">Pricing</a><a href="#work" data-i18n="nav.work">Work</a><a href="#about" data-i18n="nav.about">About me</a></nav>
+      <div class="nav-actions">
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch to light theme" title="Switch to light theme" aria-pressed="false"><svg class="sun" aria-hidden="true"><use href="#sun"/></svg><svg class="moon" aria-hidden="true"><use href="#moon"/></svg></button>
+        <button class="language-toggle" type="button" aria-label="Переключить на русский" title="Переключить на русский"><span lang="ru" class="lang-ru">RU</span><span class="lang-divider" aria-hidden="true">/</span><span lang="en" class="lang-en">EN</span></button>
+        <a class="nav-cta" href="#contact" data-i18n="nav.contact">Let’s talk</a>
+        <button class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" data-i18n-aria="mobileNavigation" hidden><a href="#pricing" data-i18n="nav.pricing">Pricing</a><a href="#work" data-i18n="nav.work">Work</a><a href="#about" data-i18n="nav.about">About me</a><a href="#contact" data-i18n="nav.contact">Let’s talk</a></nav>
+  </header>
+  <main id="main" class="page">
+    <section class="hero panel" aria-labelledby="hero-title">
+      <div class="hero-top"><span class="studio-label" data-i18n="hero.studio">Independent Studio</span></div>
+      <div class="hero-content">
+        <h1 id="hero-title"><span data-i18n="hero.title1">Thoughtful websites.</span><br><span class="title-muted" data-i18n="hero.title2">Made to connect.</span></h1>
+        <p class="hero-description"><span data-i18n="hero.intro">I’m Fedor — a designer and Framer developer.</span><span data-i18n="hero.description">I create expressive websites for brands and businesses.</span></p>
+        <div class="hero-actions"><a class="button button-primary" href="#contact"><span data-i18n="hero.cta">Discuss your project</span><span class="button-disc"><svg aria-hidden="true"><use href="#arrow"/></svg></span></a><a class="hero-work-link" href="#work" data-i18n="hero.work">View the work</a></div>
+      </div>
+      <div class="hero-bottom"><span data-i18n="hero.skills">Design · Development · Purposeful motion</span></div>
+    </section>
+    <section id="pricing" aria-labelledby="pricing-title">
+      <div class="pricing-heading"><div><p class="eyebrow" data-i18n="pricing.label">A website for your next step</p><h2 id="pricing-title"><span data-i18n="pricing.title1">Different goals.</span><br><span class="accent-text" data-i18n="pricing.title2">A clear starting point.</span></h2></div><p data-i18n="pricing.intro">From the first idea to a live website. Choose the format that fits your business — I’ll take care of the structure, design, and development.</p></div>
+      <div class="pricing-grid">
+        <article class="price-card panel"><div class="price-card-top"><svg aria-hidden="true"><use href="#motion"/></svg><span>01</span></div><h3 data-i18n="price.landing.name">Landing page</h3><p class="price-purpose" data-i18n="price.landing.purpose">One offer. One clear action.</p><p class="price-value" data-i18n="price.landing.amount">from €650</p><p class="price-description" data-i18n="price.landing.description">Present a service, product, or launch and turn interest into an enquiry.</p><ul><li data-i18n="price.landing.f1">One page, up to 8 sections</li><li data-i18n="price.landing.f2">Offer structure and enquiry form</li><li data-i18n="price.landing.f3">Responsive design and subtle motion</li></ul><a class="price-cta" href="#contact" data-plan="landing"><span data-i18n="price.cta">Discuss this format</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></article>
+        <article class="price-card panel"><div class="price-card-top"><svg aria-hidden="true"><use href="#design"/></svg><span>02</span></div><h3 data-i18n="price.company.name">Company website</h3><p class="price-purpose" data-i18n="price.company.purpose">Make your business easy to choose.</p><p class="price-value" data-i18n="price.company.amount">from €1,400</p><p class="price-description" data-i18n="price.company.description">Tell your story, explain your services, and show what makes your work different.</p><ul><li data-i18n="price.company.f1">Up to 5 unique pages</li><li data-i18n="price.company.f2">Services, work, and contact pages</li><li data-i18n="price.company.f3">CMS for news or projects</li></ul><a class="price-cta" href="#contact" data-plan="company"><span data-i18n="price.cta">Discuss this format</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></article>
+        <article class="price-card panel"><div class="price-card-top"><svg aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span>03</span></div><h3 data-i18n="price.catalog.name">Product catalog</h3><p class="price-purpose" data-i18n="price.catalog.purpose">Help people find their fit.</p><p class="price-value" data-i18n="price.catalog.amount">from €1,900</p><p class="price-description" data-i18n="price.catalog.description">Organize your range so visitors can explore, compare, and request a quote.</p><ul><li data-i18n="price.catalog.f1">Categories, filters, and item pages</li><li data-i18n="price.catalog.f2">CMS and up to 20 starter items</li><li data-i18n="price.catalog.f3">Enquiries without online checkout</li></ul><a class="price-cta" href="#contact" data-plan="catalog"><span data-i18n="price.cta">Discuss this format</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></article>
+        <article class="price-card panel"><div class="price-card-top"><svg aria-hidden="true"><path d="M3 4h3l2 12h11l2-8H7"/><circle cx="10" cy="20" r="1"/><circle cx="18" cy="20" r="1"/></svg><span>04</span></div><h3 data-i18n="price.shop.name">Online store</h3><p class="price-purpose" data-i18n="price.shop.purpose">From discovery to checkout.</p><p class="price-value" data-i18n="price.shop.amount">from €2,600</p><p class="price-description" data-i18n="price.shop.description">Create a clear shopping journey with products, a cart, and order management.</p><ul><li data-i18n="price.shop.f1">Catalog, cart, and checkout</li><li data-i18n="price.shop.f2">One payment provider integration</li><li data-i18n="price.shop.f3">Up to 20 starter products</li></ul><a class="price-cta" href="#contact" data-plan="shop"><span data-i18n="price.cta">Discuss this format</span><svg aria-hidden="true"><use href="#arrow"/></svg></a></article>
+      </div>
+      <div class="pricing-footnote"><p><strong data-i18n="pricing.included">Every format includes</strong><span data-i18n="pricing.baseline">Mobile layout, basic SEO setup, launch, and a handover walkthrough.</span></p><p data-i18n="pricing.note">Starting prices for the scope above. We agree the final scope, timeline, and price before work begins. Domain, hosting, platform plans, paid services, and large content imports are separate.</p></div>
+    </section>
+    <section id="work" aria-labelledby="work-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="work.label">Selected Work</p><h2 id="work-title" data-i18n="work.title">Recent studies & templates</h2></div><p class="heading-note" data-i18n="work.description">Each project is built with clear visual structure, generous typography, and seamless responsive behavior.</p></div>
+      <div class="project-stack">
+      <article id="templates" class="project-feature panel project-hover">
+        <div class="feature-copy"><span class="badge badge-accent" data-i18n="velora.status">Original Framer template · Launch in preparation</span><h3>VELORA</h3><p class="feature-description" data-i18n="velora.description">An elegant, editorial Framer landing page crafted for fashion labels, independent designers, and lifestyle creators who value whitespace and refined pacing.</p>
+          <div class="tags"><span data-i18n="velora.tag1">Framer Template</span><span data-i18n="velora.tag2">Editorial Direction</span><span data-i18n="velora.price">USD 39 · one-time</span></div>
+          <details class="template-details"><summary><span data-i18n="velora.included">What’s included</span><span class="plus" aria-hidden="true"></span></summary><ul class="feature-list"><li data-i18n="velora.feature1">Responsive desktop, tablet, and mobile layouts</li><li data-i18n="velora.feature2">Customizable sections, fonts, and color styles</li><li data-i18n="velora.feature3">Subtle animations, setup guidance, and email support</li></ul></details>
+          <a class="button button-light" href="https://cute-plans-049750.framer.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="velora.preview">Preview VELORA</span><svg aria-hidden="true"><use href="#arrow"/></svg></a>
+        </div><div class="feature-image"><img src="./assets/stitch-velora.webp" width="512" height="286" alt="VELORA fashion website displayed on a laptop" data-i18n-alt="alt.velora" loading="lazy"></div>
+      </article>
+        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-stilla.webp" width="512" height="382" alt="STILLA architecture website concept" data-i18n-alt="alt.stilla" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>STILLA <span data-i18n="stilla.title">Architecture</span></h3><p data-i18n="stilla.description">Exploration of tactile materiality, generous margins, and concrete minimalism for an architectural practice in Scandinavia.</p></div><div class="concept-caption"><span data-i18n="stilla.category">Spatial & Editorial Design</span><span data-i18n="stilla.number">Study 01</span></div></article>
+        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-luma.webp" width="512" height="382" alt="LUMA photography website concept" data-i18n-alt="alt.luma" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>LUMA <span data-i18n="luma.title">Photography Studio</span></h3><p data-i18n="luma.description">Monochrome portraiture showcase designed with rhythmic typography and quiet editorial composure for a fine art photography studio.</p></div><div class="concept-caption"><span data-i18n="luma.category">Visual Hierarchy & Framing</span><span data-i18n="luma.number">Study 02</span></div></article>
+      </div>
+    </section>
+    <section class="process panel" aria-labelledby="process-title">
+      <div class="process-heading"><p class="eyebrow" data-i18n="process.label">How we work</p><h2 id="process-title" data-i18n="process.title">Three calm, organized steps</h2><p data-i18n="process.description">Every project is unique. Scope, timing, and price are agreed individually before we begin.</p></div>
+      <div class="process-grid"><article><span class="step-label" data-i18n="step1.label">01 / DISCOVER</span><h3 data-i18n="step1.title">Listen & Align</h3><p data-i18n="step1.description">We talk about your goals, audience, and what the website needs to achieve. A shared direction before any design begins.</p></article><article><span class="step-label" data-i18n="step2.label">02 / DESIGN</span><h3 data-i18n="step2.title">Structure & Craft</h3><p data-i18n="step2.description">Content, structure, and visual design come together. You see the direction take shape and share feedback along the way.</p></article><article><span class="step-label" data-i18n="step3.label">03 / BUILD & HANDOVER</span><h3 data-i18n="step3.title">Develop & Empower</h3><p data-i18n="step3.description">I build and test your website on the agreed platform. Then we launch, with guidance on managing your content.</p></article></div>
+    </section>
+    <section id="about" class="about-stack panel" aria-labelledby="about-title">
+      <div class="stack-copy"><p class="eyebrow" data-i18n="stack.label">The person and the tools</p><h2 id="about-title"><span data-i18n="stack.title1">One person.</span><br><span class="title-muted" data-i18n="stack.title2">A world of tools.</span></h2><p class="stack-bio" data-i18n="stack.bio">I’m Fedor Popov, a designer and web developer based in Montenegro, working with projects around the world. I shape the structure, design the interface, and build the website.</p><p data-i18n="stack.approach">I choose tools to fit the task: a platform for a quick launch, or custom development when the project needs its own logic.</p>
+        <div class="orbit-legend"><div><span class="orbit-key key-design"></span><div><strong data-i18n="stack.design">Design</strong><small data-i18n="stack.design.detail">Inner orbit · visual language</small></div></div><div><span class="orbit-key key-platforms"></span><div><strong data-i18n="stack.platforms">Platforms</strong><small data-i18n="stack.platforms.detail">Middle orbit · building and content</small></div></div><div><span class="orbit-key key-code"></span><div><strong data-i18n="stack.code">Code</strong><small data-i18n="stack.code.detail">Outer orbit · development</small></div></div></div>
+      </div>
+      <div class="stack-playground"><div class="orbit-stage" tabindex="0" role="group" aria-label="Interactive stack: three orbits. Drag horizontally or use the arrow keys." data-i18n-aria="stack.stage"><div class="orbit-track track-design"></div><div class="orbit-track track-platforms"></div><div class="orbit-track track-code"></div><div class="orbit-center"><span>FP</span><small data-i18n="stack.center">Fedor</small></div><div class="orbit-nodes"></div></div>
+        <div class="orbit-toolbar"><p data-i18n="stack.hint">Hover to pause. Select a tool to see how I use it.</p><button class="orbit-pause" type="button" aria-pressed="false">Pause</button></div>
+        <div class="tool-detail" aria-live="polite" aria-atomic="true"><span class="tool-detail-group"></span><h3 data-i18n="stack.initial">Pick any tool</h3><p data-i18n="stack.initialText">See where it fits into the website-making process.</p></div>
+      </div>
+    </section>
+    <section class="faq" aria-labelledby="faq-title"><div class="faq-heading"><p class="eyebrow" data-i18n="faq.label">Common questions</p><h2 id="faq-title" data-i18n="faq.title">Clear answers upfront</h2></div><div class="faq-list">
+      <details><summary><span data-i18n="faq1.question">How are scope, timing, and pricing determined?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq1.answer">After an initial conversation, I prepare a proposal with the scope, timeline, and price. Everything is agreed before work begins, so you know what to expect.</p></details>
+      <details><summary><span data-i18n="faq2.question">Can I easily edit and update the website myself?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq2.answer">We agree which content you need to manage before we begin. I set up the editor or CMS for that scope and show you how to update your website at handover.</p></details>
+      <details><summary><span data-i18n="faq3.question">What is included with the VELORA template?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq3.answer">VELORA is an editable, responsive Framer landing page with customizable sections, fonts, colors, and subtle animations. Setup guidance and email support are included. The planned price is USD 39 as a one-time purchase; a Framer site plan and domain are separate. The demo is available while the template is being prepared for launch.</p></details>
+    </div></section>
+    <section id="contact" class="contact panel" aria-labelledby="contact-title"><canvas id="illumination" aria-hidden="true"></canvas><p class="eyebrow" data-i18n="contact.label">Get in touch</p><h2 id="contact-title"><span data-i18n="contact.title1">Have something in mind?</span><br><span data-i18n="contact.title2">Tell me about your project.</span></h2><p data-i18n="contact.description">Share a little about your idea, your business, and what you’d like your website to do. Let’s start a conversation.</p><div class="chosen-plan" hidden><span data-i18n="contact.selectedLabel">Selected format</span><strong class="chosen-plan-name"></strong><button type="button" class="clear-plan" data-i18n="contact.clear">Clear selection</button></div><a class="button contact-button" href="mailto:fedorpopov7@yandex.ru"><svg aria-hidden="true"><use href="#mail"/></svg><span>fedorpopov7@yandex.ru</span></a><div class="illumination-hint"><span class="dot"></span><span data-i18n="hero.hint">Move your cursor for fluid illumination</span></div></section>
+  </main>
+  <footer><div class="footer-inner"><span data-i18n="footer.brand">PopovWeb · Fedor Popov</span><span data-i18n="footer.location">Montenegro · Working worldwide</span><span data-i18n="footer.copyright">© 2026 Fedor Popov. All rights reserved.</span></div></footer>
+</body>
+</html>

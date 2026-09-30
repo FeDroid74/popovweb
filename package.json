@@ -1,0 +1,13 @@
+{
+  "name": "popovweb",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "start": "node server.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node --check app.js && node --check translations.js && node --check studio.js && node --check studio-copy.js && node --check rotor.js && node --check server.mjs && node --check scripts/build.mjs",
+    "test": "node qa/rotor.test.mjs"
+  }
+}
