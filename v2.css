@@ -67,3 +67,5 @@
  .version-two .format-tabs>button small { font-size: 11px; }
 }
 @media (prefers-reduced-motion: reduce) { .version-two .next-button svg { transition: none; } }
+
+.version-two :is(#pricing,#work,.faq) { padding-inline: 0; }
