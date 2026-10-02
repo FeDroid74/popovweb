@@ -42,7 +42,7 @@ npm run build
 
 ## Форма и публикация
 
-GitHub Pages настроен через `.github/workflows/pages.yml`: после push в `main` выполняются установка зависимостей, проверки, тесты, сборка и публикация только `dist/`.
+Для GitHub Pages подготовлен `.github/workflows/pages.yml`: после включения Pages с источником GitHub Actions каждый push в `main` запускает установку зависимостей, проверки, тесты, сборку и публикацию только `dist/`. Для приватного репозитория нужен тариф GitHub с поддержкой Pages; на бесплатном тарифе репозиторий должен быть публичным.
 
 - Основная версия: https://fedroid74.github.io/popovweb/
 - v3: https://fedroid74.github.io/popovweb/v3.html
