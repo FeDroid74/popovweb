@@ -17,3 +17,8 @@
 @media (prefers-reduced-motion: reduce) {
   .work-hotspot { transition: none; }
 }
+
+/* White foreground on filled action buttons in both themes. */
+.next-home .next-button:is(.primary,.secondary), .next-home .next-button:is(.primary,.secondary):hover, .next-home .form-submit { color: #fff; }
+.next-home .next-button.secondary { background: var(--accent); }
+.next-home :is(.next-button,.form-submit) svg { color: #fff; }

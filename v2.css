@@ -1,0 +1,69 @@
+/* V2 inherits the main page. Only the services and post-hero layout vary. */
+.version-two { --v2-edge: calc(var(--frame-gutter) + var(--frame-inset)); }
+.version-two .page > :not(.hero) { width: calc(100vw - 2 * var(--v2-edge)); max-width: none; margin-inline: auto; padding-inline: 0; }
+.version-two .page > :is(.process,.about-stack,.contact) { padding-inline: var(--frame-inset); }
+.version-two .site-header.is-floating { padding-inline: var(--v2-edge); }
+.version-two .footer-inner { width: calc(100vw - 2 * var(--v2-edge)); margin-inline: auto; }
+.version-two footer { padding-inline: 0; }
+.version-two .v2-pricing h2 { font-size: clamp(36px,4vw,62px); font-weight: 400; line-height: 1.12; letter-spacing: -.045em; }
+.next-section-heading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; margin-bottom: 44px; }
+.next-section-heading>p { font-size: 16px; line-height: 1.7; color: var(--muted); max-width: 360px; justify-self: end; }
+.format-picker { display: grid; grid-template-columns: .95fr 1.2fr; gap: clamp(36px, 5vw, 80px); align-items: stretch; }
+.format-tabs { display: flex; flex-direction: column; align-self: start; border-top: 1px solid var(--border); }
+.format-tabs>button { min-height: 110px; display: flex; justify-content: space-between; align-items: center; text-align: left; gap: 20px; padding: 24px 4px; background: transparent; border-bottom: 1px solid var(--border); color: var(--muted); }
+.format-tabs>button strong { display: block; font-size: clamp(18px, 1.6vw, 24px); font-weight: 400; letter-spacing: -.025em; }
+.format-tabs>button small { font-size: 12px; display: block; margin-top: 6px; }
+.format-tab-price { display: flex; flex-shrink: 0; align-items: center; gap: 16px; font-size: 12px; }
+.format-tab-price svg { width: 19px; height: 19px; transition: transform .22s; }
+.format-tabs>button[aria-selected=true] { color: var(--text); border-bottom-color: var(--accent); }
+.format-tabs>button[aria-selected=true] .format-tab-price svg { color: var(--accent); transform: rotate(45deg); }
+.format-tabs>button:hover { color: var(--text); }
+.format-panels { display: grid; }
+.version-two .format-panel { grid-area: 1/1; display: flex; flex-direction: column; padding: clamp(26px, 3vw, 46px); border-radius: 24px; background: var(--surface); border: 1px solid var(--border); min-width: 0; }
+.format-fit { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
+.version-two .format-panel h3 { min-height: 0; font-size: clamp(28px, 2.7vw, 38px); letter-spacing: -.035em; }
+.format-description { color: var(--muted); font-size: 15px; line-height: 1.7; margin-top: 16px; max-width: 52ch; }
+.version-two .format-panel ul { list-style: none; padding: 22px 0 28px; margin: 0; border: 0; font-size: 14px; line-height: 1.6; }
+.format-scope li { position: relative; padding-left: 23px; }
+.format-scope li::before { content: ''; position: absolute; width: 10px; height: 5px; left: 1px; top: 8px; border-left: 1.5px solid var(--accent); border-bottom: 1.5px solid var(--accent); transform: rotate(-45deg); }
+.format-bottom { border-top: 1px solid var(--border); padding-top: 22px; margin-top: auto; display: flex; align-items: center; gap: 20px; justify-content: space-between; flex-wrap: wrap; }
+.format-bottom small { color: var(--muted); font-size: 12px; }
+.version-two .format-panel .price-value { margin: 4px 0 0; font-size: clamp(25px, 2.7vw, 38px); line-height: 1.2; }
+.format-bottom .next-button { font-size: 13px; min-height: 48px; padding-inline: 20px; gap: 16px; }
+.pricing-context { display: grid; grid-template-columns: .95fr 1.2fr; gap: clamp(36px,5vw,80px); font-size: 12px; line-height: 1.75; color: var(--muted); margin-top: 25px; }
+.pricing-context strong { color: var(--text); display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+.next-button { min-height: 54px; padding: 15px 23px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 24px; font-size: 15px; font-weight: 500; transition: background-color .2s, color .2s, border-color .2s; white-space: nowrap; }
+.next-button svg { width: 18px; height: 18px; transition: transform .2s; }
+.next-button:hover svg { transform: translate(2px,-2px); }
+.next-button.primary { background: var(--accent); color: #191a18; }
+.next-button.primary:hover { background: #ff8657; }
+.next-button.secondary { background: var(--text); color: var(--bg); }
+.next-button.secondary:hover { background: var(--accent); color: #191a18; }
+.version-two .format-panel[hidden] { display: none !important; }
+.version-two .format-panel li { margin-top: 8px; }
+.version-two .format-panel li::before { content: ''; }
+.version-two .format-panel h3 { font-weight: 400; }
+.version-two .next-button.primary { color: #fff; }
+.version-two .button-primary .button-disc { background: transparent; color: #fff; }
+.version-two .button-primary:hover .button-disc svg { transform: translate(2px,-2px); }
+@media (max-width: 800px) {
+ .version-two .next-section-heading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 30px; }
+ .version-two .next-section-heading>p { justify-self: start; }
+ .version-two .format-picker,.version-two .pricing-context { grid-template-columns: 1fr; gap: 24px; }
+ .version-two .format-tabs { display: grid; grid-template-columns: 1fr 1fr; gap: 0 24px; }
+ .version-two .format-tabs>button { min-height: 90px; padding-block: 16px; gap: 8px; }
+ .version-two .format-tabs>button strong { font-size: 16px; }
+ .version-two .format-tab-price>span { display: none; }
+ .version-two .format-panel { padding: 28px; }
+}
+@media (max-width: 550px) {
+ .version-two { --v2-edge: calc(var(--frame-gutter) + 14px); }
+ .version-two .page > :is(.process,.about-stack,.contact) { padding-inline: 20px; }
+ .version-two .format-panel { padding: 24px 20px; }
+ .version-two .format-bottom { flex-wrap: wrap; }
+ .version-two .format-bottom .next-button { width: 100%; justify-content: space-between; }
+ .version-two .format-tabs { gap: 0 16px; }
+ .version-two .format-tabs>button strong { font-size: 14px; }
+ .version-two .format-tabs>button small { font-size: 11px; }
+}
+@media (prefers-reduced-motion: reduce) { .version-two .next-button svg { transition: none; } }

@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>PopovWeb — Independent design & Framer development</title>
+  <meta name="description" content="Thoughtful websites by Fedor Popov. Independent website design, Framer development and purposeful motion.">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#1B1C1A">
+  <link rel="icon" href="./assets/favicon.svg" type="image/svg+xml">
+  <script>try{document.documentElement.dataset.theme=localStorage.getItem('popovweb-theme')==='light'?'light':'dark';document.documentElement.lang=localStorage.getItem('popovweb-lang')==='en'?'en':'ru'}catch{}</script>
+  <link rel="preload" href="./assets/font-3.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="stylesheet" href="./fonts.css">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./studio.css">
+  <link rel="stylesheet" href="./container-v2.css">
+  <link rel="stylesheet" href="./v2.css">
+  <script type="module" src="./v2.js"></script>
+  <script type="module" src="./app.js"></script>
+  <script type="module" src="./header-v2.js"></script>
+  <script type="module" src="./hero-grid-v2.js"></script>
+  <script type="module" src="./contact-v2.js"></script>
+  <script type="module" src="./ui-v2.bundle.js"></script>
+</head>
+<body id="top" class="version-two">
+  <svg class="svg-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="arrow-up-right" viewBox="0 0 24 24"><path d="M6 18 18 6M6 6h12v12"/></symbol>
+    <symbol id="sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+    <symbol id="moon" viewBox="0 0 24 24"><path d="M20.8 13A9 9 0 0 1 11 3.2 9 9 0 1 0 20.8 13Z"/></symbol>
+    <symbol id="design" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18M9 9v12"/></symbol>
+    <symbol id="framer" viewBox="0 0 24 24"><path d="M5 3h14v7H5Zm0 7h7l7 7H5Zm0 7h7v7l-7-7Z"/></symbol>
+    <symbol id="motion" viewBox="0 0 24 24"><path d="M3 12c3-9 6 9 9 0s6 9 9 0M3 5h3m12 14h3"/></symbol>
+    <symbol id="mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></symbol>
+  </defs></svg>
+  <a class="skip-link" href="#main" data-i18n="skip">Skip to content</a>
+  <header class="site-header">
+    <div class="nav-shell">
+      <div class="brand"><a href="#top" aria-label="PopovWeb">Popov</a><button class="logo-globe" type="button" aria-label="Spin the globe. Drag, or use the arrow keys." data-i18n-aria="globe.label"><canvas width="88" height="88" aria-hidden="true"></canvas></button></div>
+      <nav class="desktop-nav" aria-label="Main navigation" data-i18n-aria="navigation"><a href="#pricing" data-i18n="nav.pricing">Pricing</a><a href="#work" data-i18n="nav.work">Work</a><a href="#about" data-i18n="nav.about">About me</a></nav>
+      <div class="nav-actions">
+        <button class="icon-button theme-toggle" type="button" aria-label="Switch to light theme" title="Switch to light theme" aria-pressed="false"><svg class="sun" aria-hidden="true"><use href="#sun"/></svg><svg class="moon" aria-hidden="true"><use href="#moon"/></svg></button>
+        <button class="language-toggle" type="button" aria-label="Переключить на русский" title="Переключить на русский"><span lang="ru" class="lang-ru">RU</span><span class="lang-divider" aria-hidden="true">/</span><span lang="en" class="lang-en">EN</span></button>
+        <a class="nav-cta" href="#contact" data-edge-fill><span class="nav-cta-fill" aria-hidden="true"></span><span data-i18n="nav.contact">Let’s talk</span></a>
+        <button class="icon-button menu-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Open menu"><span></span><span></span></button>
+      </div>
+    </div>
+    <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation" data-i18n-aria="mobileNavigation" hidden><a href="#pricing" data-i18n="nav.pricing">Pricing</a><a href="#work" data-i18n="nav.work">Work</a><a href="#about" data-i18n="nav.about">About me</a><a href="#contact" data-i18n="nav.contact">Let’s talk</a></nav>
+  </header>
+  <main id="main" class="page">
+    <section class="hero panel" aria-labelledby="hero-title">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="hero-portrait hero-portrait-new"><img class="hero-photo-selected" src="./assets/fedor-hero-selected.png" width="1024" height="1536" alt="Fedor Popov" fetchpriority="high" decoding="async"></div>
+      <div class="hero-top"><span class="studio-label" data-i18n="hero.studio">Independent Studio</span></div>
+      <div class="hero-content">
+        <h1 id="hero-title"><span data-i18n="v2.hero.title1">Websites that</span><br><span class="accent-text" data-i18n="v2.hero.title2">bring you clients</span></h1>
+        <p class="hero-description"><span data-i18n="v2.hero.line1">I build complete websites, from landing pages to online stores.</span> <span data-i18n="v2.hero.line2">I set up SEO and Yandex Direct to attract clients.</span> <span data-i18n="v2.hero.line3">You work directly with me, without intermediaries or agency markups.</span> <span data-i18n="v2.hero.line4">All work is covered by a contract, with clients across Russia.</span></p>
+        <div class="hero-actions"><a class="button button-primary" href="#contact"><span data-i18n="hero.cta">Discuss your project</span><span class="button-disc"><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></span></a><a class="hero-work-link" href="#work" data-i18n="hero.work">View the work</a></div>
+      </div>
+    </section>
+    <section id="pricing" class="v2-pricing" aria-labelledby="pricing-title">
+  <div class="next-section-heading"><h2 id="pricing-title"><span data-ru="Какой сайт нужен" data-en="What does your" >Какой сайт нужен</span><br><span data-ru="вашему бизнесу?" data-en="business need?" >вашему бизнесу?</span></h2><p data-ru="Выберите задачу. Покажу подходящий формат, состав работы и стартовую стоимость." data-en="Choose your goal to see a suitable format, scope, and starting price." >Выберите задачу. Покажу подходящий формат, состав работы и стартовую стоимость.</p></div>
+  <div class="format-picker">
+    <div class="format-tabs" role="tablist" aria-label="Задача сайта" aria-orientation="vertical">
+      <button id="format-tab-landing" role="tab" aria-selected="false" aria-controls="format-landing" tabindex="-1" data-format="landing"><span><strong data-ru="Получать заявки" data-en="Generate enquiries" >Получать заявки</strong><small data-ru="Лендинг" data-en="Landing page" >Лендинг</small></span><span class="format-tab-price"><span data-ru="от 65 000 ₽" data-en="from €650" >от 65 000 ₽</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></span></button><button id="format-tab-company" role="tab" aria-selected="true" aria-controls="format-company" tabindex="0" data-format="company"><span><strong data-ru="Рассказать о компании" data-en="Present my company" >Рассказать о компании</strong><small data-ru="Сайт компании" data-en="Company website" >Сайт компании</small></span><span class="format-tab-price"><span data-ru="от 140 000 ₽" data-en="from €1,400" >от 140 000 ₽</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></span></button><button id="format-tab-catalog" role="tab" aria-selected="false" aria-controls="format-catalog" tabindex="-1" data-format="catalog"><span><strong data-ru="Показать ассортимент" data-en="Show my product range" >Показать ассортимент</strong><small data-ru="Каталог" data-en="Product catalog" >Каталог</small></span><span class="format-tab-price"><span data-ru="от 190 000 ₽" data-en="from €1,900" >от 190 000 ₽</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></span></button><button id="format-tab-shop" role="tab" aria-selected="false" aria-controls="format-shop" tabindex="-1" data-format="shop"><span><strong data-ru="Продавать онлайн" data-en="Sell online" >Продавать онлайн</strong><small data-ru="Интернет-магазин" data-en="Online store" >Интернет-магазин</small></span><span class="format-tab-price"><span data-ru="от 260 000 ₽" data-en="from €2,600" >от 260 000 ₽</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></span></button>
+    </div>
+    <div class="format-panels"><article class="price-card format-panel" id="format-landing" role="tabpanel" aria-labelledby="format-tab-landing" hidden>
+      <div class="format-summary"><p data-ru="Для услуг, экспертов и запуска продукта" data-en="For services, independent experts, and product launches" class="format-fit">Для услуг, экспертов и запуска продукта</p><h3><span data-ru="Лендинг" data-en="Landing page" >Лендинг</span></h3><p data-ru="Одна услуга, продукт или рекламная кампания. Всё, что помогает посетителю разобраться и обратиться к вам, на одной странице." data-en="One service, product, or ad campaign. Everything a visitor needs to understand your offer and get in touch, on one page." class="format-description">Одна услуга, продукт или рекламная кампания. Всё, что помогает посетителю разобраться и обратиться к вам, на одной странице.</p></div>
+      <ul class="format-scope"><li data-ru="Одна страница, до 8 блоков" data-en="One page, up to 8 sections" >Одна страница, до 8 блоков</li><li data-ru="Структура предложения и индивидуальный дизайн" data-en="Offer structure and custom design" >Структура предложения и индивидуальный дизайн</li><li data-ru="Форма заявки" data-en="Enquiry form" >Форма заявки</li></ul>
+      <div class="format-bottom"><div><small data-ru="Стоимость разработки" data-en="Development from" >Стоимость разработки</small><p class="price-value"><span data-ru="от 65 000 ₽" data-en="€650" >от 65 000 ₽</span></p></div><a class="next-button primary" data-plan="landing" href="#contact"><span data-ru="Обсудить задачу" data-en="Discuss this project" >Обсудить задачу</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></div>
+    </article><article class="price-card format-panel" id="format-company" role="tabpanel" aria-labelledby="format-tab-company">
+      <div class="format-summary"><p data-ru="Для компаний с несколькими направлениями" data-en="For businesses offering several services" class="format-fit">Для компаний с несколькими направлениями</p><h3><span data-ru="Сайт компании" data-en="Company website" >Сайт компании</span></h3><p data-ru="Когда услуг и информации больше, чем на один экран. Отдельные страницы помогают клиенту найти нужное и оценить ваш опыт." data-en="When your services need room to breathe. Separate pages help clients find what they need and understand your expertise." class="format-description">Когда услуг и информации больше, чем на один экран. Отдельные страницы помогают клиенту найти нужное и оценить ваш опыт.</p></div>
+      <ul class="format-scope"><li data-ru="До 5 уникальных страниц" data-en="Up to 5 unique pages" >До 5 уникальных страниц</li><li data-ru="Услуги, проекты, информация о компании и контакты" data-en="Services, projects, about, and contact pages" >Услуги, проекты, информация о компании и контакты</li><li data-ru="Редактор для новостей или проектов" data-en="Content editor for news or projects" >Редактор для новостей или проектов</li></ul>
+      <div class="format-bottom"><div><small data-ru="Стоимость разработки" data-en="Development from" >Стоимость разработки</small><p class="price-value"><span data-ru="от 140 000 ₽" data-en="€1,400" >от 140 000 ₽</span></p></div><a class="next-button primary" data-plan="company" href="#contact"><span data-ru="Обсудить задачу" data-en="Discuss this project" >Обсудить задачу</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></div>
+    </article><article class="price-card format-panel" id="format-catalog" role="tabpanel" aria-labelledby="format-tab-catalog" hidden>
+      <div class="format-summary"><p data-ru="Для производителей, поставщиков и B2B" data-en="For manufacturers, suppliers, and B2B businesses" class="format-fit">Для производителей, поставщиков и B2B</p><h3><span data-ru="Каталог" data-en="Product catalog" >Каталог</span></h3><p data-ru="Товары удобно искать и сравнивать. Посетитель выбирает нужные позиции и отправляет запрос на стоимость или наличие." data-en="Make products easy to find and compare. Visitors choose what they need and request a price or availability." class="format-description">Товары удобно искать и сравнивать. Посетитель выбирает нужные позиции и отправляет запрос на стоимость или наличие.</p></div>
+      <ul class="format-scope"><li data-ru="Категории, фильтры и карточки товаров" data-en="Categories, filters, and product pages" >Категории, фильтры и карточки товаров</li><li data-ru="Редактор каталога и первые 20 позиций" data-en="Catalog editor and the first 20 items" >Редактор каталога и первые 20 позиций</li><li data-ru="Заявки по товарам без онлайн-оплаты" data-en="Product enquiries without online payment" >Заявки по товарам без онлайн-оплаты</li></ul>
+      <div class="format-bottom"><div><small data-ru="Стоимость разработки" data-en="Development from" >Стоимость разработки</small><p class="price-value"><span data-ru="от 190 000 ₽" data-en="€1,900" >от 190 000 ₽</span></p></div><a class="next-button primary" data-plan="catalog" href="#contact"><span data-ru="Обсудить задачу" data-en="Discuss this project" >Обсудить задачу</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></div>
+    </article><article class="price-card format-panel" id="format-shop" role="tabpanel" aria-labelledby="format-tab-shop" hidden>
+      <div class="format-summary"><p data-ru="Для продаж с оплатой на сайте" data-en="For businesses taking payments online" class="format-fit">Для продаж с оплатой на сайте</p><h3><span data-ru="Интернет-магазин" data-en="Online store" >Интернет-магазин</span></h3><p data-ru="Полный путь покупки: от выбора товара до оплаты. Заказы и ассортимент собраны в системе управления магазином." data-en="The complete purchase journey, from finding a product to checkout. Manage your orders and products in one place." class="format-description">Полный путь покупки: от выбора товара до оплаты. Заказы и ассортимент собраны в системе управления магазином.</p></div>
+      <ul class="format-scope"><li data-ru="Каталог, корзина и оформление заказа" data-en="Catalog, cart, and checkout" >Каталог, корзина и оформление заказа</li><li data-ru="Подключение одного платёжного сервиса" data-en="One payment provider integration" >Подключение одного платёжного сервиса</li><li data-ru="Редактор магазина и первые 20 товаров" data-en="Store editor and the first 20 products" >Редактор магазина и первые 20 товаров</li></ul>
+      <div class="format-bottom"><div><small data-ru="Стоимость разработки" data-en="Development from" >Стоимость разработки</small><p class="price-value"><span data-ru="от 260 000 ₽" data-en="€2,600" >от 260 000 ₽</span></p></div><a class="next-button primary" data-plan="shop" href="#contact"><span data-ru="Обсудить задачу" data-en="Discuss this project" >Обсудить задачу</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a></div>
+    </article></div>
+  </div>
+  <div class="pricing-context"><p><strong data-ru="В каждом сайте" data-en="Every website includes" >В каждом сайте</strong><span data-ru="Мобильная версия, базовая SEO-подготовка, запуск и инструкция по согласованному редактированию." data-en="Mobile layout, basic SEO setup, launch, and guidance for the agreed editing tools." >Мобильная версия, базовая SEO-подготовка, запуск и инструкция по согласованному редактированию.</span></p><p data-ru="Точная цена и сроки — после обсуждения задачи. Домен, тариф платформы и платные сервисы оплачиваются отдельно." data-en="Final price and timeline are agreed after discussing your brief. Domain, platform subscriptions, and paid services are separate." >Точная цена и сроки — после обсуждения задачи. Домен, тариф платформы и платные сервисы оплачиваются отдельно.</p></div>
+</section>
+    <section id="work" aria-labelledby="work-title">
+      <div class="section-heading"><div><p class="eyebrow" data-i18n="work.label">Selected Work</p><h2 id="work-title" data-i18n="work.title">Recent studies & templates</h2></div><p class="heading-note" data-i18n="work.description">Each project is built with clear visual structure, generous typography, and seamless responsive behavior.</p></div>
+      <div class="project-stack">
+      <article id="templates" class="project-feature panel project-hover">
+        <div class="feature-copy"><span class="badge badge-accent" data-i18n="velora.status">Original Framer template · Launch in preparation</span><h3>VELORA</h3><p class="feature-description" data-i18n="velora.description">An elegant, editorial Framer landing page crafted for fashion labels, independent designers, and lifestyle creators who value whitespace and refined pacing.</p>
+          <div class="tags"><span data-i18n="velora.tag1">Framer Template</span><span data-i18n="velora.tag2">Editorial Direction</span><span data-i18n="velora.price">USD 39 · one-time</span></div>
+          <details class="template-details"><summary><span data-i18n="velora.included">What’s included</span><span class="plus" aria-hidden="true"></span></summary><ul class="feature-list"><li data-i18n="velora.feature1">Responsive desktop, tablet, and mobile layouts</li><li data-i18n="velora.feature2">Customizable sections, fonts, and color styles</li><li data-i18n="velora.feature3">Subtle animations, setup guidance, and email support</li></ul></details>
+          <a class="button button-light" href="https://cute-plans-049750.framer.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="velora.preview">Preview VELORA</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+        </div><div class="feature-image"><img src="./assets/stitch-velora.webp" width="512" height="286" alt="VELORA fashion website displayed on a laptop" data-i18n-alt="alt.velora" loading="lazy"></div>
+      </article>
+        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-stilla.webp" width="512" height="382" alt="STILLA architecture website concept" data-i18n-alt="alt.stilla" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>STILLA <span data-i18n="stilla.title">Architecture</span></h3><p data-i18n="stilla.description">Exploration of tactile materiality, generous margins, and concrete minimalism for an architectural practice in Scandinavia.</p></div><div class="concept-caption"><span data-i18n="stilla.category">Spatial & Editorial Design</span><span data-i18n="stilla.number">Study 01</span></div></article>
+        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-luma.webp" width="512" height="382" alt="LUMA photography website concept" data-i18n-alt="alt.luma" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>LUMA <span data-i18n="luma.title">Photography Studio</span></h3><p data-i18n="luma.description">Monochrome portraiture showcase designed with rhythmic typography and quiet editorial composure for a fine art photography studio.</p></div><div class="concept-caption"><span data-i18n="luma.category">Visual Hierarchy & Framing</span><span data-i18n="luma.number">Study 02</span></div></article>
+      </div>
+    </section>
+    <section class="process panel" aria-labelledby="process-title">
+      <div class="process-heading"><p class="eyebrow" data-i18n="process.label">How we work</p><h2 id="process-title" data-i18n="process.title">Three calm, organized steps</h2><p data-i18n="process.description">Every project is unique. Scope, timing, and price are agreed individually before we begin.</p></div>
+      <div class="process-grid"><article><span class="step-label" data-i18n="step1.label">01 / DISCOVER</span><h3 data-i18n="step1.title">Listen & Align</h3><p data-i18n="step1.description">We talk about your goals, audience, and what the website needs to achieve. A shared direction before any design begins.</p></article><article><span class="step-label" data-i18n="step2.label">02 / DESIGN</span><h3 data-i18n="step2.title">Structure & Craft</h3><p data-i18n="step2.description">Content, structure, and visual design come together. You see the direction take shape and share feedback along the way.</p></article><article><span class="step-label" data-i18n="step3.label">03 / BUILD & HANDOVER</span><h3 data-i18n="step3.title">Develop & Empower</h3><p data-i18n="step3.description">I build and test your website on the agreed platform. Then we launch, with guidance on managing your content.</p></article></div>
+    </section>
+    <section id="about" class="about-personal" aria-labelledby="about-title">
+      <div class="about-copy">
+      <div class="about-heading">
+        <p class="about-label" data-i18n="v2.about.label">About me</p>
+        <h2 id="about-title" data-i18n="v2.about.name">Fedor Popov</h2>
+        <p class="about-role" data-i18n="v2.about.role">Web designer & developer</p>
+      </div>
+      <div class="about-body">
+        <p data-i18n="v2.about.bio">I design and build websites myself: from the page structure and first layouts to the finished site. We discuss the project directly, and I make the changes.</p>
+        <p data-i18n="v2.about.approach">I live in Montenegro and work with clients in Russia and other countries. Alongside development, I set up SEO and Yandex Direct.</p>
+        <a class="hero-work-link about-link" href="mailto:fedorpopov7@yandex.ru"><span data-i18n="v2.about.cta">Get in touch</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
+      </div>
+      </div>
+      <figure class="about-figure">
+        <div class="about-workspace">
+          <img class="about-photo" src="./assets/fedor-about-macbook.jpg" width="1086" height="1448" alt="Fedor Popov with a MacBook by the sea in Montenegro" data-i18n-alt="v2.about.photo" loading="lazy" decoding="async">
+          <div class="orbit-stage" data-orbit-mode="continuous" data-orbit-perspective="0.37" data-orbit-filter="design"><div class="orbit-track track-design"></div><div class="orbit-track track-platforms"></div><div class="orbit-track track-code"></div><div class="orbit-nodes"></div></div>
+      <div class="about-toolbox">
+        <div class="stack-toolbar">
+        <h3 data-i18n="v2.about.toolsTitle">Tools I work with</h3>
+        <button class="orbit-pause" type="button" aria-pressed="false">Pause</button>
+        </div>
+        <div class="stack-tabs" role="tablist" aria-label="Tool groups" data-i18n-aria="v2.about.tabs">
+          <button type="button" role="tab" id="stack-tab-design" aria-controls="stack-panel-design" aria-selected="true" data-stack-tab="design" data-i18n="stack.design">Design</button>
+          <button type="button" role="tab" id="stack-tab-platforms" aria-controls="stack-panel-platforms" aria-selected="false" tabindex="-1" data-stack-tab="platforms" data-i18n="stack.platforms">Platforms</button>
+          <button type="button" role="tab" id="stack-tab-code" aria-controls="stack-panel-code" aria-selected="false" tabindex="-1" data-stack-tab="code" data-i18n="stack.code">Code</button>
+        </div>
+        <div class="stack-panels">
+          <div id="stack-panel-design" role="tabpanel" aria-labelledby="stack-tab-design" data-stack-panel="design"><p class="stack-tool-names">Figma · Photoshop · Illustrator</p></div>
+          <div id="stack-panel-platforms" role="tabpanel" aria-labelledby="stack-tab-platforms" data-stack-panel="platforms" hidden><p class="stack-tool-names">Framer · Tilda · WordPress</p></div>
+          <div id="stack-panel-code" role="tabpanel" aria-labelledby="stack-tab-code" data-stack-panel="code" hidden><p class="stack-tool-names">HTML · CSS · JavaScript · TypeScript<br>React · Next.js · Tailwind CSS</p></div>
+        </div>
+      </div>
+        </div>
+      </figure>
+    </section>
+    <section class="faq" aria-labelledby="faq-title"><div class="faq-heading"><p class="eyebrow" data-i18n="faq.label">Common questions</p><h2 id="faq-title" data-i18n="faq.title">Clear answers upfront</h2></div><div class="faq-list">
+      <details><summary><span data-i18n="faq1.question">How are scope, timing, and pricing determined?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq1.answer">After an initial conversation, I prepare a proposal with the scope, timeline, and price. Everything is agreed before work begins, so you know what to expect.</p></details>
+      <details><summary><span data-i18n="faq2.question">Can I easily edit and update the website myself?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq2.answer">We agree which content you need to manage before we begin. I set up the editor or CMS for that scope and show you how to update your website at handover.</p></details>
+      <details><summary><span data-i18n="faq3.question">What is included with the VELORA template?</span><span class="plus" aria-hidden="true"></span></summary><p data-i18n="faq3.answer">VELORA is an editable, responsive Framer landing page with customizable sections, fonts, colors, and subtle animations. Setup guidance and email support are included. The planned price is USD 39 as a one-time purchase; a Framer site plan and domain are separate. The demo is available while the template is being prepared for launch.</p></details>
+    </div></section>
+    <section id="contact" class="contact contact-split" aria-labelledby="contact-title">
+      <div class="contact-intro">
+        <p class="eyebrow" data-i18n="contact.label">Get in touch</p>
+        <h2 id="contact-title"><span data-i18n="contact.title1">Have something in mind?</span><br><span data-i18n="contact.title2">Tell me about your project.</span></h2>
+        <p class="contact-description" data-i18n="contact.description">Share a little about your idea, your business, and what you’d like your website to do. Let’s start a conversation.</p>
+        <div class="contact-links contact-icon-links">
+          <a class="contact-button contact-direct" href="mailto:fedorpopov7@yandex.ru" aria-label="Email: fedorpopov7@yandex.ru"><svg aria-hidden="true"><use href="#mail"/></svg><span class="contact-tooltip" aria-hidden="true">fedorpopov7@yandex.ru</span></a>
+          <a class="contact-direct" data-contact-link="whatsapp" aria-disabled="true" aria-label="WhatsApp: +7 963 674-67-51"><span class="contact-brand-icon icon-whatsapp" aria-hidden="true"></span><span class="contact-tooltip" aria-hidden="true">WhatsApp</span></a>
+          <a class="contact-direct" data-contact-link="telegram" aria-disabled="true" aria-label="Telegram: @FeDroid74"><span class="contact-brand-icon icon-telegram" aria-hidden="true"></span><span class="contact-tooltip" aria-hidden="true">Telegram</span></a>
+        </div>
+      </div>
+      <div class="contact-form-surface" data-magic-card>
+        <form class="project-form" action="/api/contact" method="post" novalidate aria-label="Project enquiry" data-contact-aria="formTitle">
+          <div class="chosen-plan" hidden><span data-i18n="contact.selectedLabel">Selected format</span><strong class="chosen-plan-name"></strong><button type="button" class="clear-plan" data-i18n="contact.clear">Clear selection</button></div>
+          <div class="form-field">
+            <label for="enquiry-name" data-contact-text="name">Your name</label>
+            <input id="enquiry-name" name="name" autocomplete="name" maxlength="80" required aria-describedby="name-error">
+            <p class="field-error" id="name-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="enquiry-contact" data-contact-text="contact">How can I reach you?</label>
+            <div class="contact-input-row">
+              <span class="contact-prefix" aria-hidden="true">@</span>
+              <input id="enquiry-contact" name="contact" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" maxlength="254" required aria-describedby="contact-help contact-error">
+              <div class="contact-method">
+                <label class="form-sr-only" for="enquiry-method" data-contact-text="method">Contact method</label>
+                <select id="enquiry-method" name="method"><option value="telegram">Telegram</option><option value="whatsapp">WhatsApp</option><option value="email">Email</option></select>
+                <svg aria-hidden="true" viewBox="0 0 24 24"><path d="m7 10 5 5 5-5"/></svg>
+              </div>
+            </div>
+            <p class="field-help" id="contact-help"></p>
+            <button class="email-suggestion" type="button" hidden></button>
+            <p class="field-error" id="contact-error" hidden></p>
+          </div>
+          <div class="form-field">
+            <label for="enquiry-message"><span data-contact-text="message">A few words about your project</span><span class="field-optional" data-contact-text="optional">Optional</span></label>
+            <textarea id="enquiry-message" name="message" rows="3" maxlength="3000"></textarea>
+          </div>
+          <button class="button form-submit" type="submit"><span data-contact-text="submit">Send enquiry</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
+          <p class="form-note" data-contact-text="note">I’ll reply using your chosen contact method.</p>
+          <p class="form-status" role="status" hidden></p>
+        </form>
+        <span class="form-sr-only" data-i18n="hero.hint">Move your cursor for fluid illumination</span>
+      </div>
+    </section>
+  </main>
+  <footer><div class="footer-inner"><span data-i18n="footer.brand">PopovWeb · Fedor Popov</span><span data-i18n="footer.location">Montenegro · Working worldwide</span><span data-i18n="footer.copyright">© 2026 Fedor Popov. All rights reserved.</span></div></footer>
+</body>
+</html>
