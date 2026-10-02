@@ -1,9 +1,9 @@
 /* V2 inherits the main page. Only the services and post-hero layout vary. */
 .version-two { --v2-edge: calc(var(--frame-gutter) + var(--frame-inset)); }
-.version-two .page > :not(.hero) { width: calc(100vw - 2 * var(--v2-edge)); max-width: none; margin-inline: auto; padding-inline: 0; }
+.version-two .page > :not(.hero) { width: calc(100% - 2 * var(--v2-edge) + 2 * var(--frame-gutter)); max-width: none; margin-inline: auto; padding-inline: 0; }
 .version-two .page > :is(.process,.about-stack,.contact) { padding-inline: var(--frame-inset); }
 .version-two .site-header.is-floating { padding-inline: var(--v2-edge); }
-.version-two .footer-inner { width: calc(100vw - 2 * var(--v2-edge)); margin-inline: auto; }
+.version-two .footer-inner { width: calc(100% - 2 * var(--v2-edge)); margin-inline: auto; }
 .version-two footer { padding-inline: 0; }
 .version-two .v2-pricing h2 { font-size: clamp(36px,4vw,62px); font-weight: 400; line-height: 1.12; letter-spacing: -.045em; }
 .next-section-heading { display: grid; grid-template-columns: 1.2fr 1fr; gap: 48px; align-items: end; margin-bottom: 44px; }
