@@ -76,8 +76,8 @@ matchMedia('(min-width: 960px)').addEventListener('change', event => { if (event
 
 // Contact illumination follows the pointer 1:1 and pauses outside the viewport.
 const canvas = document.querySelector('#illumination');
-const contact = document.querySelector('#contact');
-const context = canvas.getContext('2d');
+const contact = canvas?.closest('[data-illumination]') || document.querySelector('#contact');
+const context = canvas?.getContext('2d');
 let width = 1, height = 1, time = 0, lastTime = 0, frame = 0, inView = true;
 let x = .75, y = .45, targetX = .75, targetY = .45;
 let accent = root.dataset.theme === 'light' ? '40,104,222' : '247,106,56';
@@ -100,11 +100,11 @@ function draw(delta = 16.67) {
 function tick(now) {
   frame = 0;
   draw(lastTime ? now - lastTime : 16.67); lastTime = now;
-  if (inView && !document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(tick);
+  if (context && inView && !document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(tick);
 }
 function syncAnimation() {
   cancelAnimationFrame(frame); frame = 0; lastTime = 0;
-  if (inView && !document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(tick);
+  if (context && inView && !document.hidden && !reducedMotion.matches) frame = requestAnimationFrame(tick);
   else draw(0);
 }
 function redrawIllumination() {
@@ -112,6 +112,7 @@ function redrawIllumination() {
   draw(0);
 }
 function resizeCanvas() {
+  if (!canvas) return;
   const rect = contact.getBoundingClientRect();
   width = rect.width; height = rect.height;
   const ratio = Math.min(devicePixelRatio || 1, 2);
@@ -124,7 +125,7 @@ document.addEventListener('visibilitychange', syncAnimation);
 reducedMotion.addEventListener('change', () => { updateControls(); syncAnimation(); });
 touchPointer.addEventListener('change', updateControls);
 function followPointer(event) {
-  if (reducedMotion.matches) return;
+  if (!context || reducedMotion.matches) return;
   const rect = contact.getBoundingClientRect();
   targetX = (event.clientX - rect.left) / rect.width; targetY = (event.clientY - rect.top) / rect.height;
   draw(0);

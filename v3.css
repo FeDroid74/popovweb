@@ -1,0 +1,19 @@
+.next-home .next-portrait img { mask-image: url('./assets/fedor-hero-grid-v3.webp'); }
+.work-preview { position: relative; }
+.work-hotspot[hidden],.work-hotspot-hint[hidden] { display: none !important; }
+.work-hotspot { position: absolute; z-index: 2; left: var(--marker-x); top: var(--marker-y); width: 46px; height: 46px; display: grid; place-items: center; padding: 0; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface); color: var(--text); font-size: 10px; font-variant-numeric: tabular-nums; transform: translate(-50%,-50%); transition: background-color .18s ease-out, color .18s ease-out, border-color .18s ease-out, scale .18s ease-out; cursor: pointer; touch-action: manipulation; }
+.work-hotspot:nth-of-type(1) { --marker-x: 31%; --marker-y: 26%; }
+.work-hotspot:nth-of-type(2) { --marker-x: 87%; --marker-y: 36%; }
+.work-hotspot:nth-of-type(3) { --marker-x: 87%; --marker-y: 94%; }
+.work-hotspot[aria-pressed=true] { background: var(--accent); border-color: var(--accent); color: var(--button-text); }
+.work-hotspot:hover { scale: 1.08; }
+.work-hotspot:focus-visible { outline: 2px solid var(--bg); outline-offset: 3px; box-shadow: 0 0 0 4px var(--accent); }
+.work-hotspot-hint { margin: 10px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
+#work-solution { min-height: 4.8em; }
+@media (max-width: 800px) {
+  .work-hotspot { width: 44px; height: 44px; }
+  .work-hotspot-hint { font-size: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .work-hotspot { transition: none; }
+}

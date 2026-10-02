@@ -17,6 +17,7 @@ design/*
 !design/studio-update.md
 qa/*
 !qa/rotor.test.mjs
+!qa/contact.test.mjs
 !qa/studio-update.md
 !qa/deployment.md
 assets/*
@@ -27,3 +28,11 @@ assets/*
 !assets/stitch-stilla.webp
 !assets/stitch-luma.webp
 !assets/stack/
+!assets/icons/
+!assets/fedor-hero-selected.png
+!assets/fedor-hero-grid.png
+!assets/fedor-hero-selected-v3.webp
+!assets/fedor-hero-grid-v3.webp
+!assets/fedor-about-macbook.jpg
+!assets/velora-desktop.jpg
+!assets/velora-phone.jpg

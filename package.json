@@ -3,11 +3,24 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
-  "engines": { "node": ">=22" },
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
+    "build:ui": "node scripts/build-ui.mjs",
+    "prestart": "npm run build:ui",
     "start": "node server.mjs",
-    "build": "node scripts/build.mjs",
-    "check": "node --check app.js && node --check translations.js && node --check studio.js && node --check studio-copy.js && node --check rotor.js && node --check server.mjs && node --check scripts/build.mjs",
-    "test": "node qa/rotor.test.mjs"
+    "build": "npm run build:ui && node scripts/build.mjs",
+    "check": "node --check app.js && node --check translations.js && node --check studio.js && node --check studio-copy.js && node --check rotor.js && node --check server.mjs && node --check scripts/build.mjs && node --check contact-v2.js && node --check contact-validation.js && node --check contact-api.mjs && node --check v3.js && node --check v3-base.js && node --check header-v2.js && node --check hero-grid-v2.js",
+    "test": "node qa/rotor.test.mjs && node qa/contact.test.mjs"
+  },
+  "dependencies": {
+    "@radix-ui/react-select": "^2.3.7",
+    "@radix-ui/react-tooltip": "^1.2.16",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }
