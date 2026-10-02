@@ -39,7 +39,6 @@
 .version-two .format-panel h3 { font-weight: 400; }
 .version-two .next-button.primary { color: #fff; }
 .version-two .button-primary .button-disc { background: transparent; color: #fff; }
-.version-two .button-primary:hover .button-disc svg { transform: translate(2px,-2px); }
 @media (max-width: 800px) {
  .version-two .next-section-heading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 30px; }
  .version-two .next-section-heading>p { justify-self: start; }
