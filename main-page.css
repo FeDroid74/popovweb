@@ -30,7 +30,7 @@
 .next-button svg { width: 18px; height: 18px; transition: transform .2s; }
 .next-button:hover svg { transform: translate(2px,-2px); }
 .next-button.primary { background: var(--accent); color: #191a18; }
-.next-button.primary:hover { background: #ff8657; }
+.next-button.primary:hover { background: var(--accent); }
 .next-button.secondary { background: var(--text); color: var(--bg); }
 .next-button.secondary:hover { background: var(--accent); color: #191a18; }
 .version-two .format-panel[hidden] { display: none !important; }
@@ -78,3 +78,6 @@
  .version-two .hero .button-disc svg,
  .version-two .v2-pricing .next-button svg { transition: none !important; }
 }
+
+/* Keep portfolio card borders unchanged on hover on the main page. */
+.version-two .project-hover:hover { border-color: var(--border); }
