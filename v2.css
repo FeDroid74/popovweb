@@ -131,3 +131,6 @@
  .audit-preview .audit-faq-list summary { font-size: 16px; padding: 22px 0; }
  .audit-preview .audit-faq-list details>p { padding-right: 0; }
 }
+
+.audit-preview .audit-project-grid > article { min-height: 0; box-shadow: none; }
+.audit-preview .audit-project-grid.is-stacking > article { position: static; top: auto; transform: none !important; will-change: auto; }
