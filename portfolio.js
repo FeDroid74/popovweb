@@ -13,9 +13,6 @@ function translate() {
     node.textContent = node.getAttribute(`data-portfolio-${locale}`);
   });
   work.querySelector('[role="tablist"]').setAttribute('aria-label', locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category');
-  work.querySelector('.heading-note').textContent = category === 'sites'
-    ? (locale === 'ru' ? 'STILLA и LUMA — самостоятельные концепции дизайна сайтов.' : 'STILLA and LUMA are independent website design concepts.')
-    : (locale === 'ru' ? 'Готовая основа сайта: замените тексты, изображения и настройки стиля во Framer.' : 'A website starting point: customise the text, images, and styles in Framer.');
 }
 
 function activate(value, { updateUrl = false, animate = false } = {}) {
