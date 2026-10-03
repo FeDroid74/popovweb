@@ -60,9 +60,21 @@
 @media (prefers-reduced-motion: reduce) { .version-two .next-button svg { transition: none; } }
 
 
-/* Keep the V3 arrow shape; rotate from right to up-right with the main timing. */
-.version-two .hero .button-disc svg { transform: rotate(45deg); }
-@media (hover: hover) and (pointer: fine) {
- .version-two .hero .button-primary:hover .button-disc svg { transform: rotate(0deg); }
+/* V3 arrow shape with the main page's rotation and easing on both CTAs. */
+.version-two .hero .button-disc svg,
+.version-two .v2-pricing .next-button svg {
+ width: 18px;
+ height: 18px;
+ transform: rotate(45deg);
+ transition: transform .22s cubic-bezier(.16,1,.3,1);
 }
-.version-two .hero .button-primary:focus-visible .button-disc svg { transform: rotate(0deg); }
+@media (hover: hover) and (pointer: fine) {
+ .version-two .hero .button-primary:hover .button-disc svg,
+ .version-two .v2-pricing .next-button:hover svg { transform: rotate(0deg); }
+}
+.version-two .hero .button-primary:focus-visible .button-disc svg,
+.version-two .v2-pricing .next-button:focus-visible svg { transform: rotate(0deg); }
+@media (prefers-reduced-motion: reduce) {
+ .version-two .hero .button-disc svg,
+ .version-two .v2-pricing .next-button svg { transition: none !important; }
+}
