@@ -107,24 +107,27 @@
  #work > .section-heading .portfolio-tabs { max-width: 100%; gap: 24px; }
 }
 
-/* Stable enquiry button with a left-to-right fill. */
+/* Outlined enquiry button with an expanding circular fill. */
 .version-two .form-submit {
  position: relative; isolation: isolate; overflow: hidden;
- transform: none !important; background: var(--accent); color: #fff;
+ transform: none !important; background: transparent; color: var(--text);
+ border: 1px solid var(--accent);
  transition: none;
 }
 .version-two .form-submit::before {
  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
- background: rgba(255,255,255,.14);
- transform: scaleX(0); transform-origin: left;
- transition: transform .35s ease;
+ background: var(--accent);
+ clip-path: circle(0% at 0% 50%);
+ transition: clip-path .45s ease;
 }
 .version-two .form-submit svg { transform: none; transition: none; }
 .version-two .form-submit:hover svg { transform: none; }
 @media (hover: hover) and (pointer: fine) {
- .version-two .form-submit:not(:disabled):hover::before { transform: scaleX(1); }
+ .version-two .form-submit:not(:disabled):hover { color: #fff; }
+ .version-two .form-submit:not(:disabled):hover::before { clip-path: circle(150% at 0% 50%); }
 }
-.version-two .form-submit:focus-visible::before { transform: scaleX(1); }
+.version-two .form-submit:focus-visible { color: #fff; }
+.version-two .form-submit:focus-visible::before { clip-path: circle(150% at 0% 50%); }
 
 /* The summary fills the closed FAQ card, including its padding. */
 .version-two .faq details { padding: 0; }
