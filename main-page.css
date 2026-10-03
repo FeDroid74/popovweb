@@ -117,17 +117,17 @@
 .version-two .form-submit::before {
  content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
  background: var(--accent);
- clip-path: ellipse(0% 70% at 0% 50%);
- transition: clip-path .6s cubic-bezier(.4,0,.2,1);
+ clip-path: circle(0% at 50% 50%);
+ transition: clip-path .65s cubic-bezier(.4,0,.2,1);
 }
 .version-two .form-submit svg { transform: none; transition: none; }
 .version-two .form-submit:hover svg { transform: none; }
 @media (hover: hover) and (pointer: fine) {
  .version-two .form-submit:not(:disabled):hover { color: #fff; }
- .version-two .form-submit:not(:disabled):hover::before { clip-path: ellipse(150% 70% at 0% 50%); }
+ .version-two .form-submit:not(:disabled):hover::before { clip-path: circle(72% at 50% 50%); }
 }
 .version-two .form-submit:focus-visible { color: #fff; }
-.version-two .form-submit:focus-visible::before { clip-path: ellipse(150% 70% at 0% 50%); }
+.version-two .form-submit:focus-visible::before { clip-path: circle(72% at 50% 50%); }
 
 /* The summary fills the closed FAQ card, including its padding. */
 .version-two .faq details { padding: 0; }
