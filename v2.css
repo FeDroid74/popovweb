@@ -59,3 +59,10 @@
 }
 @media (prefers-reduced-motion: reduce) { .version-two .next-button svg { transition: none; } }
 
+
+/* Keep the V3 arrow shape; rotate from right to up-right with the main timing. */
+.version-two .hero .button-disc svg { transform: rotate(45deg); }
+@media (hover: hover) and (pointer: fine) {
+ .version-two .hero .button-primary:hover .button-disc svg { transform: rotate(0deg); }
+}
+.version-two .hero .button-primary:focus-visible .button-disc svg { transform: rotate(0deg); }
