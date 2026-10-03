@@ -7,7 +7,6 @@ const languageButton = document.querySelector('.language-toggle');
 const menuButton = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-const touchPointer = matchMedia('(pointer: coarse)');
 const english = {};
 const attributes = [['data-i18n', 'textContent'], ['data-i18n-alt', 'alt'], ['data-i18n-aria', 'aria-label']];
 const bindings = attributes.flatMap(([attribute, target]) => [...document.querySelectorAll(`[${attribute}]`)].map(element => {
@@ -30,10 +29,6 @@ function updateControls() {
   const menuOpen = menuButton.getAttribute('aria-expanded') === 'true';
   menuButton.setAttribute('aria-label', isRu ? (menuOpen ? 'Закрыть меню' : 'Открыть меню') : (menuOpen ? 'Close menu' : 'Open menu'));
   document.querySelector('meta[name="theme-color"]').content = isLight ? '#F5F5F2' : '#1B1C1A';
-  const hint = document.querySelector('[data-i18n="hero.hint"]');
-  if (reducedMotion.matches) hint.textContent = isRu ? 'Спокойный свет. Движение отключено.' : 'Quiet illumination. Reduced motion enabled.';
-  else if (touchPointer.matches) hint.textContent = isRu ? 'Прикоснитесь — свет следует за вами' : 'Touch to move the illumination';
-  else hint.textContent = isRu ? ru['hero.hint'] : english['hero.hint'];
 }
 function setLanguage(language) {
   root.lang = language === 'ru' ? 'ru' : 'en';
@@ -123,7 +118,6 @@ new ResizeObserver(resizeCanvas).observe(contact);
 new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncAnimation(); }).observe(contact);
 document.addEventListener('visibilitychange', syncAnimation);
 reducedMotion.addEventListener('change', () => { updateControls(); syncAnimation(); });
-touchPointer.addEventListener('change', updateControls);
 function followPointer(event) {
   if (!context || reducedMotion.matches) return;
   const rect = contact.getBoundingClientRect();
@@ -174,12 +168,14 @@ const stackMedia = matchMedia('(min-width:1024px) and (min-height:650px)');
 let stackFrame = 0;
 function paintStack() {
   stackFrame = 0;
-  cards.forEach((card, index) => {
+  const visibleCards = cards.filter(card => !card.hidden);
+  cards.forEach(card => { if (card.hidden) card.style.transform = ''; });
+  visibleCards.forEach((card, index) => {
     if (!stack.classList.contains('is-stacking') || reducedMotion.matches) {
       card.style.transform = '';
       return;
     }
-    const next = cards[index + 1];
+    const next = visibleCards[index + 1];
     const progress = next ? Math.max(0, Math.min(1, (innerHeight - next.getBoundingClientRect().top) / (innerHeight - 108))) : 0;
     card.style.transform = `scale(${1 - progress * .045})`;
   });

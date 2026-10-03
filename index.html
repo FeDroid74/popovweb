@@ -13,9 +13,10 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./studio.css">
   <link rel="stylesheet" href="./container-v2.css">
-  <link rel="stylesheet" href="./main-page.css?v=3">
+  <link rel="stylesheet" href="./main-page.css?v=4">
   <script type="module" src="./main-page.js?v=2"></script>
-  <script type="module" src="./app.js"></script>
+  <script type="module" src="./app.js?v=portfolio-1"></script>
+  <script type="module" src="./portfolio.js"></script>
   <script type="module" src="./header-v2.js"></script>
   <script type="module" src="./hero-grid-v2.js"></script>
   <script type="module" src="./contact-v2.js"></script>
@@ -83,18 +84,22 @@
   </div>
   <div class="pricing-context"><p><strong data-ru="В каждом сайте" data-en="Every website includes" >В каждом сайте</strong><span data-ru="Мобильная версия, базовая SEO-подготовка, запуск и инструкция по согласованному редактированию." data-en="Mobile layout, basic SEO setup, launch, and guidance for the agreed editing tools." >Мобильная версия, базовая SEO-подготовка, запуск и инструкция по согласованному редактированию.</span></p><p data-ru="Точная цена и сроки — после обсуждения задачи. Домен, тариф платформы и платные сервисы оплачиваются отдельно." data-en="Final price and timeline are agreed after discussing your brief. Domain, platform subscriptions, and paid services are separate." >Точная цена и сроки — после обсуждения задачи. Домен, тариф платформы и платные сервисы оплачиваются отдельно.</p></div>
 </section>
-    <section id="work" aria-labelledby="work-title">
-      <div class="section-heading"><div><p class="eyebrow" data-i18n="work.label">Selected Work</p><h2 id="work-title" data-i18n="work.title">Recent studies & templates</h2></div><p class="heading-note" data-i18n="work.description">Each project is built with clear visual structure, generous typography, and seamless responsive behavior.</p></div>
-      <div class="project-stack">
-      <article id="templates" class="project-feature panel project-hover">
+    <section id="work" aria-labelledby="work-title" data-portfolio>
+      <div class="section-heading"><div><p class="eyebrow" data-portfolio-ru="ПОРТФОЛИО" data-portfolio-en="PORTFOLIO">ПОРТФОЛИО</p><h2 id="work-title" data-portfolio-ru="Сайты и шаблоны" data-portfolio-en="Websites & templates">Сайты и шаблоны</h2></div><p class="heading-note">STILLA и LUMA — самостоятельные концепции дизайна сайтов.</p></div>
+      <div class="portfolio-tabs" role="tablist" aria-label="Раздел портфолио">
+        <button id="portfolio-tab-sites" type="button" role="tab" aria-selected="true" aria-controls="portfolio-panel" data-portfolio-tab="sites" data-portfolio-ru="Сайты" data-portfolio-en="Websites">Сайты</button>
+        <button id="portfolio-tab-templates" type="button" role="tab" aria-selected="false" aria-controls="portfolio-panel" tabindex="-1" data-portfolio-tab="templates" data-portfolio-ru="Шаблоны Framer" data-portfolio-en="Framer templates">Шаблоны Framer</button>
+      </div>
+      <div class="project-stack" id="portfolio-panel" role="tabpanel" aria-labelledby="portfolio-tab-sites" tabindex="0">
+      <article data-portfolio-category="templates" hidden id="templates" class="project-feature panel project-hover">
         <div class="feature-copy"><span class="badge badge-accent" data-i18n="velora.status">Original Framer template · Launch in preparation</span><h3>VELORA</h3><p class="feature-description" data-i18n="velora.description">An elegant, editorial Framer landing page crafted for fashion labels, independent designers, and lifestyle creators who value whitespace and refined pacing.</p>
           <div class="tags"><span data-i18n="velora.tag1">Framer Template</span><span data-i18n="velora.tag2">Editorial Direction</span><span data-i18n="velora.price">USD 39 · one-time</span></div>
           <details class="template-details"><summary><span data-i18n="velora.included">What’s included</span><span class="plus" aria-hidden="true"></span></summary><ul class="feature-list"><li data-i18n="velora.feature1">Responsive desktop, tablet, and mobile layouts</li><li data-i18n="velora.feature2">Customizable sections, fonts, and color styles</li><li data-i18n="velora.feature3">Subtle animations, setup guidance, and email support</li></ul></details>
           <a class="button button-light" href="https://cute-plans-049750.framer.app/" target="_blank" rel="noopener noreferrer"><span data-i18n="velora.preview">Preview VELORA</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></a>
         </div><div class="feature-image"><img src="./assets/stitch-velora.webp" width="512" height="286" alt="VELORA fashion website displayed on a laptop" data-i18n-alt="alt.velora" loading="lazy"></div>
       </article>
-        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-stilla.webp" width="512" height="382" alt="STILLA architecture website concept" data-i18n-alt="alt.stilla" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>STILLA <span data-i18n="stilla.title">Architecture</span></h3><p data-i18n="stilla.description">Exploration of tactile materiality, generous margins, and concrete minimalism for an architectural practice in Scandinavia.</p></div><div class="concept-caption"><span data-i18n="stilla.category">Spatial & Editorial Design</span><span data-i18n="stilla.number">Study 01</span></div></article>
-        <article class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-luma.webp" width="512" height="382" alt="LUMA photography website concept" data-i18n-alt="alt.luma" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>LUMA <span data-i18n="luma.title">Photography Studio</span></h3><p data-i18n="luma.description">Monochrome portraiture showcase designed with rhythmic typography and quiet editorial composure for a fine art photography studio.</p></div><div class="concept-caption"><span data-i18n="luma.category">Visual Hierarchy & Framing</span><span data-i18n="luma.number">Study 02</span></div></article>
+        <article data-portfolio-category="sites" class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-stilla.webp" width="512" height="382" alt="STILLA architecture website concept" data-i18n-alt="alt.stilla" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>STILLA <span data-i18n="stilla.title">Architecture</span></h3><p data-i18n="stilla.description">Exploration of tactile materiality, generous margins, and concrete minimalism for an architectural practice in Scandinavia.</p></div><div class="concept-caption"><span data-i18n="stilla.category">Spatial & Editorial Design</span><span data-i18n="stilla.number">Study 01</span></div></article>
+        <article data-portfolio-category="sites" class="concept-card panel project-hover"><div class="concept-image"><img src="./assets/stitch-luma.webp" width="512" height="382" alt="LUMA photography website concept" data-i18n-alt="alt.luma" loading="lazy"></div><div><span class="badge" data-i18n="work.concept">Independent concept study</span><h3>LUMA <span data-i18n="luma.title">Photography Studio</span></h3><p data-i18n="luma.description">Monochrome portraiture showcase designed with rhythmic typography and quiet editorial composure for a fine art photography studio.</p></div><div class="concept-caption"><span data-i18n="luma.category">Visual Hierarchy & Framing</span><span data-i18n="luma.number">Study 02</span></div></article>
       </div>
     </section>
     <section class="process panel" aria-labelledby="process-title">
@@ -187,7 +192,6 @@
           <p class="form-note" data-contact-text="note">I’ll reply using your chosen contact method.</p>
           <p class="form-status" role="status" hidden></p>
         </form>
-        <span class="form-sr-only" data-i18n="hero.hint">Move your cursor for fluid illumination</span>
       </div>
     </section>
   </main>

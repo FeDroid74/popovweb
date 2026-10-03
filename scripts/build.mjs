@@ -14,7 +14,7 @@ const files = [
   'app.js', 'translations.js', 'studio.js', 'studio-copy.js', 'rotor.js',
   'container-v2.css', 'header-v2.js', 'hero-grid-v2.js',
   'contact-v2.js', 'contact-validation.js', 'ui-v2.bundle.js', 'ui-v2.bundle.js.LEGAL.txt',
-  'main-page.css', 'main-page.js',
+  'main-page.css', 'main-page.js', 'portfolio.js',
   'v2.html', 'v2.css', 'v2.js',
   'v3.html', 'v3.css', 'v3.js', 'v3-base.css', 'v3-base.js',
   '_headers', 'robots.txt',
