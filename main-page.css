@@ -81,3 +81,10 @@
 
 /* Keep portfolio card borders unchanged on hover on the main page. */
 .version-two .project-hover:hover { border-color: var(--border); }
+
+/* Smooth FAQ text color on hover and keyboard focus. */
+.version-two .faq summary { transition: color .25s ease; }
+.version-two .faq summary:focus-visible { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+ .version-two .faq summary { transition: none; }
+}
