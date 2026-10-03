@@ -106,3 +106,36 @@
  #work > .section-heading { display: flex; align-items: stretch; gap: 24px; }
  #work > .section-heading .portfolio-tabs { max-width: 100%; gap: 24px; }
 }
+
+/* Stable enquiry button with a left-to-right fill. */
+.version-two .form-submit {
+ position: relative; isolation: isolate; overflow: hidden;
+ transform: none !important; background: var(--accent); color: #fff;
+ transition: none;
+}
+.version-two .form-submit::before {
+ content: ''; position: absolute; inset: 0; z-index: -1; pointer-events: none;
+ background: rgba(255,255,255,.14);
+ transform: scaleX(0); transform-origin: left;
+ transition: transform .35s ease;
+}
+.version-two .form-submit svg { transform: none; transition: none; }
+.version-two .form-submit:hover svg { transform: none; }
+@media (hover: hover) and (pointer: fine) {
+ .version-two .form-submit:not(:disabled):hover::before { transform: scaleX(1); }
+}
+.version-two .form-submit:focus-visible::before { transform: scaleX(1); }
+
+/* The summary fills the closed FAQ card, including its padding. */
+.version-two .faq details { padding: 0; }
+.version-two .faq summary { padding: 24px; border-radius: inherit; }
+.version-two .faq .disclosure-content { padding: 0 24px; }
+.version-two .faq .disclosure-content > p { margin-top: 0; padding-bottom: 24px; }
+@media (max-width: 479px) {
+ .version-two .faq summary { padding: 22px; }
+ .version-two .faq .disclosure-content { padding-inline: 22px; }
+ .version-two .faq .disclosure-content > p { padding-bottom: 22px; }
+}
+@media (prefers-reduced-motion: reduce) {
+ .version-two .form-submit::before { transition: none; }
+}
