@@ -103,6 +103,6 @@
 #work > .section-heading { align-items: end; flex-wrap: wrap; }
 #work > .section-heading .portfolio-tabs { flex: 0 0 auto; margin: 0 0 0 auto; justify-content: flex-end; }
 @media (max-width: 700px) {
- #work > .section-heading { display: flex; gap: 24px; }
+ #work > .section-heading { display: flex; align-items: stretch; gap: 24px; }
  #work > .section-heading .portfolio-tabs { max-width: 100%; gap: 24px; }
 }
