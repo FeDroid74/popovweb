@@ -1,6 +1,6 @@
 const root = document.documentElement;
 function translateServices() {
-  document.querySelectorAll('.version-two [data-ru]').forEach(element => {
+  document.querySelectorAll('.v2-pricing [data-ru]').forEach(element => {
     element.textContent = element.dataset[root.lang === 'ru' ? 'ru' : 'en'];
   });
   document.querySelector('.format-tabs').setAttribute('aria-label', root.lang === 'ru' ? 'Задача сайта' : 'Website goal');
