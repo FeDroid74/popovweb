@@ -1,0 +1,49 @@
+/* One native link, one focus stop, and a full touch target. */
+.language-toggle.locale-switch {
+  display: inline-flex; align-items: center; justify-content: center; gap: 3px;
+  min-width: 80px; min-height: 44px; padding-inline: 8px; text-decoration: none;
+  color: var(--muted); border-radius: 999px;
+}
+.locale-switch > span { transition: color 180ms ease-out; }
+.locale-switch-direction { width: 18px; height: 18px; stroke-width: 1.5; overflow: visible; }
+.locale-switch-slash { transform-origin: 12px 12px; opacity: .45; transition: transform 200ms cubic-bezier(.22,1,.36,1), opacity 150ms ease-out; }
+.locale-switch-tip { stroke-dasharray: 15; stroke-dashoffset: 15; opacity: 0; transform-origin: 12px 12px; transition: stroke-dashoffset 180ms ease-out, opacity 150ms ease-out; }
+.locale-switch[data-locale=ru] .locale-switch-tip { transform: rotate(180deg); }
+.locale-switch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.locale-switch:focus-visible .locale-switch-slash,
+.locale-switch:active .locale-switch-slash { transform: rotate(56.31deg); opacity: 1; }
+.locale-switch:focus-visible .locale-switch-tip,
+.locale-switch:active .locale-switch-tip { stroke-dashoffset: 0; opacity: 1; }
+.locale-switch:is(:focus-visible, :active) .locale-switch-direction,
+.locale-switch[data-locale=en]:is(:focus-visible, :active) .lang-en,
+.locale-switch[data-locale=ru]:is(:focus-visible, :active) .lang-ru { color: var(--text); }
+@media (hover:hover) and (pointer:fine) {
+  .locale-switch:hover .locale-switch-slash { transform: rotate(56.31deg); opacity: 1; }
+  .locale-switch:hover .locale-switch-tip { stroke-dashoffset: 0; opacity: 1; }
+  .locale-switch:hover .locale-switch-direction,
+  .locale-switch[data-locale=en]:hover .lang-en,
+  .locale-switch[data-locale=ru]:hover .lang-ru { color: var(--text); }
+}
+.locale-switch:focus-visible :is(span, path) { transition: none; }
+
+.locale-curtain {
+  position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center;
+  background: var(--bg); color: var(--text); visibility: hidden; pointer-events: none;
+  transform: translateY(-100%); contain: layout paint;
+}
+.locale-leaving .locale-curtain, .locale-arriving .locale-curtain { visibility: visible; transform: translateY(0); pointer-events: auto; }
+.locale-leaving .locale-curtain { transition: transform 220ms cubic-bezier(.22,1,.36,1); }
+.locale-curtain-mark { position: relative; display: grid; place-items: center; width: clamp(200px,24vw,300px); aspect-ratio: 1; }
+.locale-cycle { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; stroke: var(--accent); stroke-width: 1.5; }
+.locale-curtain-label { position: relative; width: 2.5em; height: 1.22em; overflow: hidden; font-size: clamp(44px,6vw,72px); line-height: 1.22; font-weight: 500; letter-spacing: -.04em; text-align: center; }
+.locale-curtain-label > span { position: absolute; inset: 0; display: block; }
+.locale-curtain-label [data-locale-to] { transform: translateY(-110%); }
+.locale-swapping .locale-cycle { transform: rotate(360deg); transition: transform 700ms cubic-bezier(.65,0,.25,1); }
+.locale-swapping .locale-curtain-label > span { transition: transform 480ms cubic-bezier(.65,0,.25,1) 120ms; }
+.locale-swapping .locale-curtain-label [data-locale-from] { transform: translateY(110%); }
+.locale-swapping .locale-curtain-label [data-locale-to] { transform: translateY(0); }
+.locale-revealing .locale-curtain { visibility: visible; transform: translateY(100%); pointer-events: auto; transition: transform 280ms cubic-bezier(.76,0,.24,1); }
+@media (prefers-reduced-motion:reduce) {
+  .locale-curtain { display: none; }
+  .locale-switch :is(span, path) { transition: none; }
+}

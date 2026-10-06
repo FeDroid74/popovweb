@@ -55,3 +55,10 @@ test('delivery errors stay errors; rate limiting prevents repeated calls', async
   for (let i = 0; i < 5; i++) assert.equal((await request(handler)).code, 502);
   assert.equal((await request(handler)).code, 429); assert.equal(calls, 5);
 });
+
+test('network failures and timeouts cannot become a successful enquiry', async () => {
+  for (const error of [new TypeError('Network failure'), new DOMException('Timed out', 'TimeoutError')]) {
+    const handler = createContactHandler({ token: 'test-token', chatId: '123', send: async () => { throw error; } });
+    assert.deepEqual(await request(handler), { code: 502, body: { error: 'delivery_failed' } });
+  }
+});

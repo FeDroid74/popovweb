@@ -18,6 +18,8 @@ design/*
 qa/*
 !qa/rotor.test.mjs
 !qa/contact.test.mjs
+!qa/localization.test.mjs
+!qa/cases.test.mjs
 !qa/studio-update.md
 !qa/deployment.md
 assets/*
@@ -34,5 +36,20 @@ assets/*
 !assets/fedor-hero-selected-v3.webp
 !assets/fedor-hero-grid-v3.webp
 !assets/fedor-about-macbook.jpg
+!assets/fedor-call-avatar.png
+!assets/social-ru.png
+!assets/social-en.png
 !assets/velora-desktop.jpg
 !assets/velora-phone.jpg
+!assets/cases/
+# Keep production images and their test fixtures; restoration experiments stay local.
+assets/cases/*
+!assets/cases/SOURCES.txt
+!assets/cases/brivillage/
+!assets/cases/volume-traffic/
+!assets/cases/royal-trees/
+!assets/cases/ultra-cleaning/
+assets/cases/*/*
+!assets/cases/*/original-desktop.png
+!assets/cases/ultra-cleaning/upscaled-desktop.png
+!assets/cases/ultra-cleaning/reference-rebuilt-desktop.png

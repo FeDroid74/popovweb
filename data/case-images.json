@@ -1,0 +1,134 @@
+{
+  "ultra-cleaning": {
+    "full-en.webp": [
+      682,
+      2048
+    ],
+    "full-ru.webp": [
+      398,
+      2048
+    ],
+    "preview.webp": [
+      1400,
+      800
+    ],
+    "preview-restored.webp": [
+      1659,
+      948
+    ],
+    "mockup-desktop.jpg": [
+      1440,
+      4585
+    ],
+    "mockup-mobile.jpg": [
+      480,
+      5665
+    ],
+    "original-desktop.png": [
+      398,
+      2048
+    ],
+    "upscaled-desktop.png": [
+      1592,
+      8192
+    ],
+    "reference-rebuilt-desktop.png": [
+      1164,
+      7941
+    ]
+  },
+  "brivillage": {
+    "full-en.webp": [
+      397,
+      2048
+    ],
+    "full-ru.webp": [
+      397,
+      2048
+    ],
+    "preview.webp": [
+      1400,
+      800
+    ],
+    "archive-preview.webp": [
+      1275,
+      717
+    ],
+    "archive-cabins.webp": [
+      1275,
+      717
+    ],
+    "archive-infrastructure.webp": [
+      1275,
+      717
+    ],
+    "mockup-desktop.jpg": [
+      1440,
+      7191
+    ],
+    "mockup-mobile.jpg": [
+      480,
+      16203
+    ],
+    "original-desktop.png": [
+      1512,
+      7788
+    ]
+  },
+  "volume-traffic": {
+    "preview-approved.png": [
+      1659,
+      948
+    ],
+    "full-en.webp": [
+      344,
+      2047
+    ],
+    "full-ru.webp": [
+      258,
+      1536
+    ],
+    "preview.webp": [
+      1400,
+      800
+    ],
+    "mockup-desktop.jpg": [
+      1440,
+      5435
+    ],
+    "mockup-mobile.jpg": [
+      480,
+      7569
+    ],
+    "original-desktop.png": [
+      1680,
+      10000
+    ]
+  },
+  "royal-trees": {
+    "catalog.webp": [
+      1265,
+      712
+    ],
+    "hero.webp": [
+      1265,
+      712
+    ],
+    "workshop.webp": [
+      1265,
+      712
+    ],
+    "mockup-desktop.jpg": [
+      1440,
+      3697
+    ],
+    "mockup-mobile.jpg": [
+      480,
+      4749
+    ],
+    "original-desktop.png": [
+      1264,
+      11648
+    ]
+  }
+}

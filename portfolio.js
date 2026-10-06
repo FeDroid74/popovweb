@@ -6,6 +6,7 @@ const cards = [...panel.children];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let animation;
 let category = 'sites';
+root.addEventListener('popovweb:restore-portfolio', event => activate(event.detail));
 
 function translate() {
   const locale = root.lang === 'ru' ? 'ru' : 'en';
@@ -17,7 +18,7 @@ function translate() {
 
 function activate(value, { updateUrl = false, animate = false } = {}) {
   const changed = category !== value;
-  category = value === 'templates' ? 'templates' : 'sites';
+  category = value === 'templates' ? value : 'sites';
   tabs.forEach(tab => {
     const active = tab.dataset.portfolioTab === category;
     tab.setAttribute('aria-selected', String(active));
@@ -32,7 +33,7 @@ function activate(value, { updateUrl = false, animate = false } = {}) {
   }
   if (updateUrl) {
     const url = new URL(location.href);
-    if (category === 'templates') url.searchParams.set('portfolio', 'templates');
+    if (category !== 'sites') url.searchParams.set('portfolio', category);
     else url.searchParams.delete('portfolio');
     url.hash = 'work';
     history.pushState(null, '', url);
@@ -52,7 +53,7 @@ tabs.forEach((tab, index) => {
 });
 
 function restoreLocation() {
-  activate(location.hash === '#templates' || new URL(location.href).searchParams.get('portfolio') === 'templates' ? 'templates' : 'sites');
+  activate(location.hash === '#templates' ? 'templates' : new URL(location.href).searchParams.get('portfolio'));
 }
 addEventListener('popstate', restoreLocation);
 addEventListener('hashchange', restoreLocation);

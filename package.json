@@ -8,11 +8,12 @@
   },
   "scripts": {
     "build:ui": "node scripts/build-ui.mjs",
-    "prestart": "npm run build:ui",
+    "prestart": "npm run build:ui && npm run build:pages",
     "start": "node server.mjs",
     "build": "npm run build:ui && node scripts/build.mjs",
-    "check": "node --check app.js && node --check translations.js && node --check studio.js && node --check studio-copy.js && node --check rotor.js && node --check server.mjs && node --check scripts/build.mjs && node --check contact-v2.js && node --check contact-validation.js && node --check contact-api.mjs && node --check main-page.js && node --check v2.js && node --check v3.js && node --check v3-base.js && node --check header-v2.js && node --check hero-grid-v2.js && node --check portfolio.js",
-    "test": "node qa/rotor.test.mjs && node qa/contact.test.mjs"
+    "check": "node --check app.js && node --check translations.js && node --check studio.js && node --check studio-copy.js && node --check rotor.js && node --check server.mjs && node --check scripts/build.mjs && node --check contact-v2.js && node --check contact-validation.js && node --check contact-api.mjs && node --check main-page.js && node --check process-story.js && node --check v2.js && node --check v3.js && node --check v3-base.js && node --check header-v2.js && node --check hero-grid-v2.js && node --check portfolio.js && node --check case-dialog.js && node --check scripts/cases.mjs && node --check scripts/localize.mjs && node --check scripts/not-found.mjs && node --check locale-boot.js && node --check locale-transition.js && node --check contact-copy.js",
+    "test": "node qa/rotor.test.mjs && node qa/contact.test.mjs && node qa/localization.test.mjs && node qa/cases.test.mjs",
+    "build:pages": "node scripts/localize.mjs"
   },
   "dependencies": {
     "@radix-ui/react-select": "^2.3.7",
@@ -21,6 +22,7 @@
     "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "esbuild": "^0.28.2",
+    "parse5": "^8.0.1"
   }
 }

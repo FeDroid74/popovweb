@@ -1,0 +1,13 @@
+{
+  "ultra-cleaning": {
+    "file": "upscaled-desktop.png",
+    "source": "original-desktop.png",
+    "sourceSha256": "d6bbc68c3b5474874d0dbf2b26c5dc21d89fef3fe74d0b78139e947d7f695172",
+    "sha256": "b3c6d7527f6be1a18eaebae0972fe6963fbd2f61a7b21fab8a591781d7871f70",
+    "width": 1592,
+    "height": 8192,
+    "scale": 4,
+    "method": "Tiled Real-ESRGAN 4x, 40px cores with 12px context, photographic detail with source-exact text and interface shapes",
+    "limitation": "Subpixel lettering cannot be recovered reliably; no text has been invented or replaced."
+  }
+}

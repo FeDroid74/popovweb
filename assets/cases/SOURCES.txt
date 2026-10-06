@@ -1,0 +1,71 @@
+Portfolio materials supplied by Fedor Popov in popovweb_cases_for_codex.zip.
+Updated locally on 2026-10-05. No publication performed.
+
+ULTRA CLEANING 24
+preview-restored.webp: AI reconstruction of the supplied preview.webp.
+Generated with the built-in image_gen tool, not the CLI.
+Source output: exec-8ceaafe9-3377-4080-b862-491aa7823986.png.
+Prompt specification: Restore the supplied website screenshot at high resolution,
+keeping its original composition, red Cyrillic logo, white interior, cleaner in
+red shirt and black apron, turquoise gloves, two CTA buttons and four benefit
+cards. Preserve readable Russian text and the positions of every major element.
+Do not add new awards, numerical claims, logos or decorative elements.
+This is a reconstruction, not a recovered browser screenshot. Fine details and
+photographic likeness may differ. It is identified on the home and case pages.
+Full-page original captures remain unchanged and are not enlarged in the viewer.
+A local PNG copy is kept at design/case-restoration/ultra-preview-generated.png.
+
+BRIVILLAGE
+archive-preview.webp, archive-cabins.webp, archive-infrastructure.webp are fresh
+browser screenshots of a locally restored archival page, not AI-generated images.
+HTML source: https://web.archive.org/web/20250828145711/https://brivillage.ru/
+Original CSS and fonts were recovered from the 2024 archive; original image URLs
+were recovered from the 2025 HTML, using exact live asset URLs where available.
+The missing river photo was recovered from the original 2024 site:
+https://web.archive.org/web/20240419062620/https://brivillage.ru/
+Static slider positions/layout were restored from the original main.min.js settings.
+External scripts, forms and booking services are disabled in the local capture copy.
+The captures represent the restored archive, not a claim of unchanged live content.
+Original supplied full-page captures are preserved separately.
+Recovery sources and files: design/case-restoration/bri/ (local research only).
+
+VOLUME TRAFFIC
+Domain found: https://volumetraffic.ru/
+Requested archive: https://web.archive.org/web/20241223102106/https://volumetraffic.ru/
+Archived HTML downloaded to design/case-restoration/volume-dec.html.
+A domain-wide CDX inventory returned only HTML, no archived CSS or image assets.
+The live domain displays a Tilda unassigned-domain page; old WP asset requests
+return HTTP 429 from DDoS-Guard. Consequently the exact archived visual design
+could not be recovered in this pass. Existing supplied images are unchanged.
+A generated alternative was rejected by the owner and is NOT used on the site.
+
+ROYAL TREES
+https://royal-trees.ru/
+Hero, catalog and workshop were captured from the live site on 2026-10-05.
+The case identifies them as the current version, which may differ from the site
+originally delivered by the designer. These images are unchanged by restoration.
+
+VELORA
+The Framer template has not been changed.
+
+No project results, delivery dates, costs, or platforms were inferred.
+
+2026-10-05 follow-up:
+The owner confirmed that the agency site in the volumetraffic.ru archive is the
+correct project. The blue personal landing page was an incorrect reference and
+has been removed from the visible portfolio and galleries. Its source files are
+retained for provenance only. A new AI draft was stopped and is NOT deployed;
+it is stored only at design/case-restoration/volume-preview-draft.png.
+The Wayback domain-wide CDX listing (matchType=domain, status=200, collapse=urlkey)
+contains HTML only. Exact archived CSS and logo requests return 404; live logo
+returns 429. The December archive was also checked visually in the browser and
+renders without its styles/images. The portfolio temporarily uses an archive link
+and the verified agency description instead of manufacturing a replacement design.
+Project screenshots or an intact archive capture are needed for a faithful image.
+
+Case galleries now switch images inside the dialog. Original low-resolution full
+captures are displayed at their natural width rather than enlarged.
+The AI reconstruction note was removed from the Ultra homepage card at the owner's
+request; provenance remains in its modal and this file.
+
+2026-10-05 correction: user explicitly approved and attached the blue Volume Traffic landing-page mockup (clipboard-b2934876-083b-423f-8e95-59623622ac3e.png). Copied unchanged to volume-traffic/preview-approved.png. This supersedes the previous agency-version interpretation. Restored mockup is not presented as an original archive screenshot. Original low-resolution full captures remain in the gallery. Removed mismatched agency archive link. Promotion tab and StoryGrad card removed from home page per user request.

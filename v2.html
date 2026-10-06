@@ -14,8 +14,8 @@
   <link rel="stylesheet" href="./styles.css">
   <link rel="stylesheet" href="./studio.css">
   <link rel="stylesheet" href="./container-v2.css">
-  <link rel="stylesheet" href="./v2.css?v=8">
-  <script type="module" src="./v2.js?v=2"></script>
+  <link rel="stylesheet" href="./v2.css?v=process-preview-1">
+  <script type="module" src="./v2.js?v=process-preview-1"></script>
   <script type="module" src="./app.js?v=portfolio-1"></script>
   <script type="module" src="./header-v2.js"></script>
   <script type="module" src="./hero-grid-v2.js"></script>
@@ -94,14 +94,71 @@
  <p class="audit-service-note"><span data-ru="Нужна помощь с выбором?" data-en="Need help choosing?">Нужна помощь с выбором?</span> <a href="#contact"><span data-ru="Опишите задачу — подберём формат." data-en="Describe your goals and we will choose a format.">Опишите задачу — подберём формат.</span></a></p>
  <p class="audit-service-note"><span data-ru="Настройка и ведение Яндекс Директа — отдельная задача. Состав продвижения и рекламный бюджет обсуждаем отдельно от разработки сайта." data-en="Yandex Direct setup and management are a separate service. Promotion scope and advertising budget are discussed separately from website development.">Настройка и ведение Яндекс Директа — отдельная задача. Состав продвижения и рекламный бюджет обсуждаем отдельно от разработки сайта.</span></p>
 </section>
-    <section class="process audit-process" aria-labelledby="process-title">
- <div class="audit-section-intro"><p class="eyebrow" data-ru="КАК РАБОТАЕМ" data-en="THE PROCESS">КАК РАБОТАЕМ</p><h2 id="process-title" data-ru="От первого сообщения до запуска" data-en="From first message to launch">От первого сообщения до запуска</h2><p data-ru="На каждом этапе понятно, что делаю я и что нужно согласовать вам." data-en="At each stage, you know what I am doing and what needs your approval.">На каждом этапе понятно, что делаю я и что нужно согласовать вам.</p></div>
- <div class="audit-step-list">
- <article class="audit-step"><span class="audit-step-number">01</span><div><h3 data-ru="Задача и оценка" data-en="Brief and estimate">Задача и оценка</h3><p data-ru="Обсуждаем бизнес, цель сайта и необходимые функции. До начала согласуем состав работ, стоимость и сроки." data-en="We discuss your business, website goals, and required features. We agree scope, price, and timeline before starting.">Обсуждаем бизнес, цель сайта и необходимые функции. До начала согласуем состав работ, стоимость и сроки.</p><p class="audit-step-outcome" data-ru="Результат: согласованный план работы" data-en="Outcome: an agreed project plan">Результат: согласованный план работы</p></div></article>
-<article class="audit-step"><span class="audit-step-number">02</span><div><h3 data-ru="Дизайн и разработка" data-en="Design and development">Дизайн и разработка</h3><p data-ru="Сначала согласуем структуру и внешний вид. Затем собираю сайт и показываю, как работают страницы и формы." data-en="First we agree the structure and design. Then I build the website and show how the pages and forms work.">Сначала согласуем структуру и внешний вид. Затем собираю сайт и показываю, как работают страницы и формы.</p><p class="audit-step-outcome" data-ru="Ваше участие: обратная связь и согласование" data-en="Your role: feedback and approval">Ваше участие: обратная связь и согласование</p></div></article>
-<article class="audit-step"><span class="audit-step-number">03</span><div><h3 data-ru="Запуск и передача" data-en="Launch and handover">Запуск и передача</h3><p data-ru="Проверяю сайт на разных устройствах, публикую и показываю, как обновлять согласованные разделы." data-en="I check the website on different devices, publish it, and show how to update the agreed sections.">Проверяю сайт на разных устройствах, публикую и показываю, как обновлять согласованные разделы.</p><p class="audit-step-outcome" data-ru="Результат: опубликованный сайт и инструкция" data-en="Outcome: a published website and guidance">Результат: опубликованный сайт и инструкция</p></div></article>
- </div>
-</section>
+    <section id="process" class="journey" aria-labelledby="process-title">
+      <div class="journey-layout">
+        <div class="journey-aside">
+          <p class="eyebrow" data-ru="КАК РАБОТАЕМ" data-en="THE PROCESS">КАК РАБОТАЕМ</p>
+          <h2 id="process-title"><span data-ru="От задачи" data-en="From the brief">От задачи</span><br><span data-ru="до запуска." data-en="to launch.">до запуска.</span></h2>
+          <p class="journey-intro" data-ru="Вы видите, как появляется ваш сайт, и принимаете решения по ходу работы." data-en="Watch your website take shape and make decisions along the way.">Вы видите, как появляется ваш сайт, и принимаете решения по ходу работы.</p>
+          <div class="journey-tabs" role="tablist" aria-label="Этапы работы" aria-orientation="vertical">
+            <button type="button" id="journey-tab-brief" role="tab" aria-selected="true" aria-controls="journey-brief" data-step="0"><span class="journey-number">01</span><span data-ru="Обсуждаем задачу" data-en="Define the brief">Обсуждаем задачу</span><svg aria-hidden="true"><use href="#arrow"/></svg></button>
+            <button type="button" id="journey-tab-design" role="tab" aria-selected="false" aria-controls="journey-design" tabindex="-1" data-step="1"><span class="journey-number">02</span><span data-ru="Создаём сайт" data-en="Build the website">Создаём сайт</span><svg aria-hidden="true"><use href="#arrow"/></svg></button>
+            <button type="button" id="journey-tab-handover" role="tab" aria-selected="false" aria-controls="journey-handover" tabindex="-1" data-step="2"><span class="journey-number">03</span><span data-ru="Запускаем и передаём" data-en="Launch and hand over">Запускаем и передаём</span><svg aria-hidden="true"><use href="#arrow"/></svg></button>
+          </div>
+          <div class="journey-explanation" id="journey-explanation">
+            <p id="journey-description">Расскажите о бизнесе и задаче. Уточню, какие страницы и функции нужны, предложу состав работ, стоимость и сроки.</p>
+            <p class="journey-participation"><span id="journey-role-label">От вас</span><span id="journey-role">Рассказать о проекте. Готовое ТЗ не нужно.</span></p>
+          </div>
+        </div>
+        <div class="journey-demo">
+          <div class="journey-demo-heading"><span data-ru="Что происходит на каждом этапе" data-en="What happens at each stage">Что происходит на каждом этапе</span></div>
+          <div class="journey-scenes">
+            <div id="journey-brief" class="journey-scene journey-brief" role="tabpanel" aria-labelledby="journey-tab-brief" aria-describedby="journey-explanation" tabindex="0">
+              <div class="brief-heading"><span data-ru="Обсуждение → Договорённости" data-en="Conversation → Agreement">Обсуждение → Договорённости</span><svg aria-hidden="true" viewBox="0 0 32 32"><path d="M7 3h12l6 6v20H7zM19 3v7h6M12 16h8M12 21h8"/></svg></div>
+              <h3 data-ru="План проекта" data-en="The project plan">План проекта</h3>
+              <dl class="brief-details">
+                <div><dt data-ru="Задача" data-en="Goal">Задача</dt><dd data-ru="Для кого делаем сайт и какое действие ждём от посетителя." data-en="Who the website is for and what visitors should do.">Для кого делаем сайт и какое действие ждём от посетителя.</dd></div>
+                <div><dt data-ru="Состав" data-en="Scope">Состав</dt><dd data-ru="Страницы, функции и материалы, которые нужно подготовить." data-en="Pages, features, and content that needs preparing.">Страницы, функции и материалы, которые нужно подготовить.</dd></div>
+                <div><dt data-ru="Условия" data-en="Terms">Условия</dt><dd data-ru="Сроки, стоимость, порядок оплаты и согласования." data-en="Timeline, price, payment schedule, and approvals.">Сроки, стоимость, порядок оплаты и согласования.</dd></div>
+              </dl>
+              <div class="brief-agreement"><span data-ru="Фиксируем договорённости до начала работы." data-en="We put the agreement in writing before starting.">Фиксируем договорённости до начала работы.</span></div>
+            </div>
+            <div id="journey-design" class="journey-scene journey-design" role="tabpanel" aria-labelledby="journey-tab-design" aria-describedby="journey-explanation" tabindex="0" hidden>
+              <div class="journey-views" role="tablist" aria-label="Вид макета">
+                <button type="button" id="journey-view-structure" role="tab" aria-selected="true" aria-controls="journey-structure" data-view="structure" data-ru="Структура" data-en="Structure">Структура</button>
+                <button type="button" id="journey-view-visual" role="tab" aria-selected="false" aria-controls="journey-visual" tabindex="-1" data-view="visual" data-ru="Дизайн" data-en="Design">Дизайн</button>
+                <button type="button" id="journey-view-build" role="tab" aria-selected="false" aria-controls="journey-build" tabindex="-1" data-view="build" data-ru="Сборка" data-en="Build">Сборка</button>
+              </div>
+              <div class="journey-view-stage">
+                <div id="journey-structure" class="journey-view journey-structure" role="tabpanel" aria-labelledby="journey-view-structure" tabindex="0">
+                  <div class="structure-flow"><div class="structure-root" data-ru="Задача посетителя" data-en="The visitor’s goal">Задача посетителя</div><div class="structure-branches"><div><span>01</span><p data-ru="Что рассказать" data-en="What to explain">Что рассказать</p></div><div><span>02</span><p data-ru="Что показать" data-en="What to show">Что показать</p></div><div><span>03</span><p data-ru="Что предложить" data-en="What to offer">Что предложить</p></div></div><div class="structure-result"><span data-ru="Страницы и их содержание" data-en="Pages and their content">Страницы и их содержание</span><svg aria-hidden="true"><use href="#arrow"/></svg></div></div>
+                </div>
+                <div id="journey-visual" class="journey-view journey-visual" role="tabpanel" aria-labelledby="journey-view-visual" tabindex="0" hidden>
+                  <div class="design-specimen"><div class="specimen-type"><span aria-hidden="true">Aa</span><small data-ru="Типографика" data-en="Typography">Типографика</small></div><div class="specimen-palette"><div aria-hidden="true"><i></i><i></i><i></i></div><small data-ru="Цвет и контраст" data-en="Colour and contrast">Цвет и контраст</small></div><div class="specimen-composition"><div aria-hidden="true"><i></i><i></i><i></i></div><small data-ru="Композиция и акценты" data-en="Composition and emphasis">Композиция и акценты</small></div></div>
+                  <p class="design-approval" data-ru="Показываю макеты → Обсуждаем → Вношу правки" data-en="Design review → Your feedback → Revisions">Показываю макеты → Обсуждаем → Вношу правки</p>
+                </div>
+                <div id="journey-build" class="journey-view journey-build" role="tabpanel" aria-labelledby="journey-view-build" tabindex="0" hidden>
+                  <div class="build-symbol" aria-hidden="true"><span>&lt;</span><i>/</i><span>&gt;</span></div>
+                  <h3 data-ru="Из макета — в работу" data-en="From design to a working site">Из макета — в работу</h3>
+                  <div class="build-checks"><span data-ru="Страницы и анимация" data-en="Pages and motion">Страницы и анимация</span><span data-ru="Формы и интеграции" data-en="Forms and integrations">Формы и интеграции</span><span data-ru="Проверка на разных экранах" data-en="Checks across screen sizes">Проверка на разных экранах</span></div>
+                </div>
+              </div>
+              <p class="journey-view-caption" id="journey-view-caption">Сначала — порядок блоков и путь посетителя.</p>
+            </div>
+            <div id="journey-handover" class="journey-scene journey-handover" role="tabpanel" aria-labelledby="journey-tab-handover" aria-describedby="journey-explanation" tabindex="0" hidden>
+              <div class="handover-heading"><h3 data-ru="Проект у вас" data-en="Over to you">Проект у вас</h3><p data-ru="Что передаю после запуска" data-en="What you receive after launch">Что передаю после запуска</p></div>
+              <div class="handover-files" role="tablist" aria-label="Что входит в передачу">
+                <button type="button" role="tab" id="handover-tab-access" aria-selected="true" aria-controls="handover-detail" data-handover="0"><svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="8" cy="9" r="4"/><path d="m11 12 8 8m-2-2 3-3m-6 0 3-3"/></svg><span data-ru="Доступы" data-en="Access">Доступы</span></button>
+                <button type="button" role="tab" id="handover-tab-editor" aria-selected="false" aria-controls="handover-detail" tabindex="-1" data-handover="1"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></svg><span data-ru="Редактор" data-en="Editor">Редактор</span></button>
+                <button type="button" role="tab" id="handover-tab-guide" aria-selected="false" aria-controls="handover-detail" tabindex="-1" data-handover="2"><svg aria-hidden="true" viewBox="0 0 24 24"><path d="M5 3h9l5 5v13H5zM14 3v5h5M9 12h6m-6 4h6"/></svg><span data-ru="Инструкция" data-en="Guide">Инструкция</span></button>
+              </div>
+              <div class="handover-detail" id="handover-detail" role="tabpanel" aria-labelledby="handover-tab-access" tabindex="0"><span class="handover-detail-label" data-ru="ПОСЛЕ ЗАПУСКА" data-en="AFTER LAUNCH">ПОСЛЕ ЗАПУСКА</span><h4 id="handover-detail-title">Всё под вашим контролем</h4><p id="handover-detail-copy">Передаю доступы к сайту и подключённым сервисам. Разбираем, где управлять сайтом, доменом и оплатой платформы.</p></div>
+            </div>
+          </div>
+          <div class="journey-pagination"><span class="journey-counter"><span id="journey-current">01</span><span aria-hidden="true"> / 03</span></span><div><button type="button" class="journey-back" aria-label="Предыдущий этап" disabled><svg aria-hidden="true"><use href="#arrow"/></svg></button><button type="button" class="journey-next"><span id="journey-next-label">К созданию сайта</span><svg aria-hidden="true"><use href="#arrow"/></svg></button></div></div>
+        </div>
+      </div>
+    </section>
     <section id="about" class="about-personal" aria-labelledby="about-title">
       <div class="about-copy">
       <div class="about-heading">

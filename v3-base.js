@@ -84,11 +84,11 @@ function setLanguage(lang) {
   translated.forEach(el => { el.textContent = root.lang === 'ru' ? el.dataset.ru : el.dataset.en; });
   localAttributes.forEach(({ el, attribute, en, key }) => el.setAttribute(attribute, root.lang === 'ru' ? (ru[key] || en) : en));
   document.title = label('PopovWeb — сайты для бизнеса · Новая версия','PopovWeb — websites for business · New edition');
-  document.querySelector('meta[name=description]').content = label('Фёдор Попов. Дизайн и разработка сайтов под ключ. Лендинги, сайты компаний, каталоги и интернет-магазины.', 'Fedor Popov. Website design and development. Landing pages, company websites, catalogs, and online stores.');
+  document.querySelector('meta[name=description]').content = label('Федор Попов. Дизайн и разработка сайтов под ключ. Лендинги, сайты компаний, каталоги и интернет-магазины.', 'Fedor Popov. Website design and development. Landing pages, company websites, catalogs, and online stores.');
   document.querySelector('.format-tabs').setAttribute('aria-label', label('Задача сайта','Website goal'));
   document.querySelector('.work-tabs').setAttribute('aria-label', label('Работы','Selected work'));
   document.querySelector('.next-portrait figcaption>span:last-child').textContent = label('& разработчик','& developer');
-  document.querySelector('.next-portrait img').alt = label('Фёдор Попов','Fedor Popov');
+  document.querySelector('.next-portrait img').alt = label('Федор Попов','Fedor Popov');
   updateControls(); renderWork(); persist('popovweb-lang',root.lang);
   root.dispatchEvent(new Event('popovweb:language'));
 }

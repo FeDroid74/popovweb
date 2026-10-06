@@ -64,7 +64,9 @@ function SiteSelect({ nativeSelect, triggerId, options, label }) {
       document.documentElement.removeEventListener('popovweb:language', language);
     };
   }, [nativeSelect]);
-  return <Select.Root value={value} disabled={nativeSelect.disabled} onValueChange={next => {
+  return <Select.Root value={value} disabled={nativeSelect.disabled} onOpenChange={open => {
+    document.documentElement.dispatchEvent(new CustomEvent('popovweb:select-open', { detail: open }));
+  }} onValueChange={next => {
     setValue(next);
     nativeSelect.value = next;
     nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));

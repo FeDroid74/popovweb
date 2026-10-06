@@ -1,4 +1,28 @@
 /* Main-page service picker and portfolio. */
+/* Compact footer with the same contact controls as the enquiry section. */
+.site-footer { padding-block: 28px; }
+.site-footer .footer-inner { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 24px; }
+.footer-copyright { line-height: 1.6; }
+.footer-privacy { justify-self: center; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: default; }
+.site-footer .footer-contacts { justify-self: end; margin: 0; gap: 10px; }
+.site-footer .contact-direct { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; min-height: 40px; margin: 0; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--subtle); color: var(--text); transition: background-color .2s, border-color .2s, color .2s; }
+.site-footer .contact-direct svg, .site-footer .contact-brand-icon { width: 18px; height: 18px; color: inherit; }
+.site-footer .contact-direct:is(:hover,:focus-visible) { background: var(--card); border-color: rgba(var(--accent-rgb),.5); color: var(--accent); }
+.site-footer .contact-tooltip { top: auto; bottom: calc(100% + 10px); }
+.site-footer .contact-direct:first-child .contact-tooltip { left: auto; right: 0; }
+@media (max-width: 800px) {
+ .site-footer .footer-inner { grid-template-columns: 1fr; gap: 20px; justify-items: center; text-align: center; }
+ .site-footer .footer-inner > .footer-copyright, .site-footer .footer-contacts { justify-self: center; }
+ .site-footer .contact-direct:first-child .contact-tooltip { left: 0; right: auto; }
+}
+@media (prefers-reduced-motion: reduce) { .site-footer .contact-direct { transition: none; } }
+.version-two .hero .button-disc { translate: -3px 0; }
+.main-specialist { color: var(--muted); font-size: clamp(11px, 1.05vw, 16px); line-height: 1.5; margin-bottom: 22px; max-width: 48ch; }
+.format-estimate p { font-size: clamp(18px, 1.6vw, 23px); margin-top: 7px; line-height: 1.3; white-space: nowrap; }
+.format-estimate small { display: block; max-width: 16ch; line-height: 1.4; }
+.format-bottom:has(.format-estimate) { column-gap: 22px; row-gap: 24px; }
+@media (max-width: 1600px) and (min-width: 801px) { .format-bottom:has(.format-estimate) .next-button { width: 100%; justify-content: space-between; } }
+@media (max-width: 550px) { .main-specialist { max-width: 33ch; font-size: 11px; margin-bottom: 16px; } .format-estimate p { font-size: 18px; } }
 .portfolio-tabs { display: flex; gap: 28px; border-bottom: 1px solid var(--border); margin: -12px 0 36px; }
 .portfolio-tabs button { position: relative; min-height: 52px; padding: 12px 0 17px; background: transparent; color: var(--muted); font-size: 17px; transition: color 160ms ease; }
 .portfolio-tabs button::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--accent); opacity: 0; transition: opacity 160ms ease; }
@@ -18,10 +42,24 @@
 .format-tabs>button strong { display: block; font-size: clamp(18px, 1.6vw, 24px); font-weight: 400; letter-spacing: -.025em; }
 .format-tabs>button small { font-size: 12px; display: block; margin-top: 6px; }
 .format-tab-price { display: flex; flex-shrink: 0; align-items: center; gap: 16px; font-size: 12px; }
-.format-tab-price svg { width: 19px; height: 19px; transition: transform .22s; }
-.format-tabs>button[aria-selected=true] { color: var(--text); border-bottom-color: var(--accent); }
+.format-tab-price svg { width: 19px; height: 19px; transition: transform 180ms ease, color 180ms ease; }
+.format-tabs>button[aria-selected=true] { color: var(--text); }
 .format-tabs>button[aria-selected=true] .format-tab-price svg { color: var(--accent); transform: rotate(45deg); }
-.format-tabs>button:hover { color: var(--text); }
+/* Match the step menu in “How the work happens”, in both directions. */
+.format-tabs>button { position: relative; transition: color 180ms ease; }
+.format-tabs>button::after { content: ''; position: absolute; inset: auto 0 -1px; height: 1px; background: var(--accent); pointer-events: none; transform: scaleX(0); transform-origin: left; transition: transform 180ms ease; }
+.format-tabs>button[aria-selected=true]::after { transform: scaleX(1); }
+@media (hover: hover) and (pointer: fine) {
+ .format-tabs>button:hover { color: var(--text); }
+ .format-tabs:has(>button:hover)>button[aria-selected=true]:not(:hover)::after { transform: scaleX(0); }
+ .format-tabs>button:hover::after { transform: scaleX(1); }
+ .format-tabs>button:hover .format-tab-price svg { color: var(--accent); }
+}
+.format-tabs>button:focus-visible { color: var(--text); }
+.format-tabs>button:focus-visible .format-tab-price svg { color: var(--accent); }
+@media (prefers-reduced-motion: reduce) {
+ .format-tabs>button, .format-tabs>button::after, .format-tabs>button .format-tab-price svg { transition: none; }
+}
 .format-panels { display: grid; }
 .version-two .format-panel { grid-area: 1/1; display: flex; flex-direction: column; padding: clamp(26px, 3vw, 46px); border-radius: 24px; background: var(--surface); border: 1px solid var(--border); min-width: 0; }
 .format-fit { color: var(--muted); font-size: 12px; margin-bottom: 16px; }
@@ -36,6 +74,7 @@
 .format-bottom .next-button { font-size: 13px; min-height: 48px; padding-inline: 20px; gap: 16px; }
 .pricing-context { display: grid; grid-template-columns: .95fr 1.2fr; gap: clamp(36px,5vw,80px); font-size: 12px; line-height: 1.75; color: var(--muted); margin-top: 25px; }
 .pricing-context strong { color: var(--text); display: block; font-size: 13px; font-weight: 500; margin-bottom: 5px; }
+@media (min-width: 801px) { .pricing-context>p:first-child { margin-top: -16px; } }
 .next-button { min-height: 54px; padding: 15px 23px; border-radius: 999px; display: inline-flex; align-items: center; justify-content: center; gap: 24px; font-size: 15px; font-weight: 500; transition: background-color .2s, color .2s, border-color .2s; white-space: nowrap; }
 .next-button svg { width: 18px; height: 18px; transition: transform .2s; }
 .next-button:hover svg { transform: translate(2px,-2px); }
@@ -70,23 +109,55 @@
 @media (prefers-reduced-motion: reduce) { .version-two .next-button svg { transition: none; } }
 
 
-/* V3 arrow shape with the main page's rotation and easing on both CTAs. */
-.version-two .hero .button-disc svg,
-.version-two .v2-pricing .next-button svg {
+/* The hero keeps its existing arrow rotation. */
+.version-two .hero .button-disc svg {
  width: 18px;
  height: 18px;
  transform: rotate(45deg);
  transition: transform .22s cubic-bezier(.16,1,.3,1);
 }
 @media (hover: hover) and (pointer: fine) {
- .version-two .hero .button-primary:hover .button-disc svg,
- .version-two .v2-pricing .next-button:hover svg { transform: rotate(0deg); }
+ .version-two .hero .button-primary:hover .button-disc svg { transform: rotate(0deg); }
 }
-.version-two .hero .button-primary:focus-visible .button-disc svg,
-.version-two .v2-pricing .next-button:focus-visible svg { transform: rotate(0deg); }
+.version-two .hero .button-primary:focus-visible .button-disc svg { transform: rotate(0deg); }
 @media (prefers-reduced-motion: reduce) {
- .version-two .hero .button-disc svg,
- .version-two .v2-pricing .next-button svg { transition: none !important; }
+ .version-two .hero .button-disc svg { transition: none !important; }
+}
+
+/* Magic UI-style dot expansion and sliding labels for the service CTA. */
+#pricing .interactive-hover {
+ position: relative; isolation: isolate; overflow: hidden;
+ justify-content: center; padding-inline: 28px;
+ background: var(--surface); color: var(--text); border: 1px solid var(--accent);
+ transition: transform 150ms ease-out;
+}
+#pricing .interactive-hover:hover { background: var(--surface); }
+.format-cta-base { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.format-cta-dot {
+ width: 8px; height: 8px; flex: none; border-radius: 50%; background: var(--accent);
+ transform: scale(var(--cta-dot-scale, 1));
+ transition: transform 180ms ease;
+}
+.format-cta-base > span:last-child {
+ position: relative; transform: translateX(var(--cta-base-x, 0px)); opacity: var(--cta-base-opacity, 1);
+ transition: transform 180ms ease, opacity 180ms ease;
+}
+.format-cta-hover {
+ position: absolute; inset: 0; z-index: 1; display: flex; align-items: center; justify-content: center;
+ gap: 12px; color: #fff; pointer-events: none;
+ transform: translateX(var(--cta-hover-x, 48px)); opacity: var(--cta-hover-opacity, 0);
+ transition: transform 180ms ease, opacity 180ms ease;
+}
+.version-two .v2-pricing .interactive-hover svg { width: 18px; height: 18px; stroke-width: 1.6; transform: rotate(45deg); transition: none; }
+@media (hover: hover) and (pointer: fine) {
+ #pricing .interactive-hover:hover { --cta-dot-scale: 100.8; --cta-base-x: 48px; --cta-base-opacity: 0; --cta-hover-x: 0px; --cta-hover-opacity: 1; }
+}
+#pricing .interactive-hover:focus-visible { --cta-dot-scale: 100.8; --cta-base-x: 48px; --cta-base-opacity: 0; --cta-hover-x: 0px; --cta-hover-opacity: 1; }
+#pricing .interactive-hover:focus-visible span { transition: none; }
+#pricing .interactive-hover:active { transform: scale(.98); }
+@media (prefers-reduced-motion: reduce) {
+ #pricing .interactive-hover, #pricing .interactive-hover span { transition: none; }
+ #pricing .interactive-hover:active { transform: none; }
 }
 
 /* Keep portfolio card borders unchanged on hover on the main page. */
@@ -121,8 +192,8 @@
  transform: translateX(-100%);
  transition: transform .65s cubic-bezier(.4,0,.2,1);
 }
-.version-two .form-submit svg { transform: none; transition: none; }
-.version-two .form-submit:hover svg { transform: none; }
+.version-two .form-submit svg { width: 18px; height: 18px; stroke-width: 1.6; transform: rotate(45deg); transition: none; }
+.version-two .form-submit:hover svg { transform: rotate(45deg); }
 @media (hover: hover) and (pointer: fine) {
  .version-two .form-submit:not(:disabled):hover { color: #fff; }
  .version-two .form-submit:not(:disabled):hover::before { transform: translateX(0); }

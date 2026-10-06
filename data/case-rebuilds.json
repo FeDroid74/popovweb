@@ -1,0 +1,18 @@
+{
+  "ultra-cleaning": {
+    "file": "reference-rebuilt-desktop.png",
+    "width": 1164,
+    "height": 7941,
+    "sha256": "bb8523b5f1c5270485cfb6676d02cc3b3ef362639a3eaebd5c233b36212049dd",
+    "reference": "1680w light bold.png",
+    "referenceDimensions": [
+      1680,
+      11467
+    ],
+    "referenceSha256": "f01eb3e5d0679ee5af6460d8e979a840f51b75fb712edd0f8bfcc35838fae411",
+    "method": "Six overlapping image-generation edits of the owner-provided reference, brand and location adapted to Ultra Cleaning; two local text corrections; aligned and composited at 1164px width.",
+    "authorization": "2026-10-05: owner explicitly requested reference-based adaptation, section by section.",
+    "isOriginalCapture": false,
+    "workingFiles": "design/case-restoration/ultra-reference-rebuild/"
+  }
+}

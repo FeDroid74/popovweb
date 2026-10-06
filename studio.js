@@ -60,6 +60,11 @@ export function initStudio(){
 
   // Three concentric orbits, with independent speed and direction.
   const stage=document.querySelector('.orbit-stage');
+  if(!stage){
+    motion.addEventListener('change',()=>{rotor.reduced=motion.matches;drawGlobe();startGlobe();});
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)startGlobe();});
+    return;
+  }
   const continuous=stage.dataset.orbitMode==='continuous';
   const filtered=stage.hasAttribute('data-orbit-filter');
   const perspective=Number(stage.dataset.orbitPerspective)||1;
@@ -71,7 +76,7 @@ export function initStudio(){
   if(filtered){groups.design.radius=.38;groups.platforms.radius=.38;groups.code.radius=.42;}
   const nodes=stackTools.map(tool=>{
     const button=document.createElement(filtered?'span':'button');if(!filtered){button.type='button';button.setAttribute('aria-label',tool.name);button.setAttribute('aria-pressed','false');}button.className='orbit-node';button.dataset.tool=tool.id;button.dataset.group=tool.group;
-    const image=document.createElement('img');image.src=`./assets/stack/${tool.id}.${filtered&&['illustrator','wordpress'].includes(tool.id)?'png':'svg'}`;image.alt='';image.width=29;image.height=29;image.draggable=false;
+    const image=document.createElement('img');image.src=new URL(`./assets/stack/${tool.id}.${filtered&&['illustrator','wordpress'].includes(tool.id)?'png':'svg'}`, import.meta.url).href;image.alt='';image.width=29;image.height=29;image.draggable=false;
     const name=document.createElement('span');name.className='orbit-node-label';name.textContent=tool.name;
     button.append(image,name);nodesRoot.append(button);
     const siblings=stackTools.filter(t=>t.group===tool.group);
@@ -156,15 +161,16 @@ export function initStudio(){
   const chosen=document.querySelector('.chosen-plan');
   const mail=document.querySelector('.contact-button');
   function updatePlan(){
-    chosen.hidden=!selectedPlan;if(!selectedPlan){mail.href='mailto:fedorpopov7@yandex.ru';return;}
+    chosen.dataset.plan=selectedPlan||'';chosen.hidden=!selectedPlan;if(!selectedPlan){mail.href='mailto:fedorpopov7@yandex.ru';return;}
     const card=document.querySelector(`[data-plan="${selectedPlan}"]`).closest('.price-card');
     const name=card.querySelector('h3').textContent,price=card.querySelector('.price-value').textContent;
     chosen.querySelector('.chosen-plan-name').textContent=`${name} · ${price}`;
     const subject=`PopovWeb — ${name}`;
-    const body=label(`Здравствуйте, Фёдор!\n\nХочу обсудить формат «${name}» (${price}).\n\nО проекте:\nМои задачи:\nЖелаемые сроки:\n`,`Hi Fedor,\n\nI’d like to discuss a ${name.toLowerCase()} (${price}).\n\nAbout my project:\nMy goals:\nPreferred timing:\n`);
+    const body=label(`Здравствуйте, Федор!\n\nХочу обсудить формат «${name}» (${price}).\n\nО проекте:\nМои задачи:\nЖелаемые сроки:\n`,`Hi Fedor,\n\nI’d like to discuss a ${name.toLowerCase()} (${price}).\n\nAbout my project:\nMy goals:\nPreferred timing:\n`);
     mail.href=`mailto:fedorpopov7@yandex.ru?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   }
   document.querySelectorAll('[data-plan]').forEach(a=>a.addEventListener('click',()=>{selectedPlan=a.dataset.plan;updatePlan();}));
+  root.addEventListener('popovweb:restore-plan',event=>{selectedPlan=['landing','company','catalog','shop'].includes(event.detail)?event.detail:null;updatePlan();});
   document.querySelector('.clear-plan').addEventListener('click',()=>{selectedPlan=null;updatePlan();});
   // Keep the previous header CTA's entry-side color fill.
   const navCta=document.querySelector('.nav-cta');

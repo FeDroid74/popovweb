@@ -1,0 +1,34 @@
+{
+  "brivillage": {
+    "file": "original-desktop.png",
+    "source": "Главная страница-1.png",
+    "kind": "original-file",
+    "width": 1512,
+    "height": 7788,
+    "sha256": "9441c6623c5127c14f7e1bb3919ca5cb3c3c553eec0461d9deb3417854c648d1"
+  },
+  "volume-traffic": {
+    "file": "original-desktop.png",
+    "source": "VOLUME-TRAFFIC.png",
+    "kind": "original-file",
+    "width": 1680,
+    "height": 10000,
+    "sha256": "86c26ef7753ad54dd29bad7ec4167e6646ad574f6833af49e8fca9820d726750"
+  },
+  "ultra-cleaning": {
+    "file": "original-desktop.png",
+    "source": "popovweb_cases_for_codex.zip/assets/ultra-cleaning/full-ru.png",
+    "kind": "original-file",
+    "width": 398,
+    "height": 2048,
+    "sha256": "d6bbc68c3b5474874d0dbf2b26c5dc21d89fef3fe74d0b78139e947d7f695172"
+  },
+  "royal-trees": {
+    "file": "original-desktop.png",
+    "source": "https://royal-trees.ru/",
+    "kind": "website-capture",
+    "width": 1264,
+    "height": 11648,
+    "sha256": "ae5547a564ec0314fb80e3aa06049c5a31b38169fd9a268f793950a00a7b390e"
+  }
+}

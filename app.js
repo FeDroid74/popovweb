@@ -3,7 +3,8 @@ import { initStudio } from './studio.js';
 
 const root = document.documentElement;
 const themeButton = document.querySelector('.theme-toggle');
-const languageButton = document.querySelector('.language-toggle');
+const languageButton = document.querySelector('button.language-toggle');
+const localizedPage = root.hasAttribute('data-localized-page');
 const menuButton = document.querySelector('.menu-toggle');
 const mobileNav = document.querySelector('#mobile-nav');
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
@@ -24,8 +25,7 @@ function updateControls() {
   themeButton.title = themeLabel;
   themeButton.setAttribute('aria-pressed', String(isLight));
   const languageLabel = isRu ? 'Switch to English' : 'Переключить на русский';
-  languageButton.setAttribute('aria-label', languageLabel);
-  languageButton.title = languageLabel;
+  if (languageButton) { languageButton.setAttribute('aria-label', languageLabel); languageButton.title = languageLabel; }
   const menuOpen = menuButton.getAttribute('aria-expanded') === 'true';
   menuButton.setAttribute('aria-label', isRu ? (menuOpen ? 'Закрыть меню' : 'Открыть меню') : (menuOpen ? 'Close menu' : 'Open menu'));
   document.querySelector('meta[name="theme-color"]').content = isLight ? '#F5F5F2' : '#1B1C1A';
@@ -39,22 +39,61 @@ function setLanguage(language) {
     else element.setAttribute(target, value);
   });
   document.title = root.lang === 'ru' ? 'PopovWeb — Дизайн сайтов и разработка на Framer' : 'PopovWeb — Independent design & Framer development';
-  document.querySelector('meta[name="description"]').content = root.lang === 'ru' ? 'Продуманные сайты от Фёдора Попова. Независимый дизайн, разработка на Framer и осмысленная анимация.' : 'Thoughtful websites by Fedor Popov. Independent website design, Framer development and purposeful motion.';
+  document.querySelector('meta[name="description"]').content = root.lang === 'ru' ? 'Продуманные сайты от Федора Попова. Независимый дизайн, разработка на Framer и осмысленная анимация.' : 'Thoughtful websites by Fedor Popov. Independent website design, Framer development and purposeful motion.';
   persist('popovweb-lang', root.lang);
   updateControls();
   root.dispatchEvent(new Event('popovweb:language'));
 }
-setLanguage(root.lang);
-languageButton.addEventListener('click', () => setLanguage(root.lang === 'ru' ? 'en' : 'ru'));
-let themeTransitionTimer;
-themeButton.addEventListener('click', () => {
-  clearTimeout(themeTransitionTimer);
-  root.classList.add('theme-transition');
-  root.dataset.theme = root.dataset.theme === 'light' ? 'dark' : 'light';
-  persist('popovweb-theme', root.dataset.theme);
-  updateControls();
-  redrawIllumination();
-  themeTransitionTimer = setTimeout(() => root.classList.remove('theme-transition'), 240);
+if (localizedPage) updateControls();
+else setLanguage(root.lang);
+languageButton?.addEventListener('click', () => setLanguage(root.lang === 'ru' ? 'en' : 'ru'));
+let themeChanging = false;
+themeButton.addEventListener('click', async event => {
+  if (themeChanging) return;
+  const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
+  const applyTheme = () => {
+    root.dataset.theme = nextTheme;
+    persist('popovweb-theme', nextTheme);
+    updateControls();
+    redrawIllumination();
+  };
+  // Native fallback also keeps keyboard and reduced-motion changes immediate.
+  if (!document.startViewTransition || reducedMotion.matches || event.detail === 0) {
+    applyTheme();
+    return;
+  }
+  const { left, top, width, height } = themeButton.getBoundingClientRect();
+  const x = left + width / 2;
+  const y = top + height / 2;
+  const radius = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+  // Percentages keep the snapshot mask aligned under browser/page zoom.
+  // A circle's percentage radius is relative to the normalized viewport diagonal.
+  const origin = `${x / innerWidth * 100}% ${y / innerHeight * 100}%`;
+  const radiusPercent = radius / (Math.hypot(innerWidth, innerHeight) / Math.SQRT2) * 100;
+  let transition;
+  themeChanging = true;
+  themeButton.setAttribute('aria-disabled', 'true');
+  root.classList.add('theme-reveal');
+  try {
+    transition = document.startViewTransition(applyTheme);
+    await transition.ready;
+    await root.animate({
+      clipPath: [`circle(0% at ${origin})`, `circle(${radiusPercent}% at ${origin})`],
+    }, {
+      duration: 400,
+      easing: 'ease-in-out',
+      pseudoElement: '::view-transition-new(root)',
+    }).finished;
+    await transition.finished;
+  } catch {
+    // Hidden tabs or an unsupported transition must still change the theme.
+    transition?.skipTransition();
+    if (root.dataset.theme !== nextTheme) applyTheme();
+  } finally {
+    root.classList.remove('theme-reveal');
+    themeButton.removeAttribute('aria-disabled');
+    themeChanging = false;
+  }
 });
 
 function setMenu(open, restoreFocus = false) {
@@ -114,8 +153,10 @@ function resizeCanvas() {
   canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
   context?.setTransform(ratio, 0, 0, ratio, 0, 0); draw(0);
 }
-new ResizeObserver(resizeCanvas).observe(contact);
-new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncAnimation(); }).observe(contact);
+if (contact) {
+  new ResizeObserver(resizeCanvas).observe(contact);
+  new IntersectionObserver(entries => { inView = entries[0].isIntersecting; syncAnimation(); }).observe(contact);
+}
 document.addEventListener('visibilitychange', syncAnimation);
 reducedMotion.addEventListener('change', () => { updateControls(); syncAnimation(); });
 function followPointer(event) {
@@ -124,8 +165,8 @@ function followPointer(event) {
   targetX = (event.clientX - rect.left) / rect.width; targetY = (event.clientY - rect.top) / rect.height;
   draw(0);
 }
-contact.addEventListener('pointermove', followPointer, { passive: true });
-contact.addEventListener('pointerdown', followPointer, { passive: true });
+contact?.addEventListener('pointermove', followPointer, { passive: true });
+contact?.addEventListener('pointerdown', followPointer, { passive: true });
 
 // Keep native details semantics; animate both directions from the current height.
 document.querySelectorAll('details').forEach(details => {
@@ -163,7 +204,7 @@ document.querySelectorAll('details').forEach(details => {
 
 // No scroll locks, synthetic inertia, snap points, or oversized scroll spacers.
 const stack = document.querySelector('.project-stack');
-const cards = [...stack.children];
+const cards = [...(stack?.children || [])];
 const stackMedia = matchMedia('(min-width:1024px) and (min-height:650px)');
 let stackFrame = 0;
 function paintStack() {
@@ -184,6 +225,7 @@ function queueStack() {
   if (!stackFrame) stackFrame = requestAnimationFrame(paintStack);
 }
 function measureStack() {
+  if (!stack) return;
   // If a card is too tall (translation, zoom, expanded details), let it scroll normally.
   stack.classList.toggle('is-stacking', stackMedia.matches && !reducedMotion.matches && cards.every(card => card.offsetHeight <= innerHeight - 132));
   queueStack();

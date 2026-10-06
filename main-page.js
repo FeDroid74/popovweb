@@ -1,13 +1,18 @@
 const root = document.documentElement;
 function translateServices() {
-  document.querySelectorAll('.v2-pricing [data-ru], .faq [data-ru]').forEach(element => {
+  document.querySelectorAll('[data-main-copy], .v2-pricing [data-ru], .faq [data-ru]').forEach(element => {
     element.textContent = element.dataset[root.lang === 'ru' ? 'ru' : 'en'];
   });
   document.querySelector('.format-tabs').setAttribute('aria-label', root.lang === 'ru' ? 'Задача сайта' : 'Website goal');
+
 }
 translateServices();
 root.addEventListener('popovweb:language', translateServices);
 const tabs = [...document.querySelectorAll('.format-tabs [role=tab]')];
+root.addEventListener('popovweb:restore-format', event => {
+  const tab = tabs.find(item => item.dataset.format === event.detail);
+  if (tab) activate(tab);
+});
 function activate(tab) {
   tabs.forEach(item => { const active = item === tab; item.setAttribute('aria-selected', String(active)); item.tabIndex = active ? 0 : -1; });
   document.querySelectorAll('.format-panel').forEach(panel => { panel.hidden = panel.id !== tab.getAttribute('aria-controls'); });
