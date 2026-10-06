@@ -412,3 +412,22 @@ footer { padding: 32px calc(var(--frame-gutter) + var(--frame-inset)); }
 @keyframes orbit-tooltip-in { from { opacity: 0; transform: scale(.96) translateY(3px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 @keyframes orbit-tooltip-out { to { opacity: 0; transform: scale(.98); } }
 @media (prefers-reduced-motion: reduce) { .orbit-tooltip { animation: none; } .orbit-tool-trigger { transition: none; } }
+
+/* Mobile portrait meets the hero edge without the desktop vertical offset. */
+@media (max-width: 767px) {
+  .version-two .hero { padding-bottom: 0; }
+  .version-two .hero-portrait {
+    width: min(calc(100% + var(--frame-inset) * 2), 430px);
+    max-width: none;
+    height: clamp(320px, 100vw, 420px);
+    margin: 24px 0 0;
+    align-self: center;
+    flex-shrink: 0;
+  }
+  .version-two .hero-portrait img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transform: none;
+  }
+}
