@@ -24,6 +24,7 @@ qa/*
 !qa/deployment.md
 assets/*
 !assets/favicon.svg
+!assets/favicon-32.png
 !assets/font-*.ttf
 !assets/*-OFL.txt
 !assets/stitch-velora.webp
