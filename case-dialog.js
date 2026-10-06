@@ -45,6 +45,10 @@ function openCase(trigger) {
   current = dialog;
   outsidePress = false;
   unlock = lockPage();
+  dialog.querySelectorAll('[data-case-src]').forEach(image => {
+    image.src = image.dataset.caseSrc;
+    image.removeAttribute('data-case-src');
+  });
   dialog.showModal();
   dialog.querySelector('.case-mockup-scroll').scrollTop = 0;
   dialog.scrollTop = 0;

@@ -56,7 +56,7 @@
   <main id="main" class="page">
     <section class="hero panel" aria-labelledby="hero-title">
       <div class="hero-grid" aria-hidden="true"></div>
-      <div class="hero-portrait hero-portrait-new"><img class="hero-photo-selected" src="./assets/fedor-hero-selected.png" width="1024" height="1536" alt="Fedor Popov" data-alt-ru="Федор Попов" data-alt-en="Fedor Popov" fetchpriority="high" decoding="async"></div>
+      <div class="hero-portrait hero-portrait-new"><img class="hero-photo-selected" src="./assets/optimized/hero.webp" srcset="./assets/optimized/hero-small.webp 640w, ./assets/optimized/hero.webp 1024w" sizes="(max-width: 760px) 92vw, 48vw" width="1024" height="1536" alt="Fedor Popov" data-alt-ru="Федор Попов" data-alt-en="Fedor Popov" fetchpriority="high" decoding="async"></div>
       <div class="hero-content">
         <h1 id="hero-title"><span data-i18n="v2.hero.title1">Websites that</span><br><span class="accent-text" data-i18n="v2.hero.title2">bring you clients</span></h1>
         <p class="hero-description"><span data-i18n="v2.hero.line1">I build complete websites, from landing pages to online stores.</span> <span data-i18n="v2.hero.line2">I handle SEO and Yandex Direct campaigns for Russian-speaking audiences.</span> <span data-i18n="v2.hero.line3">You work directly with me, without intermediaries or agency markups.</span> <span data-i18n="v2.hero.line4">Based in Montenegro, working remotely with clients internationally.</span></p>
@@ -179,7 +179,7 @@
       </div>
       <figure class="about-figure">
         <div class="about-workspace">
-          <img class="about-photo" src="./assets/fedor-about-macbook.jpg" width="1086" height="1448" alt="Fedor Popov with a MacBook by the sea in Montenegro" data-i18n-alt="v2.about.photo" loading="lazy" decoding="async">
+          <img class="about-photo" src="./assets/optimized/about.webp" srcset="./assets/optimized/about-small.webp 640w, ./assets/optimized/about.webp 1086w" sizes="(max-width: 760px) 92vw, 45vw" width="1086" height="1448" alt="Fedor Popov with a MacBook by the sea in Montenegro" data-i18n-alt="v2.about.photo" loading="lazy" decoding="async">
           <div class="orbit-stage" data-orbit-mode="continuous" data-orbit-perspective="0.37" data-orbit-filter="design"><div class="orbit-track track-design"></div><div class="orbit-track track-platforms"></div><div class="orbit-track track-code"></div><div class="orbit-nodes"></div></div>
       <div class="about-toolbox">
         <div class="stack-toolbar">
@@ -221,7 +221,7 @@
         </div>
       </div>
       <div class="contact-form-surface" data-magic-card>
-        <form class="project-form" action="/api/contact" method="post" novalidate aria-label="Project enquiry" data-contact-aria="formTitle">
+        <form class="project-form ym-disable-keys" action="/api/contact" method="post" novalidate aria-label="Project enquiry" data-contact-aria="formTitle">
           <div class="chosen-plan" hidden><span data-i18n="contact.selectedLabel">Selected format</span><strong class="chosen-plan-name"></strong><button type="button" class="clear-plan" data-i18n="contact.clear">Clear selection</button></div>
           <div class="form-field">
             <label for="enquiry-name" data-contact-text="name">Your name</label>
@@ -247,6 +247,7 @@
             <label for="enquiry-message"><span data-contact-text="message">A few words about your project</span><span class="field-optional" data-contact-text="optional">Optional</span></label>
             <textarea id="enquiry-message" name="message" rows="3" maxlength="3000"></textarea>
           </div>
+          <div class="form-consent"><label><input type="checkbox" name="consent" required aria-describedby="consent-error"><span><span data-ru="Даю согласие на " data-en="I consent to ">I consent to </span><a href="./documents/consent-en.html" data-document="consent" target="_blank" rel="noopener" data-ru="обработку персональных данных" data-en="personal data processing">personal data processing</a></span></label><p class="field-error" id="consent-error" hidden></p><a href="./documents/privacy-en.html" data-document="privacy" target="_blank" rel="noopener" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a></div>
           <button class="button form-submit" type="submit"><span data-contact-text="submit">Send enquiry</span><svg aria-hidden="true"><use href="#arrow-up-right"/></svg></button>
           <p class="form-status" role="status" hidden></p>
           <noscript><p data-ru="Для заявки напишите на fedorpopov7@yandex.ru или в Telegram @FeDroid74. Для работы формы включите JavaScript." data-en="Email fedorpopov7@yandex.ru or message @FeDroid74 on Telegram. Enable JavaScript to use the form.">Для заявки напишите на fedorpopov7@yandex.ru или в Telegram @FeDroid74. Для работы формы включите JavaScript.</p></noscript>
@@ -257,7 +258,7 @@
   <footer class="site-footer">
     <div class="footer-inner">
       <span class="footer-copyright" data-ru="© 2026 Федор Попов. Все права защищены." data-en="© 2026 Fedor Popov. All rights reserved.">© 2026 Fedor Popov. All rights reserved.</span>
-      <a class="footer-privacy" role="link" aria-disabled="true" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a>
+      <a class="footer-privacy" href="./documents/privacy-en.html" data-document="privacy" target="_blank" rel="noopener" data-ru="Политика конфиденциальности" data-en="Privacy policy">Privacy policy</a>
       <div class="contact-links contact-icon-links footer-contacts">
           <a class="contact-button contact-direct" href="mailto:fedorpopov7@yandex.ru" aria-label="Email: fedorpopov7@yandex.ru"><svg aria-hidden="true"><use href="#mail"/></svg><span class="contact-tooltip" aria-hidden="true">fedorpopov7@yandex.ru</span></a>
           <a class="contact-direct" data-contact-link="whatsapp" href="https://wa.me/79636746751" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp: +7 963 674-67-51"><span class="contact-brand-icon icon-whatsapp" aria-hidden="true"></span><span class="contact-tooltip" aria-hidden="true">WhatsApp</span></a>

@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { normalizeContact, suggestEmail, contactError, buildEnquiryMessage } from '../contact-validation.js';
 import { createContactHandler, validateEnquiry } from '../contact-api.mjs';
 
-const enquiry = { name: 'Тест', method: 'email', contact: 'test@example.com', message: 'Тестовая заявка', plan: '', language: 'ru' };
+const enquiry = { name: 'Тест', method: 'email', contact: 'test@example.com', message: 'Тестовая заявка', plan: '', language: 'ru', consent: true, consentVersion: '2026-10-06' };
 test('email corrections are suggestions; never invent the mailbox name', () => {
   assert.equal(suggestEmail('namegmail.com'), 'name@gmail.com');
   assert.equal(suggestEmail('gmail.com'), '');
@@ -25,6 +25,8 @@ test('normalize handles and international phones without changing the country', 
 });
 test('validate server fields and retain the selected format', () => {
   assert.equal(validateEnquiry(enquiry), true);
+  assert.equal(validateEnquiry({ ...enquiry, consent: false }), false);
+  assert.equal(validateEnquiry({ ...enquiry, consentVersion: 'unknown' }), false);
   assert.equal(validateEnquiry({ ...enquiry, method: 'other' }), false);
   assert.equal(validateEnquiry({ ...enquiry, message: 'a'.repeat(3001) }), false);
   assert.equal(validateEnquiry({ ...enquiry, contact: 'bad' }), false);
@@ -61,4 +63,17 @@ test('network failures and timeouts cannot become a successful enquiry', async (
     const handler = createContactHandler({ token: 'test-token', chatId: '123', send: async () => { throw error; } });
     assert.deepEqual(await request(handler), { code: 502, body: { error: 'delivery_failed' } });
   }
+});
+
+test('separately hosted API accepts only configured website origins and supports preflight', async () => {
+  const handler = createContactHandler({ token: 'test', chatId: '123', allowedOrigins: ['https://fedroid74.github.io'], send: async () => ({ok:true,json:async()=>({ok:true})}) });
+  assert.equal((await request(handler, enquiry, 'https://fedroid74.github.io')).code, 200);
+  assert.equal((await request(handler, enquiry, 'https://fedroid74.github.io.attacker.test')).code, 403);
+  const headers = {}; let code;
+  await handler({method:'OPTIONS',headers:{origin:'https://fedroid74.github.io',host:'api.example.test'}}, {
+    setHeader(name,value){headers[name]=value;},writeHead(value){code=value;},end(){},
+  });
+  assert.equal(code,204);
+  assert.equal(headers['Access-Control-Allow-Origin'],'https://fedroid74.github.io');
+  assert.equal(headers['Access-Control-Allow-Methods'],'POST');
 });

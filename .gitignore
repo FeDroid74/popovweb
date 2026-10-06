@@ -53,3 +53,4 @@ assets/cases/*/*
 !assets/cases/*/original-desktop.png
 !assets/cases/ultra-cleaning/upscaled-desktop.png
 !assets/cases/ultra-cleaning/reference-rebuilt-desktop.png
+!assets/optimized/

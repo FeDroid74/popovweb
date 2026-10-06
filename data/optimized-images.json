@@ -1,0 +1,126 @@
+{
+  "cases": {
+    "ultra-cleaning": {
+      "full": {
+        "file": "assets/optimized/ultra-cleaning-full.webp",
+        "width": 1164,
+        "height": 7941,
+        "bytes": 990126,
+        "sourceBytes": 8445509
+      },
+      "card": {
+        "file": "assets/optimized/ultra-cleaning-card.webp",
+        "width": 1164,
+        "height": 665,
+        "bytes": 91102,
+        "sourceBytes": 8445509
+      },
+      "small": {
+        "file": "assets/optimized/ultra-cleaning-card-small.webp",
+        "width": 640,
+        "height": 366,
+        "bytes": 40162,
+        "sourceBytes": 8445509
+      }
+    },
+    "brivillage": {
+      "full": {
+        "file": "assets/optimized/brivillage-full.webp",
+        "width": 1512,
+        "height": 7788,
+        "bytes": 1661686,
+        "sourceBytes": 7706208
+      },
+      "card": {
+        "file": "assets/optimized/brivillage-card.webp",
+        "width": 1200,
+        "height": 686,
+        "bytes": 213858,
+        "sourceBytes": 7706208
+      },
+      "small": {
+        "file": "assets/optimized/brivillage-card-small.webp",
+        "width": 640,
+        "height": 366,
+        "bytes": 69478,
+        "sourceBytes": 7706208
+      }
+    },
+    "volume-traffic": {
+      "full": {
+        "file": "assets/optimized/volume-traffic-full.webp",
+        "width": 1680,
+        "height": 10000,
+        "bytes": 982112,
+        "sourceBytes": 3307393
+      },
+      "card": {
+        "file": "assets/optimized/volume-traffic-card.webp",
+        "width": 1200,
+        "height": 686,
+        "bytes": 64104,
+        "sourceBytes": 3307393
+      },
+      "small": {
+        "file": "assets/optimized/volume-traffic-card-small.webp",
+        "width": 640,
+        "height": 366,
+        "bytes": 26892,
+        "sourceBytes": 3307393
+      }
+    },
+    "royal-trees": {
+      "full": {
+        "file": "assets/optimized/royal-trees-full.webp",
+        "width": 1264,
+        "height": 11648,
+        "bytes": 1977930,
+        "sourceBytes": 9972430
+      },
+      "card": {
+        "file": "assets/optimized/royal-trees-card.webp",
+        "width": 1200,
+        "height": 685,
+        "bytes": 107196,
+        "sourceBytes": 9972430
+      },
+      "small": {
+        "file": "assets/optimized/royal-trees-card-small.webp",
+        "width": 640,
+        "height": 366,
+        "bytes": 40990,
+        "sourceBytes": 9972430
+      }
+    }
+  },
+  "photos": {
+    "hero": {
+      "file": "assets/optimized/hero.webp",
+      "width": 1024,
+      "height": 1536,
+      "bytes": 113378,
+      "sourceBytes": 1650821
+    },
+    "heroSmall": {
+      "file": "assets/optimized/hero-small.webp",
+      "width": 640,
+      "height": 960,
+      "bytes": 52774,
+      "sourceBytes": 1650821
+    },
+    "about": {
+      "file": "assets/optimized/about.webp",
+      "width": 1086,
+      "height": 1448,
+      "bytes": 292042,
+      "sourceBytes": 859359
+    },
+    "aboutSmall": {
+      "file": "assets/optimized/about-small.webp",
+      "width": 640,
+      "height": 853,
+      "bytes": 139942,
+      "sourceBytes": 859359
+    }
+  }
+}

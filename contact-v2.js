@@ -8,6 +8,16 @@ const nameInput = form.elements.namedItem('name');
 const contactInput = form.elements.namedItem('contact');
 const methodInput = form.elements.namedItem('method');
 const messageInput = form.elements.namedItem('message');
+// Older preview pages use this shared form module as well.
+if (!form.elements.namedItem('consent')) {
+  const group = document.createElement('div');
+  group.className = 'form-consent';
+  group.innerHTML = '<label><input type="checkbox" name="consent" required aria-describedby="consent-error"><span><span data-consent-prefix></span><a data-consent-link target="_blank" rel="noopener"></a></span></label><p class="field-error" id="consent-error" hidden></p>';
+  form.querySelector('[type=submit]').before(group);
+}
+const consentInput = form.elements.namedItem('consent');
+const consentError = form.querySelector('#consent-error');
+consentInput.addEventListener('change', () => { consentError.hidden = true; consentInput.removeAttribute('aria-invalid'); });
 const help = document.querySelector('#contact-help');
 const prefix = document.querySelector('.contact-prefix');
 const suggestion = document.querySelector('.email-suggestion');
@@ -110,6 +120,7 @@ suggestion.addEventListener('click', () => {
 });
 form.addEventListener('submit', async event => {
   event.preventDefault();
+  if (form.dataset.contactDisabled === 'true') { showStatus('unavailable'); return; }
   if (submitting) return;
   touched.name = touched.contact = true;
   contactInput.value = normalizeContact(currentMethod, contactInput.value);
@@ -118,8 +129,15 @@ form.addEventListener('submit', async event => {
     (validName ? contactInput : nameInput).focus();
     return;
   }
+  if (!consentInput.checked) {
+    consentError.textContent = root.lang === 'ru' ? 'Нужно согласие на обработку заявки.' : 'Please consent to processing your enquiry.';
+    consentError.hidden = false;
+    consentInput.setAttribute('aria-invalid', 'true');
+    consentInput.focus();
+    return;
+  }
   const chosen = form.querySelector('.chosen-plan');
-  const payload = { name: nameInput.value.trim(), method: currentMethod, contact: contactInput.value, message: messageInput.value, plan: chosen.hidden ? '' : chosen.querySelector('.chosen-plan-name').textContent, language: root.lang };
+  const payload = { name: nameInput.value.trim(), method: currentMethod, contact: contactInput.value, message: messageInput.value, plan: chosen.hidden ? '' : chosen.querySelector('.chosen-plan-name').textContent, language: root.lang, consent: true, consentVersion: '2026-10-06' };
   const submit = form.querySelector('[type=submit]');
   submitting = true; submit.disabled = true; form.setAttribute('aria-busy', 'true');
   submit.querySelector('span').textContent = text('sending'); status.hidden = true;
@@ -135,6 +153,13 @@ form.addEventListener('submit', async event => {
   }
 });
 function translate() {
+  const ru = root.lang === 'ru';
+  const consentLink = form.querySelector('[data-consent-link]');
+  if (consentLink) {
+    form.querySelector('[data-consent-prefix]').textContent = ru ? 'Даю согласие на ' : 'I consent to ';
+    consentLink.textContent = ru ? 'обработку персональных данных' : 'personal data processing';
+    consentLink.href = `./documents/consent-${ru ? 'ru' : 'en'}.html`;
+  }
   form.querySelectorAll('[data-contact-text]').forEach(node => node.textContent = text(node.dataset.contactText));
   form.setAttribute('aria-label', text('formTitle'));
   nameInput.placeholder = text('namePlaceholder');
@@ -155,3 +180,7 @@ for (const method of ['whatsapp', 'telegram']) {
 }
 root.addEventListener('popovweb:language', translate);
 translate();
+if (form.dataset.contactDisabled === 'true') {
+  form.querySelector('[type=submit]').disabled = true;
+  showStatus('unavailable');
+}

@@ -1,0 +1,11 @@
+Consent to personal data processing
+PopovWeb · 2026-10-06
+
+Controller and purpose
+By selecting the separate checkbox and submitting an enquiry, I consent to Fedor Vladimirovich Popov (Попов Федор Владимирович, Russian Federation, fedorpopov7@yandex.ru) processing the information I provide to respond and discuss website development.
+
+Data and operations
+This covers my name, selected Telegram/WhatsApp/email contact, project description, selected format, form language and consent record. Processing includes receipt, recording, organisation, storage, correction, use for responding and deletion, with or without automation. A connected integration sends the enquiry to the controller through the Telegram Bot API. This consent does not authorise public disclosure or advertising messages.
+
+Duration and withdrawal
+Consent lasts until the purpose is fulfilled or I withdraw it by emailing fedorpopov7@yandex.ru. Processing then stops and data is deleted within applicable legal periods unless another legal basis applies. Consent version: 2026-10-06.

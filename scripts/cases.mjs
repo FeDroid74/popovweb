@@ -2,7 +2,7 @@ import { readFileSync } from 'node:fs';
 import { cases } from '../data/cases.mjs';
 
 export { cases };
-const sizes = JSON.parse(readFileSync(new URL('../data/case-images.json', import.meta.url), 'utf8'));
+const optimized = JSON.parse(readFileSync(new URL('../data/optimized-images.json', import.meta.url), 'utf8'));
 const escape = value => String(value).replaceAll('&', '&amp;').replaceAll('"', '&quot;').replaceAll('<', '&lt;').replaceAll('>', '&gt;');
 const arrow = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h16m-7-7 7 7-7 7"/></svg>';
 const factIcons = {
@@ -15,9 +15,11 @@ const labels = {
   ru: { view: 'Смотреть кейс', close: 'Закрыть кейс', live: 'Посмотреть сайт', purpose: 'Задача', done: 'Что сделано', full: 'Исходный снимок страницы', open: 'Открыть изображение', archive: 'Веб-архив', notice: 'Показана версия проекта на момент моей работы. После передачи сайт мог быть изменён владельцем.', current: 'Снимки действующего сайта Royal Trees. Текущая версия могла быть изменена владельцем после передачи проекта.', original: 'Разрешение исходного снимка ограничено. Он сохранён без увеличения.' },
   en: { view: 'View case study', close: 'Close case study', live: 'Visit website', purpose: 'The task', done: 'What was done', full: 'Original page capture', open: 'Open image', archive: 'Web archive', notice: 'This shows the project as it was during my work. The owner may have changed the website after handover.', current: 'Images of the current Royal Trees website. The owner may have changed this version after handover.', original: 'The original capture has limited resolution. It is preserved without upscaling.' },
 };
-function image(item, file, alt, extra = '') {
-  const [width, height] = sizes[item.slug][file];
-  return `<img src="./assets/cases/${item.slug}/${file}" width="${width}" height="${height}" alt="${escape(alt)}" loading="lazy" decoding="async" ${extra}>`;
+function optimizedImage(item, full, alt) {
+  const assets = optimized.cases[item.slug];
+  const asset = full ? assets.full : assets.card;
+  const source = full ? `data-case-src="./${asset.file}" class="case-mockup-original" draggable="false"` : `src="./${asset.file}" srcset="./${assets.small.file} ${assets.small.width}w, ./${asset.file} ${asset.width}w" sizes="(max-width: 760px) 92vw, 48vw" loading="lazy"`;
+  return `<img ${source} width="${asset.width}" height="${asset.height}" alt="${escape(alt)}" decoding="async">`;
 }
 function tags(copy) {
   return `<ul class="case-tags">${copy.modalFacts.map(([, label, value]) => `<li class="badge" aria-label="${escape(label)}: ${escape(value)}">${escape(value)}</li>`).join('')}</ul>`;
@@ -26,7 +28,7 @@ function preview(item, locale) {
   const ru = locale === 'ru';
   return `<section class="case-site-preview" aria-label="${ru ? 'Просмотр макета' : 'Website preview'}: ${escape(item.title)}">
     <div class="case-mockup-scroll" tabindex="0" role="region" aria-label="${escape(item.title)}: ${ru ? 'прокручиваемое изображение макета' : 'scrollable mockup image'}">
-      ${image(item, item.mockup, `${item.title}: ${ru ? 'полный макет' : 'full website mockup'}`, 'class="case-mockup-original" draggable="false"')}
+      ${optimizedImage(item, true, `${item.title}: ${ru ? 'полный макет' : 'full website mockup'}`)}
     </div>
   </section>`;
 }
@@ -37,7 +39,7 @@ export function renderCaseCards(locale) {
     const trigger = `type="button" data-case-open="${item.slug}" aria-haspopup="dialog" aria-controls="case-${item.slug}" aria-label="${l.view}: ${escape(item.title)}"`;
     return `<article data-portfolio-category="sites" class="case-card panel project-hover ${item.preview && index % 2 ? 'case-card-reverse' : ''} ${item.preview ? '' : 'case-card-archive'}">
       <div class="case-card-copy">${tags(copy)}<h3>${escape(item.title)}</h3><p>${escape(copy.description)}</p><button class="case-link case-open" ${trigger}><span>${l.view}</span>${arrow}</button></div>
-      ${item.preview ? `<button class="case-preview" ${trigger} tabindex="-1">${image(item, item.preview, '')}</button>` : `<a class="case-link case-archive-link" href="${item.archiveUrl}" target="_blank" rel="noopener noreferrer">${locale === 'ru' ? 'Открыть архив сайта' : 'Open website archive'}${arrow}</a>`}
+      ${item.preview ? `<button class="case-preview" ${trigger} tabindex="-1">${optimizedImage(item, false, '')}</button>` : `<a class="case-link case-archive-link" href="${item.archiveUrl}" target="_blank" rel="noopener noreferrer">${locale === 'ru' ? 'Открыть архив сайта' : 'Open website archive'}${arrow}</a>`}
     </article>`;
   }).join('\n');
 }

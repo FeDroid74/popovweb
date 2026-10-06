@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { access, readFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import { createHash } from 'node:crypto';
+import sharp from 'sharp';
 import { parse } from 'parse5';
 import { cases } from '../scripts/cases.mjs';
 import { renderHome, deployment, walk, attr, root, sitemap } from '../scripts/localize.mjs';
@@ -98,7 +99,8 @@ test('every case uses the same scrolling image at all viewport sizes, without in
       const pictures=content.filter(n=>n.tagName==='img');
       assert.equal(pictures.length,1);
       for(const picture of pictures) {
-        assert.ok(attr(picture,'src').endsWith(`/${item.mockup}`));
+        assert.equal(attr(picture,'src'),undefined,'Full images must not download before the dialog opens');
+        assert.ok(attr(picture,'data-case-src').endsWith(`/${item.slug}-full.webp`));
         assert.equal(attr(picture,'draggable'),'false');
         assert.equal(attr(picture,'class'),'case-mockup-original');
         assert.ok(Number(attr(picture,'height'))>Number(attr(picture,'width'))*2);
@@ -138,6 +140,32 @@ test('original PNG files keep their recorded dimensions and content hashes',asyn
       assert.equal(restored.readUInt32BE(16),upscale.width);
       assert.equal(restored.readUInt32BE(20),upscale.height);
       assert.equal(createHash('sha256').update(restored).digest('hex'),upscale.sha256);
+    }
+  }
+});
+
+test('optimized full mockups preserve source dimensions and cards use smaller responsive images',async()=>{
+  const images=JSON.parse(await readFile(resolve(root,'data/optimized-images.json'),'utf8'));
+  for (const item of cases) {
+    const delivery=images.cases[item.slug];
+    const original=await sharp(resolve(root,`assets/cases/${item.slug}/${item.mockup}`)).metadata();
+    const full=await sharp(resolve(root,delivery.full.file)).metadata();
+    assert.deepEqual([full.width,full.height],[original.width,original.height]);
+    assert.ok(delivery.full.bytes<delivery.full.sourceBytes/2);
+    assert.ok(delivery.card.bytes<250000);
+    assert.ok(delivery.small.bytes<delivery.card.bytes);
+  }
+  for(const locale of ['ru','en']) {
+    const elements=nodes(await renderHome(locale));
+    const cards=elements.filter(n=>n.tagName==='img'&&attr(n,'src')?.includes('-card.webp'));
+    assert.equal(cards.length,4);
+    for(const card of cards) {
+      assert.equal(attr(card,'loading'),'lazy');
+      for(const candidate of attr(card,'srcset').split(',')) {
+        const path=candidate.trim().split(' ')[0];
+        assert.ok(path.startsWith(locale==='ru'?'./':'../'));
+        await access(resolve(root,path.replace(/^\.\.?\//,'')));
+      }
     }
   }
 });

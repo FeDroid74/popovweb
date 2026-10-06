@@ -3,7 +3,6 @@ import { buildPages, deployment, sitemap, robots } from './localize.mjs';
 import { render404 } from './not-found.mjs';
 import { fileURLToPath } from 'node:url';
 import { resolve, dirname } from 'node:path';
-import { cases } from '../data/cases.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 const output = resolve(root, 'dist');
@@ -32,9 +31,8 @@ const files = [
   ...Array.from({ length: 7 }, (_, i) => `assets/font-${i}.ttf`),
   ...(await readdir(resolve(root, 'assets/stack'))).filter(name => /\.(svg|png|txt)$/.test(name)).map(name => `assets/stack/${name}`),
   ...(await readdir(resolve(root, 'assets/icons'))).filter(name => /\.(svg|txt)$/.test(name)).map(name => `assets/icons/${name}`),
-  // Ship only the actual originals referenced by the portfolio. Old generated
-  // previews and reconstructed desktop/mobile mockups are research artifacts.
-  ...new Set(cases.flatMap(item => [item.preview, item.mockup].filter(Boolean).map(name => `assets/cases/${item.slug}/${name}`))),
+  // Optimized delivery copies retain the originals' dimensions; PNG sources stay in Git.
+  ...(await readdir(resolve(root, 'assets/optimized'))).filter(name => name.endsWith('.webp')).map(name => `assets/optimized/${name}`),
 ];
 let bytes = 0;
 for (const file of files) {

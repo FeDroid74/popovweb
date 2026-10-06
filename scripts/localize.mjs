@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { ru } from '../translations.js';
 import { contactCopy } from '../contact-copy.js';
 import { renderCaseCards, renderCaseDialogs } from './cases.mjs';
+import { buildLegal } from './legal.mjs';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export const metadata = {
@@ -52,7 +53,7 @@ export function deployment(env = process.env) {
   if (!/^\/(?!\/)/.test(endpoint) && !/^https:\/\//.test(endpoint)) throw new Error('Invalid CONTACT_ENDPOINT');
   const basePath = env.SITE_BASE_PATH || '/';
   if (!/^\/(?!\/)[\w\-/]*\/$/.test(basePath) && basePath !== '/') throw new Error('Invalid SITE_BASE_PATH');
-  return { base, basePath, indexable, endpoint };
+  return { base, basePath, indexable, endpoint, contactDisabled: env.CONTACT_DISABLED === 'true' };
 }
 
 export async function renderHome(locale, config = deployment({})) {
@@ -94,12 +95,17 @@ export async function renderHome(locale, config = deployment({})) {
     if (id === 'enquiry-contact') setAttr(node, 'placeholder', 'username');
     if (id === 'contact-help') text(node, contactCopy[locale].telegramHelp);
     if (attr(node, 'class')?.split(' ').includes('theme-toggle')) setAttr(node, 'title', attr(node, 'aria-label'));
-    if (node.tagName === 'form') setAttr(node, 'action', config.endpoint);
+    if (node.tagName === 'form') {
+      setAttr(node, 'action', config.endpoint);
+      if (config.contactDisabled) setAttr(node, 'data-contact-disabled', 'true');
+    }
+    if (attr(node, 'data-document')) setAttr(node, 'href', `./documents/${attr(node, 'data-document')}-${locale}.html`);
     // Assets are relative to the project root, independent of domain or subdirectory.
-    for (const name of ['src', 'href']) {
+    for (const name of ['src', 'href', 'data-case-src']) {
       const value = attr(node, name);
       if (value?.startsWith('./')) setAttr(node, name, prefix + value.slice(2));
     }
+    if (attr(node, 'srcset')) setAttr(node, 'srcset', attr(node, 'srcset').replace(/(^|,\s*)\.\//g, `$1${prefix}`));
     if (attr(node, 'data-locale-switch') !== undefined) {
       const destination = locale === 'ru' ? 'en' : 'ru';
       setAttr(node, 'data-locale', destination);
@@ -150,6 +156,7 @@ export function robots(config) {
 }
 
 export async function buildPages(destination = root, config = deployment({})) {
+  await buildLegal(destination);
   for (const [locale, file] of [['ru', 'index.html'], ['en', 'en/index.html']]) {
     const path = resolve(destination, file);
     await mkdir(dirname(path), { recursive: true });
