@@ -14,6 +14,21 @@ function elements(html) {
 }
 const local = deployment({});
 
+test('every published entry point uses the PopovWeb globe wordmark', async () => {
+  const pages = [await renderHome('ru', local), await renderHome('en', local)];
+  for (const file of ['v2.html', 'v3.html']) pages.push(await readFile(resolve(root, file), 'utf8'));
+  for (const html of pages) {
+    const nodes = elements(html);
+    const brand = nodes.find(n => attr(n, 'class')?.split(' ').includes('brand'));
+    assert.ok(attr(brand, 'class').includes('brand-wordmark'));
+    const letters = [];
+    walk(brand, n => { if (n.nodeName === '#text') letters.push(n.value); });
+    assert.equal(letters.join(''), 'PopovWeb');
+    assert.ok(nodes.some(n => attr(n, 'href')?.includes('studio.css?v=wordmark-2')));
+    assert.ok(nodes.some(n => attr(n, 'rel') === 'icon' && attr(n, 'href')?.includes('favicon.svg?v=globe-1')));
+  }
+});
+
 test('RU and EN contain their complete content before any JavaScript executes', async () => {
   for (const locale of ['ru', 'en']) {
     const nodes = elements(await renderHome(locale, local));
