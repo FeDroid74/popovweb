@@ -73,7 +73,7 @@
 @keyframes case-backdrop-enter { from { opacity:0; } to { opacity:1; } }
 @keyframes case-backdrop-exit { to { opacity:0; } }
 @media(max-width:900px) {
- .project-stack > .case-card,.project-stack > .case-card-reverse { grid-template-columns:1fr!important; position:relative!important; top:auto!important; transform:none!important; gap:26px; }
+ .project-stack > .case-card,.project-stack > .case-card-reverse { grid-template-columns:1fr!important; gap:26px; }
  .case-card .case-preview { grid-row:1; grid-column:1; }
  .case-card .case-card-copy { grid-row:2; grid-column:1; }
  .case-card-copy > p { max-width:none; }

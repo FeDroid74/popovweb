@@ -206,6 +206,7 @@ document.querySelectorAll('details').forEach(details => {
 const stack = document.querySelector('.project-stack');
 const cards = [...(stack?.children || [])];
 const stackMedia = matchMedia('(min-width:1024px) and (min-height:650px)');
+const compactStack = matchMedia('(max-width:1023px)');
 let stackFrame = 0;
 function paintStack() {
   stackFrame = 0;
@@ -217,7 +218,8 @@ function paintStack() {
       return;
     }
     const next = visibleCards[index + 1];
-    const progress = next ? Math.max(0, Math.min(1, (innerHeight - next.getBoundingClientRect().top) / (innerHeight - 108))) : 0;
+    const top = next ? parseFloat(next.style.getPropertyValue('--stack-top')) : 108;
+    const progress = next ? Math.max(0, Math.min(1, (innerHeight - next.getBoundingClientRect().top) / (innerHeight - top))) : 0;
     card.style.transform = `scale(${1 - progress * .045})`;
   });
 }
@@ -226,8 +228,13 @@ function queueStack() {
 }
 function measureStack() {
   if (!stack) return;
-  // If a card is too tall (translation, zoom, expanded details), let it scroll normally.
-  stack.classList.toggle('is-stacking', stackMedia.matches && !reducedMotion.matches && cards.every(card => card.offsetHeight <= innerHeight - 132));
+  // Tall mobile cards scroll fully into view before their bottom edge sticks.
+  const visibleCards = cards.filter(card => !card.hidden);
+  const headerHeight = document.querySelector('.nav-shell')?.offsetHeight || 68;
+  const top = compactStack.matches ? headerHeight + 28 : 108;
+  visibleCards.forEach(card => card.style.setProperty('--stack-top', `${Math.min(top, innerHeight - card.offsetHeight - 24)}px`));
+  const fitsDesktop = stackMedia.matches && visibleCards.every(card => card.offsetHeight <= innerHeight - 132);
+  stack.classList.toggle('is-stacking', !reducedMotion.matches && (compactStack.matches || fitsDesktop));
   queueStack();
 }
 const stackResize = new ResizeObserver(measureStack);
@@ -235,6 +242,7 @@ cards.forEach(card => stackResize.observe(card));
 addEventListener('scroll', queueStack, {passive:true});
 addEventListener('resize', measureStack, {passive:true});
 stackMedia.addEventListener('change', measureStack);
+compactStack.addEventListener('change', measureStack);
 reducedMotion.addEventListener('change', measureStack);
 measureStack();
 

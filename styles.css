@@ -42,8 +42,8 @@
 .project-stack .concept-card p{font-size:17px}
 @media(min-width:1024px) and (min-height:650px){
   .project-stack>article{min-height:480px}
-  .project-stack.is-stacking>article{position:sticky;top:108px;will-change:transform}
 }
+.project-stack.is-stacking>article{position:sticky;top:var(--stack-top,108px);will-change:transform}
 @media(max-width:1023px){
   .project-stack>.concept-card{display:flex;padding:32px}
   .project-stack .concept-image{width:100%;aspect-ratio:16/10;order:-1}

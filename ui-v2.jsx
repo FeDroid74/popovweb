@@ -152,7 +152,8 @@ document.querySelectorAll('select:not([data-native])').forEach((nativeSelect, in
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 document.querySelectorAll('[data-magic-card]').forEach(card => {
   let clearTimer;
-  const reset = () => { clearTimeout(clearTimer); card.removeAttribute('data-magic-active'); };
+  let gesture = null;
+  const reset = () => { clearTimeout(clearTimer); gesture = null; card.removeAttribute('data-magic-active'); };
   const move = event => {
     if (reduced.matches) return;
     clearTimeout(clearTimer);
@@ -161,11 +162,27 @@ document.querySelectorAll('[data-magic-card]').forEach(card => {
     card.style.setProperty('--magic-y', `${event.clientY - rect.top}px`);
     card.dataset.magicActive = '';
   };
-  card.addEventListener('pointermove', move, { passive: true });
-  card.addEventListener('pointerdown', move, { passive: true });
-  card.addEventListener('pointerleave', reset);
-  card.addEventListener('pointercancel', reset);
-  card.addEventListener('pointerup', event => { if (event.pointerType !== 'mouse') clearTimer = setTimeout(reset, 500); });
+  // Mouse hover stays immediate. Touch taps belong entirely to the native controls.
+  card.addEventListener('pointermove', event => { if (event.pointerType !== 'touch') move(event); }, { passive: true });
+  card.addEventListener('pointerleave', event => { if (event.pointerType !== 'touch') reset(); });
+  const controls = 'input, textarea, select, button, a, label, [role="button"], [role="checkbox"], [role="combobox"], [contenteditable]';
+  card.addEventListener('touchstart', event => {
+    reset();
+    if (reduced.matches || event.touches.length !== 1 || event.target.closest(controls)) return;
+    const touch = event.touches[0];
+    gesture = { id: touch.identifier, x: touch.clientX, y: touch.clientY, moving: false };
+  }, { passive: true });
+  // Passive touch events keep following the finger after native scrolling starts.
+  card.addEventListener('touchmove', event => {
+    if (!gesture) return;
+    if (event.touches.length !== 1) { reset(); return; }
+    const touch = [...event.touches].find(item => item.identifier === gesture.id);
+    if (!touch) { reset(); return; }
+    gesture.moving ||= Math.hypot(touch.clientX - gesture.x, touch.clientY - gesture.y) >= 10;
+    if (gesture.moving) move(touch);
+  }, { passive: true });
+  card.addEventListener('touchend', () => { gesture = null; clearTimer = setTimeout(reset, 350); }, { passive: true });
+  card.addEventListener('touchcancel', reset, { passive: true });
   window.addEventListener('blur', reset);
   document.addEventListener('visibilitychange', () => { if (document.hidden) reset(); });
   reduced.addEventListener('change', reset);

@@ -21,6 +21,7 @@ if (section) {
   const links = [...section.querySelectorAll('.journey-connector path')];
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
   const desktop = matchMedia('(min-width: 1000px) and (min-height: 720px)');
+  const mobile = matchMedia('(max-width: 999px) and (min-height: 560px)');
   const targets = [0, .33, .70, 1];
   const clamp = n => Math.max(0, Math.min(1, n));
   const lerp = (a, b, t) => a + (b - a) * t;
@@ -229,7 +230,7 @@ if (section) {
     scrollFrame = 0;
     requested = null;
     skipSmoothing = true;
-    scrollMode = desktop.matches && !reduced.matches;
+    scrollMode = (desktop.matches || mobile.matches) && !reduced.matches;
     section.classList.toggle('is-scroll-story', scrollMode);
     if (reduced.matches) current = targets[Math.max(0, active)];
     measure();
@@ -253,6 +254,7 @@ if (section) {
   window.addEventListener('touchstart', releaseDestination, { passive: true });
   window.addEventListener('pageshow', () => { skipSmoothing = true; schedule(); });
   desktop.addEventListener('change', configure);
+  mobile.addEventListener('change', configure);
   reduced.addEventListener('change', configure);
   root.addEventListener('popovweb:language', translate);
   new ResizeObserver(measure).observe(stage);
