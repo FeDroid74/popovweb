@@ -27,15 +27,17 @@ jobs:
       - run: npm run check
       - run: npm test
       - run: node qa/timeweb.test.mjs
+      - run: php -l server/contact.php && php qa/contact-php.test.php
       - name: Build website for Timeweb
         run: npm run build
         env:
           SITE_TARGET: timeweb
           SITE_BASE_PATH: /
           SITE_URL: https://popovweb.com/
-          # Keep the current preview policy until legal pages and the form are ready.
+          # Indexing remains a separate launch step.
           SITE_INDEXABLE: 'false'
-          CONTACT_DISABLED: 'true'
+          CONTACT_ENDPOINT: /api/contact.php
+          CONTACT_DISABLED: 'false'
       - name: Check deployment files
         run: node scripts/check-timeweb.mjs
       - uses: actions/upload-artifact@v4

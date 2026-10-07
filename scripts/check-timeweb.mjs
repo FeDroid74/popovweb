@@ -41,7 +41,8 @@ for (const file of files) {
 }
 for (const name of ['index.html', 'en/index.html']) {
   const source = await readFile(resolve(root, name), 'utf8');
-  assert.match(source, /data-contact-disabled="true"/);
+  assert(!source.includes('data-contact-disabled="true"'));
+  assert.match(source, /action="\/api\/contact\.php"/);
   assert(source.includes('https://popovweb.com/'));
   assert(!source.includes('fedroid74.github.io'));
 }
@@ -50,4 +51,6 @@ assert(!files.some(p => p.endsWith('sitemap.xml')));
 if (process.env.GITHUB_SHA) {
   assert.equal(JSON.parse(await readFile(resolve(root, 'deployment.json'), 'utf8')).commit, process.env.GITHUB_SHA);
 }
-console.log(`Timeweb export: ${files.length} files, ${references} local references checked; noindex, form disabled.`);
+assert(files.includes(resolve(root, 'api/contact.php')));
+assert(!files.some(p => /telegram\.json|rate-limit\.json/.test(p)));
+console.log(`Timeweb export: ${files.length} files, ${references} local references checked; noindex, PHP form enabled.`);
