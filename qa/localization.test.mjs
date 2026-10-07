@@ -24,7 +24,7 @@ test('every published entry point uses the accessible PopovWeb VW wordmark', asy
     assert.ok(brand.childNodes.some(n => n.tagName === 'a' && attr(n, 'aria-label') === 'PopovWeb'));
     assert.ok(nodes.some(n => n.tagName === 'svg' && attr(n, 'class') === 'brand-logo'));
     assert.ok(!nodes.some(n => attr(n, 'class') === 'logo-globe'));
-    assert.ok(nodes.some(n => attr(n, 'href')?.includes('studio.css?v=vw-1')));
+    assert.ok(nodes.some(n => attr(n, 'href')?.includes('studio.css?v=vw-2')));
     assert.ok(nodes.some(n => attr(n, 'rel') === 'icon' && attr(n, 'href')?.includes('favicon.svg?v=vw-1')));
   }
 });
