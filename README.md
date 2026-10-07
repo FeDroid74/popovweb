@@ -1,5 +1,9 @@
 # PopovWeb
 
+Основной домен: https://popovweb.com/ (Timeweb). Настройка публикации из `main`:
+[timeweb-setup.md](timeweb-setup.md). Workflow подготовлен; отправка на сервер
+включается через `TIMEWEB_DEPLOY_ENABLED` после установки SSH-ключа и настроек.
+
 Сайт Федора Попова: дизайн и разработка сайтов. В репозитории две страницы:
 
 - `/` (`index.html`) — основная версия.

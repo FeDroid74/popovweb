@@ -1,6 +1,7 @@
 node_modules/
 dist/
 .netlify/
+.deploy/
 .env
 .env.*
 !.env.example
@@ -20,6 +21,7 @@ qa/*
 !qa/contact.test.mjs
 !qa/localization.test.mjs
 !qa/cases.test.mjs
+!qa/timeweb.test.mjs
 !qa/studio-update.md
 !qa/deployment.md
 assets/*

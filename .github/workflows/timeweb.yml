@@ -1,0 +1,57 @@
+name: Publish PopovWeb to Timeweb
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: timeweb-production
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm test
+      - run: node qa/timeweb.test.mjs
+      - name: Build website for Timeweb
+        run: npm run build
+        env:
+          SITE_TARGET: timeweb
+          SITE_BASE_PATH: /
+          SITE_URL: https://popovweb.com/
+          # Keep the current preview policy until legal pages and the form are ready.
+          SITE_INDEXABLE: 'false'
+          CONTACT_DISABLED: 'true'
+      - name: Check deployment files
+        run: node scripts/check-timeweb.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: popovweb-timeweb-${{ github.sha }}
+          path: dist/
+          retention-days: 7
+      - name: Publish to Timeweb over SSH
+        if: vars.TIMEWEB_DEPLOY_ENABLED == 'true'
+        run: bash scripts/deploy-timeweb.sh
+        env:
+          TIMEWEB_SSH_HOST: ${{ vars.TIMEWEB_SSH_HOST }}
+          TIMEWEB_SSH_PORT: ${{ vars.TIMEWEB_SSH_PORT }}
+          TIMEWEB_SSH_USER: ${{ vars.TIMEWEB_SSH_USER }}
+          TIMEWEB_SSH_KEY: ${{ secrets.TIMEWEB_SSH_KEY }}
+          TIMEWEB_KNOWN_HOSTS: ${{ secrets.TIMEWEB_KNOWN_HOSTS }}
+      - name: Setup still required
+        if: vars.TIMEWEB_DEPLOY_ENABLED != 'true'
+        run: echo 'Build checked. Deployment is disabled until Timeweb SSH access is configured.' >> "$GITHUB_STEP_SUMMARY"
