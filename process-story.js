@@ -49,11 +49,14 @@ if (section) {
     const radians = rotation * Math.PI / 180;
     const rotatedWidth = Math.abs(Math.cos(radians)) * size.width + Math.abs(Math.sin(radians)) * size.height;
     const rotatedHeight = Math.abs(Math.sin(radians)) * size.width + Math.abs(Math.cos(radians)) * size.height;
-    scale = Math.min(scale, (width - 32) / rotatedWidth, (height - 100) / rotatedHeight);
+    const compactScene = scrollMode && mobile.matches;
+    const insetTop = compactScene ? 14 : 42;
+    const insetBottom = compactScene ? 32 : 58;
+    scale = Math.max(0, Math.min(scale, (width - 32) / rotatedWidth, (height - insetTop - insetBottom) / rotatedHeight));
     const halfWidth = rotatedWidth * scale / 2;
     const halfHeight = rotatedHeight * scale / 2;
     const cx = Math.max(16 + halfWidth, Math.min(width - 16 - halfWidth, width * (.5 + x)));
-    const cy = Math.max(42 + halfHeight, Math.min(height - 58 - halfHeight, height * (.48 + y)));
+    const cy = Math.max(insetTop + halfHeight, Math.min(height - insetBottom - halfHeight, height * (.48 + y)));
     placement.set(element, { cx, cy, halfWidth, halfHeight });
     element.style.transform = `translate(-50%,-50%) translate3d(${cx - width * .5}px,${cy - height * .48}px,0) scale(${scale}) rotate(${rotation}deg)`;
     element.style.opacity = String(opacity);

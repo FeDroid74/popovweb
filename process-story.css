@@ -237,14 +237,23 @@
 /* Keep the full mobile scene in view while native page scroll advances the story. */
 @media (max-width:999px) and (min-height:560px) {
   .work-process.is-scroll-story { height: 340svh; }
-  .is-scroll-story .journey-pin { top: 104px; height: calc(100svh - 120px); grid-template-rows: auto minmax(0,1fr); gap: 10px; }
+  .is-scroll-story .journey-pin { top: var(--journey-top,104px); height: calc(100svh - var(--journey-top,104px) - 16px); grid-template-rows: auto minmax(0,1fr); gap: 10px; }
   .is-scroll-story .journey-aside { padding: 16px 18px; border-radius: 22px; }
   .is-scroll-story .journey-heading .eyebrow { margin-bottom: 8px; }
   .is-scroll-story .journey-heading h2 { font-size: clamp(24px,5.5vw,32px); }
   .is-scroll-story .journey-heading h2 br { display: none; }
+  .is-scroll-story .journey-heading h2 > span:first-child::after { content: ' '; white-space: pre; }
   .is-scroll-story .journey-steps { margin-block: 0; padding-top: 12px; gap: 8px; }
   .is-scroll-story .journey-steps button { min-height: 44px; gap: 4px; padding-block: 0 8px; }
   .is-scroll-story .journey-controls { margin-top: 8px; }
   .is-scroll-story .journey-controls button { width: 44px; height: 44px; }
   .is-scroll-story .journey-stage { height: 100%; min-height: 0; }
+}
+@media (max-width:600px) and (min-height:560px) {
+  .work-process.is-scroll-story { --journey-top: 88px; }
+  /* Four stage buttons already provide direct navigation; give the scene this space. */
+  .is-scroll-story .journey-controls { display: none; }
+  /* Keep document contents intact, then scale the whole object to the available stage. */
+  .is-scroll-story .journey-document { height: 380px; }
+  .is-scroll-story .journey-web { height: 320px; }
 }
