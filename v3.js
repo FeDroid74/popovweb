@@ -1,4 +1,4 @@
-import './v3-base.js';
+import './v3-base.js?v=vw-1';
 
 const root = document.documentElement;
 const preview = document.querySelector('.work-preview');

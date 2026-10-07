@@ -11,14 +11,9 @@
 .theme-toggle{width:48px;height:34px;border:1px solid var(--border);border-radius:999px}
 .brand{gap:1px;font-size:24px;letter-spacing:-.045em}
 .brand>a{padding:6px 0}
-.logo-globe{width:44px;height:44px;padding:0;background:none;display:grid;place-items:center;border-radius:50%;touch-action:none;cursor:grab;color:var(--accent)}
-.logo-globe:active{cursor:grabbing}
-.logo-globe canvas{width:36px;height:36px;display:block;pointer-events:none}
-.brand.brand-wordmark{display:grid;grid-template-columns:max-content .78em max-content;gap:0;font-family:Manrope,sans-serif;line-height:1.4}
-.brand-wordmark>a{grid-area:1 / 1 / 2 / 4;display:grid;grid-template-columns:subgrid;align-items:center}
-.brand-globe-letter{visibility:hidden}
-.brand-wordmark .logo-globe{grid-area:1 / 2;z-index:1;width:100%;height:44px;align-self:center;font:inherit;overflow:visible}
-.brand-wordmark .logo-globe canvas{width:.94em;height:.94em;transform:translateY(.065em) rotate(30deg)}
+.brand.brand-wordmark{display:flex;flex:0 1 auto;min-width:0;gap:0;line-height:1}
+.brand-wordmark>a{display:flex;align-items:center;min-width:0;min-height:44px;padding:0;color:var(--text)}
+.brand-logo{display:block;width:190px;max-width:100%;height:auto;overflow:visible}
 .accent-text{color:var(--accent)}
 .pricing-heading{display:grid;grid-template-columns:1.1fr 1fr;align-items:end;gap:64px;margin-bottom:42px}
 .pricing-heading h2{font-size:clamp(36px,3.5vw,52px);line-height:1.15;letter-spacing:-.045em}
@@ -165,8 +160,7 @@
   .hero-actions{gap:22px}
   .hero-work-link{font-size:14px}
   .brand{font-size:21px;gap:0}
-  .logo-globe{width:38px}
-  .logo-globe canvas{width:31px;height:31px}
+  .brand-logo{width:150px}
   .theme-toggle{width:40px;height:32px;margin-inline:3px}
   .hero-bottom{font-size:10px;justify-content:flex-start}
   .nav-shell{padding-inline:14px}

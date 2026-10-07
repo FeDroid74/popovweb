@@ -25,6 +25,7 @@ qa/*
 assets/*
 !assets/favicon.svg
 !assets/favicon-32.png
+!assets/popovweb-*.svg
 !assets/font-*.ttf
 !assets/*-OFL.txt
 !assets/stitch-velora.webp

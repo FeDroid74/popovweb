@@ -1,4 +1,4 @@
-import { initStudio } from './studio.js';
+import { initStudio } from './studio.js?v=vw-1';
 import { ru } from './translations.js';
 
 const root = document.documentElement;

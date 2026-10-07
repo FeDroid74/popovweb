@@ -1,5 +1,5 @@
 import { ru } from './translations.js';
-import { initStudio } from './studio.js';
+import { initStudio } from './studio.js?v=vw-1';
 
 const root = document.documentElement;
 const themeButton = document.querySelector('.theme-toggle');

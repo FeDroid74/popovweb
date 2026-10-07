@@ -1,5 +1,4 @@
 import { stackTools } from './studio-copy.js';
-import { InertialRotor } from './rotor.js';
 
 export function initStudio(){
   const root=document.documentElement;
@@ -7,64 +6,9 @@ export function initStudio(){
   const touch=matchMedia('(pointer: coarse)');
   const isRu=()=>root.lang==='ru';
   const label=(ru,en)=>isRu()?ru:en;
-  const globe=document.querySelector('.logo-globe');
-  const canvas=globe.querySelector('canvas');
-  const ctx=canvas.getContext('2d');
-  const rotor=new InertialRotor();
-  rotor.reduced=motion.matches;
-  let tilt=-.16, glColor='',glFrame=0,glTimer=0,lastX=0,lastY=0,lastTime=0,glPointer=null,visible=true;
-  function color(){glColor=getComputedStyle(globe).color;drawGlobe();}
-  function project(lat,lon){
-    const x=Math.cos(lat)*Math.sin(lon+rotor.angle),z=Math.cos(lat)*Math.cos(lon+rotor.angle),y=Math.sin(lat);
-    return {x,y:y*Math.cos(tilt)-z*Math.sin(tilt),z:y*Math.sin(tilt)+z*Math.cos(tilt)};
-  }
-  function curve(points){
-    for(let i=1;i<points.length;i++){
-      const a=points[i-1],b=points[i];ctx.globalAlpha=(a.z+b.z)>0?.95:.19;
-      ctx.beginPath();ctx.moveTo(44+a.x*36,44+a.y*36);ctx.lineTo(44+b.x*36,44+b.y*36);ctx.stroke();
-    }
-  }
-  function drawGlobe(){
-    if(!ctx)return;ctx.clearRect(0,0,88,88);ctx.strokeStyle=glColor;ctx.lineWidth=1.9;
-    for(let lat=-Math.PI/3;lat<=Math.PI/3+.01;lat+=Math.PI/6){const p=[];for(let i=0;i<=56;i++)p.push(project(lat,i*Math.PI*2/56));curve(p);}
-    for(let j=0;j<6;j++){const p=[];for(let i=0;i<=36;i++)p.push(project(-Math.PI/2+i*Math.PI/36,j*Math.PI/3));curve(p);}
-    ctx.globalAlpha=.9;ctx.beginPath();ctx.arc(44,44,36,0,Math.PI*2);ctx.stroke();ctx.globalAlpha=1;
-  }
-  function globeTick(now){
-    glFrame=0;if(document.hidden||!visible)return;const state=rotor.step(now);globe.dataset.motionState=state;drawGlobe();
-    if(state!=='paused')glFrame=requestAnimationFrame(globeTick);
-    else if(rotor.resumeHovered&&!rotor.reduced&&!rotor.pinned&&!rotor.focused)glTimer=setTimeout(startGlobe,Math.max(20,rotor.resumeAt-performance.now()));
-  }
-  function startGlobe(){clearTimeout(glTimer);if(!glFrame&&!document.hidden&&visible){rotor.last=null;glFrame=requestAnimationFrame(globeTick);}}
-  globe.addEventListener('pointerenter',e=>{if(e.pointerType!=='touch')rotor.enter();});
-  globe.addEventListener('pointerleave',()=>{rotor.leave();startGlobe();});
-  globe.addEventListener('pointerdown',e=>{if(e.button!==0)return;glPointer=e.pointerId;globe.setPointerCapture(e.pointerId);lastX=e.clientX;lastY=e.clientY;lastTime=e.timeStamp;rotor.begin();startGlobe();});
-  globe.addEventListener('pointermove',e=>{
-    if(glPointer!==e.pointerId){if(rotor.resumeHovered)rotor.resumeAt=performance.now()+1200;return;}
-    rotor.drag((e.clientX-lastX)*.045,(e.timeStamp-lastTime)/1000);
-    tilt=Math.max(-.8,Math.min(.8,tilt+(e.clientY-lastY)*.015));
-    lastX=e.clientX;lastY=e.clientY;lastTime=e.timeStamp;drawGlobe();
-  });
-  function endGlobe(e){if(glPointer!==e.pointerId)return;if(e.type==='pointercancel'||e.timeStamp-lastTime>100)rotor.velocity=0;glPointer=null;rotor.release(performance.now());if(globe.hasPointerCapture(e.pointerId))globe.releasePointerCapture(e.pointerId);}
-  globe.addEventListener('pointerup',endGlobe);globe.addEventListener('pointercancel',endGlobe);globe.addEventListener('lostpointercapture',endGlobe);
-  globe.addEventListener('keydown',e=>{
-    if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown',' ','Enter'].includes(e.key))return;e.preventDefault();rotor.focused=true;
-    if(e.key==='ArrowLeft')rotor.angle-=.35;if(e.key==='ArrowRight')rotor.angle+=.35;
-    if(e.key==='ArrowUp')tilt=Math.max(-.8,tilt-.1);if(e.key==='ArrowDown')tilt=Math.min(.8,tilt+.1);
-    if(e.key===' '||e.key==='Enter'){rotor.pinned=!rotor.pinned;rotor.focused=false;rotor.leave();}
-    drawGlobe();startGlobe();
-  });
-  globe.addEventListener('blur',()=>{rotor.focused=false;startGlobe();});
-  new IntersectionObserver(entries=>{visible=entries[0].isIntersecting;if(visible)startGlobe();}).observe(globe);
-  new MutationObserver(color).observe(root,{attributes:true,attributeFilter:['data-theme']});color();startGlobe();
-
   // Three concentric orbits, with independent speed and direction.
   const stage=document.querySelector('.orbit-stage');
-  if(!stage){
-    motion.addEventListener('change',()=>{rotor.reduced=motion.matches;drawGlobe();startGlobe();});
-    document.addEventListener('visibilitychange',()=>{if(!document.hidden)startGlobe();});
-    return;
-  }
+  if(!stage)return;
   const continuous=stage.dataset.orbitMode==='continuous';
   const filtered=stage.hasAttribute('data-orbit-filter');
   const perspective=Number(stage.dataset.orbitPerspective)||1;
@@ -177,7 +121,7 @@ export function initStudio(){
   if(!navCta.hasAttribute('data-edge-fill'))navCta.addEventListener('pointerenter',e=>{const rect=navCta.getBoundingClientRect();navCta.style.setProperty('--entry-x',`${e.clientX-rect.left}px`);navCta.style.setProperty('--entry-y',`${e.clientY-rect.top}px`);navCta.style.setProperty('--fill-radius',`${Math.hypot(rect.width,rect.height)}px`);});
   root.addEventListener('popovweb:language',()=>{updateDetail();updatePlan();});
   touch.addEventListener('change',updateDetail);
-  motion.addEventListener('change',()=>{rotor.reduced=motion.matches;velocity=0;updateDetail();drawGlobe();startGlobe();startOrbits();});
-  document.addEventListener('visibilitychange',()=>{if(!document.hidden){startGlobe();startOrbits();}});
+  motion.addEventListener('change',()=>{velocity=0;updateDetail();startOrbits();});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden){startOrbits();}});
   updateDetail();
 }
