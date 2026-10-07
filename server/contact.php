@@ -1,7 +1,7 @@
 <?php
 declare(strict_types=1);
 
-// This file is published as /api/contact.php. Credentials and rate limits stay outside public_html.
+// This file is published as /api/contact.php. Private files are provisioned separately, never built.
 function popov_normalize_contact(string $method, string $raw): string {
     $value = trim($raw);
     if ($method === 'telegram') {
@@ -54,6 +54,11 @@ function popov_telegram(array $config, string $method, array $body): array {
         CURLOPT_POSTFIELDS => json_encode($body, JSON_UNESCAPED_UNICODE | JSON_THROW_ON_ERROR),
         CURLOPT_RETURNTRANSFER => true, CURLOPT_CONNECTTIMEOUT => 3, CURLOPT_TIMEOUT => 8,
         CURLOPT_SSL_VERIFYPEER => true, CURLOPT_SSL_VERIFYHOST => 2, CURLOPT_FOLLOWLOCATION => false]);
+    // Optional hosting-specific route; keep the Telegram hostname, SNI and certificate verification.
+    if (!empty($config['apiIpv4'])) {
+        if (!filter_var($config['apiIpv4'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) throw new RuntimeException('Invalid Telegram route');
+        curl_setopt($curl, CURLOPT_RESOLVE, ['api.telegram.org:443:' . $config['apiIpv4']]);
+    }
     $raw = curl_exec($curl);
     $status = (int) curl_getinfo($curl, CURLINFO_RESPONSE_CODE);
     curl_close($curl);
@@ -70,7 +75,9 @@ function popov_rate_limit(string $file, string $address, string $secret, int $no
         if (!flock($stream, LOCK_EX)) throw new RuntimeException('Cannot lock rate limits');
         $raw = stream_get_contents($stream, 1048577);
         if (strlen($raw) > 1048576) throw new RuntimeException('Rate limit capacity exceeded');
-        $records = $raw === '' ? [] : json_decode($raw, true, 8, JSON_THROW_ON_ERROR);
+        $guard = "<?php http_response_code(404); exit; ?>\n";
+        if ($raw !== '' && substr($raw, 0, strlen($guard)) !== $guard) throw new RuntimeException('Invalid rate limit storage');
+        $records = $raw === '' ? [] : json_decode(substr($raw, strlen($guard)), true, 8, JSON_THROW_ON_ERROR);
         if (!is_array($records)) throw new RuntimeException('Invalid rate limit state');
         foreach ($records as $key => $record) if ($record['until'] <= $now) unset($records[$key]);
         $key = hash_hmac('sha256', $address, $secret);
@@ -79,7 +86,7 @@ function popov_rate_limit(string $file, string $address, string $secret, int $no
         if (count($records) >= 5000 && !isset($records[$key])) return 600;
         $record['count']++;
         $records[$key] = $record;
-        $encoded = json_encode($records, JSON_THROW_ON_ERROR);
+        $encoded = $guard . json_encode($records, JSON_THROW_ON_ERROR);
         rewind($stream);
         if (!ftruncate($stream, 0) || fwrite($stream, $encoded) !== strlen($encoded) || !fflush($stream)) throw new RuntimeException('Cannot save rate limits');
         return 0;
@@ -125,12 +132,14 @@ function popov_handle_contact(array $server, string $raw, array $config, callabl
 if (realpath($_SERVER['SCRIPT_FILENAME'] ?? '') === __FILE__) {
     ini_set('display_errors', '0');
     umask(0077);
-    $private = dirname(__DIR__, 2) . '/.config/popovweb';
+    // Timeweb site isolation blocks reads outside the site. HTTP access to this folder is denied.
+    $private = __DIR__ . '/_private';
     try {
-        $config = is_file($private . '/telegram.json') ? json_decode(file_get_contents($private . '/telegram.json'), true, 8, JSON_THROW_ON_ERROR) : [];
+        define('POPOVWEB_CONTACT_CONFIG', true);
+        $config = is_file($private . '/telegram.php') ? require $private . '/telegram.php' : [];
         if (!is_array($config)) $config = [];
         $result = popov_handle_contact($_SERVER, file_get_contents('php://input', false, null, 0, 16385), $config, 'popov_telegram',
-            static function (string $ip) use ($private, $config): int { return popov_rate_limit($private . '/rate-limit.json', $ip, $config['token'], time()); });
+            static function (string $ip) use ($private, $config): int { return popov_rate_limit($private . '/rate-limit.php', $ip, $config['token'], time()); });
     } catch (Throwable $error) {
         $result = ['status' => 503, 'headers' => ['Content-Type' => 'application/json; charset=utf-8', 'Cache-Control' => 'no-store'], 'body' => ['error' => 'not_configured']];
     }

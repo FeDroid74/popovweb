@@ -52,5 +52,5 @@ if (process.env.GITHUB_SHA) {
   assert.equal(JSON.parse(await readFile(resolve(root, 'deployment.json'), 'utf8')).commit, process.env.GITHUB_SHA);
 }
 assert(files.includes(resolve(root, 'api/contact.php')));
-assert(!files.some(p => /telegram\.json|rate-limit\.json/.test(p)));
+assert(!files.some(p => /telegram\.(?:json|php)|rate-limit\.(?:json|php)|[\\/]_private[\\/]/.test(p)));
 console.log(`Timeweb export: ${files.length} files, ${references} local references checked; noindex, PHP form enabled.`);
