@@ -16,6 +16,7 @@ port="${TIMEWEB_SSH_PORT:-22}"
 [[ "$GITHUB_SHA" =~ ^[a-f0-9]{40}$ ]]
 [[ "$GITHUB_RUN_ID" =~ ^[0-9]+$ && "$GITHUB_RUN_ATTEMPT" =~ ^[0-9]+$ ]]
 [[ -f dist/index.html && -f dist/en/index.html && -f dist/deployment.json ]]
+[[ -f dist/api/contact.php ]]
 
 umask 077
 credentials=$(mktemp -d /tmp/popovweb-ssh.XXXXXX)
@@ -32,11 +33,14 @@ remote="$TIMEWEB_SSH_USER@$TIMEWEB_SSH_HOST"
 remote_root=$(ssh "${ssh_options[@]}" "$remote" 'bash -s' <<'REMOTE'
 set -euo pipefail
 command -v rsync >/dev/null
+php -r 'exit(PHP_VERSION_ID >= 80200 && extension_loaded("curl") && extension_loaded("mbstring") ? 0 : 1);'
 account_home=$(cd "$HOME" && pwd -P)
 [[ -d "$account_home/public_html" && ! -L "$account_home/public_html" ]]
 [[ -f "$account_home/public_html/index.html" ]]
 grep -q PopovWeb "$account_home/public_html/index.html"
 [[ -f "$account_home/public_html/.htaccess" ]]
+[[ -d "$account_home/public_html/api" && ! -L "$account_home/public_html/api" ]]
+[[ -f "$account_home/.config/popovweb/telegram.json" ]]
 printf '%s\n' "$account_home/public_html"
 REMOTE
 )
@@ -50,7 +54,10 @@ options=(-rz --checksum --delay-updates --backup --backup-dir="$backup_root/$rel
   --chmod=D755,F644 --timeout=60 -e "$rsync_ssh"
   --exclude='.htaccess' --exclude='.well-known/' --exclude='cgi-bin/' --exclude='api/' --exclude='.env*')
 # Upload assets before the HTML that references them. No --delete: preserve
-# host configuration, certificates, future PHP handler, and server-only files.
+# host configuration, certificates, other API routes, and server-only files.
+# Publish only our owned handler; other files in api/ remain untouched.
+rsync "${options[@]}" dist/api/contact.php "$remote:$remote_root/api/contact.php"
+ssh "${ssh_options[@]}" "$remote" "php -l '$remote_root/api/contact.php'"
 rsync "${options[@]}" --exclude='*.html' --exclude='deployment.json' dist/ "$remote:$remote_root/"
 rsync "${options[@]}" --include='*/' --include='*.html' --exclude='*' dist/ "$remote:$remote_root/"
 rsync "${options[@]}" dist/deployment.json "$remote:$remote_root/"

@@ -19,6 +19,7 @@ design/*
 qa/*
 !qa/rotor.test.mjs
 !qa/contact.test.mjs
+!qa/contact-php.test.php
 !qa/localization.test.mjs
 !qa/cases.test.mjs
 !qa/timeweb.test.mjs

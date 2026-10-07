@@ -16,6 +16,8 @@ async function run(options = {}) {
   try {
     await mkdir(join(dir, 'bin'));
     await mkdir(join(dir, 'dist', 'en'), { recursive: true });
+    await mkdir(join(dir, 'dist', 'api'));
+    await writeFile(join(dir, 'dist', 'api', 'contact.php'), '<?php');
     for (const name of ['index.html', 'en/index.html', 'deployment.json']) await writeFile(join(dir, 'dist', name), '{}');
     const stubs = {
       ssh: `#!/usr/bin/env bash\nset -eu\nprintf 'ssh:%s\\n' "$*" >> "$TEST_LOG"\nif [[ "$*" == *'bash -s'* ]]; then cat >/dev/null; [[ "\${TEST_SSH_FAIL:-0}" == 0 ]] || exit 1; printf '%s\\n' "$TEST_ROOT"; fi\n`,
@@ -39,10 +41,11 @@ test('deploy uploads assets, then HTML, then revision, preserving server configu
   const result = await run();
   assert.equal(result.status, 0, result.stderr);
   const uploads = result.log.split('\n').filter(l => l.startsWith('rsync:'));
-  assert.equal(uploads.length, 3);
-  assert(uploads[0].includes('--exclude=*.html'));
-  assert(uploads[1].includes('--include=*.html'));
-  assert(uploads[2].includes('dist/deployment.json'));
+  assert.equal(uploads.length, 4);
+  assert(uploads[0].includes('dist/api/contact.php'));
+  assert(uploads[1].includes('--exclude=*.html'));
+  assert(uploads[2].includes('--include=*.html'));
+  assert(uploads[3].includes('dist/deployment.json'));
   assert(!result.log.includes('--delete'));
   assert(result.log.includes('StrictHostKeyChecking=yes'));
   assert(uploads.every(l => l.includes('--exclude=.htaccess') && l.includes('--backup-dir=')));

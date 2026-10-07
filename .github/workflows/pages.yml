@@ -25,6 +25,7 @@ jobs:
       - run: npm ci
       - run: npm run check
       - run: npm test
+      - run: php -l server/contact.php && php qa/contact-php.test.php
       - run: npm run build
         env:
           SITE_BASE_PATH: /popovweb/

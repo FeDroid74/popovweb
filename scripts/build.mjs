@@ -54,6 +54,10 @@ for (const file of files) {
   bytes += (await stat(source)).size;
 }
 const config = deployment();
+if (timeweb) {
+  await mkdir(resolve(output, 'api'), { recursive: true });
+  await cp(resolve(root, 'server/contact.php'), resolve(output, 'api/contact.php'));
+}
 await buildPages(output, config);
 await writeFile(resolve(output, 'robots.txt'), robots(config));
 await writeFile(resolve(output, '404.html'), render404(config));
