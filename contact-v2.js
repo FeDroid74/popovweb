@@ -12,7 +12,7 @@ const messageInput = form.elements.namedItem('message');
 if (!form.elements.namedItem('consent')) {
   const group = document.createElement('div');
   group.className = 'form-consent';
-  group.innerHTML = '<label><input type="checkbox" name="consent" required aria-describedby="consent-error"><span><span data-consent-prefix></span><a data-consent-link target="_blank" rel="noopener"></a></span></label><p class="field-error" id="consent-error" hidden></p>';
+  group.innerHTML = '<label><input type="checkbox" name="consent" required aria-describedby="consent-error"><span><span data-consent-prefix></span><a data-consent-link></a></span></label><p class="field-error" id="consent-error" hidden></p>';
   form.querySelector('[type=submit]').before(group);
 }
 const consentInput = form.elements.namedItem('consent');
