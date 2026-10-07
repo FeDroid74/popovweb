@@ -22,7 +22,7 @@ const files = [
   'v3.html', 'v3.css', 'v3.js', 'v3-base.css', 'v3-base.js',
   '_headers',
   'assets/social-ru.png', 'assets/social-en.png',
-  'assets/favicon.svg', 'assets/favicon-32.png', 'assets/stitch-velora.webp',
+  'assets/favicon.svg', 'assets/favicon-32.png', 'assets/favicon-32-dark.png', 'assets/stitch-velora.webp',
   'assets/popovweb-logo.svg', 'assets/popovweb-logo-light.svg', 'assets/popovweb-mark.svg',
   'assets/stitch-stilla.webp', 'assets/stitch-luma.webp',
   'assets/fedor-hero-selected.png', 'assets/fedor-hero-grid.png',

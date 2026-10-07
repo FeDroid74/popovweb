@@ -68,9 +68,9 @@ for name, color in [('popovweb-logo', INK), ('popovweb-logo-light', WHITE)]:
     (ROOT / 'assets' / f'{name}.svg').write_text(svg(wordmark(color), box), encoding='utf-8')
 (OUT / 'header-inline.svg').write_text(f'<svg class="brand-logo" xmlns="http://www.w3.org/2000/svg" viewBox="{box}" aria-hidden="true" focusable="false">{wordmark("currentColor")}</svg>', encoding='utf-8')
 
-# The favicon has a fixed pale tile so all three strokes stay visible on any
-# browser chrome. It uses the exact VW geometry, not the full wordmark.
-favicon = '<rect width="256" height="256" rx="48" fill="#f4f4f0"/>' + mark(INK, 'translate(16 62) scale(.914)')
+# Transparent favicon follows browser/OS appearance independently of site theme.
+favicon_transform = 'translate(16 62) scale(.914)'
+favicon = '<style>:root{color:#000000}@media(prefers-color-scheme:dark){:root{color:#ffffff}}</style>' + mark('currentColor', favicon_transform)
 (ROOT / 'assets' / 'favicon.svg').write_text(svg(favicon, '0 0 256 256', 'PopovWeb — VW'), encoding='utf-8')
 (ROOT / 'assets' / 'popovweb-mark.svg').write_text(svg(mark(INK, 'translate(0 0)'), '0 0 245 144', 'PopovWeb — VW'), encoding='utf-8')
 
@@ -78,8 +78,8 @@ preview = f'''<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="650" 
 <rect width="1200" height="325" fill="#f4f4f0"/><rect y="325" width="1200" height="325" fill="#222420"/>
 <g transform="translate(72 72) scale({980/width})">{wordmark(INK)}</g>
 <g transform="translate(72 397) scale({980/width})">{wordmark(WHITE)}</g>
-<g transform="translate(1100 241) scale(.25)">{favicon}</g>
-<g transform="translate(1100 566) scale(.25)">{favicon}</g>
+<g transform="translate(1100 241) scale(.25)">{mark('#000000', favicon_transform)}</g>
+<g transform="translate(1100 566) scale(.25)">{mark('#ffffff', favicon_transform)}</g>
 </svg>'''
 (OUT / 'preview.svg').write_text(preview, encoding='utf-8')
 (OUT / 'metrics.json').write_text(json.dumps({'width': width, 'height': height, 'markX': mark_x}), encoding='utf-8')
