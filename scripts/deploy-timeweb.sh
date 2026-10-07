@@ -40,7 +40,8 @@ account_home=$(cd "$HOME" && pwd -P)
 grep -q PopovWeb "$account_home/public_html/index.html"
 [[ -f "$account_home/public_html/.htaccess" ]]
 [[ -d "$account_home/public_html/api" && ! -L "$account_home/public_html/api" ]]
-[[ -f "$account_home/.config/popovweb/telegram.json" ]]
+[[ -f "$account_home/public_html/api/_private/telegram.php" ]]
+[[ -f "$account_home/public_html/api/_private/.htaccess" ]]
 printf '%s\n' "$account_home/public_html"
 REMOTE
 )

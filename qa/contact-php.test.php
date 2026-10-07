@@ -65,6 +65,7 @@ try {
     expect(popov_rate_limit($file, '192.0.2.1', 'private-salt', 101), 599, 'limit survives independent PHP calls');
     expect(popov_rate_limit($file, '192.0.2.2', 'private-salt', 101), 0, 'different visitor');
     expect(strpos(file_get_contents($file), '192.0.2.') === false, true, 'no IPs stored in plaintext');
+    expect(strpos(file_get_contents($file), '<?php http_response_code(404); exit; ?>') === 0, true, 'rate limit storage cannot emit data as PHP');
     expect(popov_rate_limit($file, '192.0.2.1', 'private-salt', 701), 0, 'expired limit resets');
 } finally { unlink($file); }
 echo "PHP contact: validation, consent, CORS, delivery errors, rate limiting and UTF-8 passed.\n";
