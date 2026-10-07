@@ -3,6 +3,52 @@ import { createRoot } from 'react-dom/client';
 import { flushSync } from 'react-dom';
 import * as Select from '@radix-ui/react-select';
 import * as Tooltip from '@radix-ui/react-tooltip';
+import * as Checkbox from '@radix-ui/react-checkbox';
+
+function ConsentCheckbox({ input, id }) {
+  const [checked, setChecked] = useState(input.checked);
+  const [invalid, setInvalid] = useState(input.getAttribute('aria-invalid'));
+  useEffect(() => {
+    const sync = () => setChecked(input.checked);
+    const reset = () => queueMicrotask(sync);
+    const observer = new MutationObserver(() => setInvalid(input.getAttribute('aria-invalid')));
+    observer.observe(input, { attributes: true, attributeFilter: ['aria-invalid'] });
+    input.addEventListener('change', sync);
+    input.form?.addEventListener('reset', reset);
+    return () => { observer.disconnect(); input.removeEventListener('change', sync); input.form?.removeEventListener('reset', reset); };
+  }, [input]);
+  return <Checkbox.Root id={id} className="site-checkbox" checked={checked} required={input.required}
+    aria-describedby={input.getAttribute('aria-describedby')} aria-invalid={invalid || undefined}
+    onCheckedChange={next => {
+      input.checked = next === true;
+      setChecked(input.checked);
+      input.dispatchEvent(new Event('change', { bubbles: true }));
+    }}>
+    <Checkbox.Indicator className="site-checkbox-indicator"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m5 12 4 4L19 6" /></svg></Checkbox.Indicator>
+  </Checkbox.Root>;
+}
+
+function enhanceConsent() {
+  document.querySelectorAll('.form-consent input[name="consent"]:not([data-radix-ready])').forEach(input => {
+    input.dataset.radixReady = '';
+    const label = input.closest('label');
+    const row = document.createElement('div');
+    row.className = 'consent-row';
+    const mount = document.createElement('span');
+    mount.className = 'consent-checkbox-mount';
+    const id = 'enquiry-consent';
+    label.before(row);
+    row.append(mount, label);
+    row.after(input);
+    input.hidden = true;
+    label.htmlFor = id;
+    flushSync(() => createRoot(mount).render(<ConsentCheckbox input={input} id={id} />));
+  });
+}
+enhanceConsent();
+// The form module may add consent to an older preview after this module loads.
+const consentForm = document.querySelector('.project-form');
+if (consentForm) new MutationObserver(enhanceConsent).observe(consentForm, { childList: true, subtree: true });
 
 function OrbitTooltip({ host, name, src }) {
   const [open, setOpen] = useState(false);
@@ -64,9 +110,7 @@ function SiteSelect({ nativeSelect, triggerId, options, label }) {
       document.documentElement.removeEventListener('popovweb:language', language);
     };
   }, [nativeSelect]);
-  return <Select.Root value={value} disabled={nativeSelect.disabled} onOpenChange={open => {
-    document.documentElement.dispatchEvent(new CustomEvent('popovweb:select-open', { detail: open }));
-  }} onValueChange={next => {
+  return <Select.Root value={value} disabled={nativeSelect.disabled} onValueChange={next => {
     setValue(next);
     nativeSelect.value = next;
     nativeSelect.dispatchEvent(new Event('change', { bubbles: true }));

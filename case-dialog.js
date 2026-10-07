@@ -8,7 +8,8 @@ let outsidePress = false;
 
 function lockPage() {
   const y = scrollY;
-  const gutter = innerWidth - root.clientWidth;
+  const stableGutter = getComputedStyle(root).scrollbarGutter.includes('stable');
+  const gutter = stableGutter ? 0 : innerWidth - root.clientWidth;
   const body = document.body;
   const header = document.querySelector('.site-header');
   const saved = [];
@@ -17,7 +18,7 @@ function lockPage() {
     element.style.setProperty(name, value);
   };
   // Preserve the fixed header geometry, including fractional pixels at zoom.
-  if (header) {
+  if (header && !stableGutter) {
     const box = header.getBoundingClientRect();
     const style = getComputedStyle(header);
     set(header, 'padding-left', style.paddingLeft);

@@ -17,32 +17,7 @@ addEventListener('scroll', queueHeader, { passive: true });
 addEventListener('pageshow', queueHeader);
 updateHeader();
 
-// Radix removes the scrollbar with an integer-sized margin. At browser zoom,
-// the fixed header's actual width can be fractional. Preserve its exact box
-// before the lock and release it only after Radix has restored the body.
-let frozenHeader = false;
-function releaseHeader() {
-  if (!frozenHeader || document.body.hasAttribute('data-scroll-locked')) return;
-  header.style.removeProperty('width');
-  header.style.removeProperty('padding-inline');
-  frozenHeader = false;
-}
-document.documentElement.addEventListener('popovweb:select-open', event => {
-  if (event.detail && !frozenHeader) {
-    const rect = header.getBoundingClientRect();
-    const style = getComputedStyle(header);
-    header.style.setProperty('padding-inline', `${style.paddingLeft} ${style.paddingRight}`);
-    header.style.width = `${rect.width}px`;
-    frozenHeader = true;
-  } else if (!event.detail) queueMicrotask(releaseHeader);
-});
-new MutationObserver(releaseHeader).observe(document.body, { attributes: true, attributeFilter: ['data-scroll-locked'] });
-addEventListener('resize', () => {
-  if (!frozenHeader) return;
-  // Match the compensated content width if the viewport changes while open.
-  header.style.width = `${document.body.getBoundingClientRect().width}px`;
-  header.style.removeProperty('padding-inline');
-});
+// The root scrollbar gutter preserves geometry while Radix locks scrolling.
 
 // The fill starts at the entry edge and retracts toward the actual exit edge.
 const cta = document.querySelector('[data-edge-fill]');

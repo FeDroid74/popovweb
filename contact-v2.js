@@ -133,7 +133,7 @@ form.addEventListener('submit', async event => {
     consentError.textContent = root.lang === 'ru' ? 'Нужно согласие на обработку заявки.' : 'Please consent to processing your enquiry.';
     consentError.hidden = false;
     consentInput.setAttribute('aria-invalid', 'true');
-    consentInput.focus();
+    (form.querySelector('.site-checkbox') || consentInput).focus();
     return;
   }
   const chosen = form.querySelector('.chosen-plan');

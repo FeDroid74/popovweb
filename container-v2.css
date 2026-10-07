@@ -23,6 +23,11 @@ html[lang=ru] .language-toggle .lang-ru, html[lang=en] .language-toggle .lang-en
 [data-theme=light] .contact-split .contact-icon-links .contact-direct:is(:hover, :focus-visible) { color: var(--accent-ink); }
 
 html { scroll-padding-top: 116px; }
+@supports (scrollbar-gutter: stable) {
+  html { scrollbar-gutter: stable; }
+  /* Radix's body margin would compensate twice for the reserved gutter. */
+  html body[data-scroll-locked] { margin-right: 0 !important; --removed-body-scroll-bar-size: 0px !important; }
+}
 .page {
   max-width: none;
   padding: var(--frame-gutter) var(--frame-gutter) 64px;
@@ -431,3 +436,19 @@ footer { padding: 32px calc(var(--frame-gutter) + var(--frame-inset)); }
     transform: none;
   }
 }
+
+/* Shared consent control, including earlier previews. */
+.form-consent { font-size: 13px; line-height: 1.6; color: var(--muted, #a5a79d); }
+.form-consent label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
+.form-consent input[type="checkbox"] { appearance: auto; flex: 0 0 18px; width: 18px; height: 18px; margin: 3px 0 0; padding: 0; accent-color: #fc6833; }
+.consent-row { display: flex; align-items: flex-start; gap: 10px; }
+.consent-row label { display: block; padding-top: 1px; }
+.consent-checkbox-mount { display: flex; flex: 0 0 20px; padding-top: 1px; }
+.site-checkbox { display: grid; place-items: center; width: 20px; height: 20px; padding: 0; border: 1px solid var(--muted); border-radius: 5px; background: var(--bg); transition: background-color .18s ease, border-color .18s ease; }
+.site-checkbox[data-state=checked] { background: var(--accent); border-color: var(--accent); color: #fff; }
+.site-checkbox[aria-invalid=true] { border-color: #ed6b60; }
+.site-checkbox-indicator { display: flex; }
+.site-checkbox-indicator svg { width: 15px; height: 15px; stroke-width: 2; }
+.form-consent .field-error { margin: 5px 0 0 30px; }
+.form-consent a { text-decoration: underline; text-underline-offset: 3px; }
+.form-consent :focus-visible { outline: 2px solid #fc6833; outline-offset: 4px; }

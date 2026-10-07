@@ -214,9 +214,3 @@
 @media (prefers-reduced-motion: reduce) {
  .version-two .form-submit::before { transition: none; }
 }
-.form-consent { font-size: 13px; line-height: 1.6; color: var(--muted, #a5a79d); }
-.form-consent label { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; }
-.form-consent input[type="checkbox"] { appearance: auto; flex: 0 0 18px; width: 18px; height: 18px; margin: 3px 0 0; padding: 0; accent-color: #fc6833; }
-.form-consent > a { display: inline-block; margin: 5px 0 0 28px; }
-.form-consent a { text-decoration: underline; text-underline-offset: 3px; }
-.form-consent :focus-visible { outline: 2px solid #fc6833; outline-offset: 4px; }
