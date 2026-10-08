@@ -257,3 +257,9 @@
   .is-scroll-story .journey-document { height: 380px; }
   .is-scroll-story .journey-web { height: 320px; }
 }
+
+@media (max-width:999px) {
+  .journey-steps button { align-items: flex-start; text-align: left; }
+  .journey-step-index { align-items: flex-start; }
+  .journey-step-copy { width: 100%; align-items: flex-start; }
+}

@@ -96,17 +96,42 @@ themeButton.addEventListener('click', async event => {
   }
 });
 
+let menuOpen = false;
+let menuAnimation;
+let menuLinkAnimations = [];
 function setMenu(open, restoreFocus = false) {
-  mobileNav.hidden = !open;
+  const wasHidden = mobileNav.hidden;
+  const current = wasHidden ? { opacity: '0', transform: 'translateY(-12px) scale(.98)' } : getComputedStyle(mobileNav);
+  const from = { opacity: current.opacity, transform: current.transform };
+  menuAnimation?.cancel();
+  menuLinkAnimations.forEach(animation => animation.cancel());
+  menuOpen = open;
   menuButton.setAttribute('aria-expanded', String(open));
+  mobileNav.inert = !open;
   updateControls();
   if (restoreFocus) menuButton.focus();
+  if (reducedMotion.matches || !mobileNav.animate || (!open && wasHidden)) {
+    mobileNav.hidden = !open;
+    return;
+  }
+  mobileNav.hidden = false;
+  menuAnimation = mobileNav.animate([
+    from,
+    open ? { opacity: 1, transform: 'translateY(0) scale(1)' } : { opacity: 0, transform: 'translateY(-8px) scale(.985)' },
+  ], { duration: open ? 300 : 190, easing: 'cubic-bezier(.22,1,.36,1)' });
+  if (open && wasHidden) {
+    menuLinkAnimations = [...mobileNav.querySelectorAll('a')].map((link, index) => link.animate([
+      { opacity: 0, transform: 'translateY(-6px)' }, { opacity: 1, transform: 'translateY(0)' },
+    ], { duration: 240, delay: 35 + index * 35, fill: 'backwards', easing: 'cubic-bezier(.22,1,.36,1)' }));
+  }
+  menuAnimation.onfinish = () => { mobileNav.hidden = !menuOpen; menuAnimation = null; };
 }
-menuButton.addEventListener('click', () => setMenu(mobileNav.hidden));
+menuButton.addEventListener('click', () => setMenu(!menuOpen));
 mobileNav.addEventListener('click', event => { if (event.target.closest('a')) setMenu(false); });
-document.addEventListener('keydown', event => { if (event.key === 'Escape' && !mobileNav.hidden) setMenu(false, true); });
-document.addEventListener('pointerdown', event => { if (!mobileNav.hidden && !event.target.closest('.site-header')) setMenu(false); });
+document.addEventListener('keydown', event => { if (event.key === 'Escape' && menuOpen) setMenu(false, true); });
+document.addEventListener('pointerdown', event => { if (menuOpen && !event.target.closest('.site-header')) setMenu(false); });
 matchMedia('(min-width: 960px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
+reducedMotion.addEventListener('change', () => setMenu(menuOpen));
 
 // Contact illumination follows the pointer 1:1 and pauses outside the viewport.
 const canvas = document.querySelector('#illumination');

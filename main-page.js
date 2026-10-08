@@ -26,3 +26,17 @@ tabs.forEach((tab, index) => {
     activate(tabs[next]); tabs[next].focus();
   });
 });
+
+// Move the existing bilingual note, keeping only one copy in the reading order.
+const pricingNote = document.querySelector('.pricing-context > p:last-child');
+const pricingContext = pricingNote?.parentElement;
+const pricingPanels = document.querySelector('.format-panels');
+const mobilePricing = matchMedia('(max-width: 800px)');
+function placePricingNote() {
+  if (!pricingNote || !pricingPanels) return;
+  pricingNote.classList.add('pricing-note');
+  if (mobilePricing.matches) pricingPanels.before(pricingNote);
+  else pricingContext.append(pricingNote);
+}
+mobilePricing.addEventListener('change', placePricingNote);
+placePricingNote();
