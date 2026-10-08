@@ -4,9 +4,9 @@
 .site-footer .footer-inner { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 24px; }
 .footer-copyright { line-height: 1.6; }
 .footer-legal { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; justify-self: center; gap: 4px 24px; }
-.footer-legal a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
-.footer-legal a:hover { color: var(--accent); }
-.footer-legal a:focus-visible { color: var(--text); outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
+.footer-legal a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; transition: color 200ms ease; }
+@media (hover: hover) and (pointer: fine) { .footer-legal a:hover { color: var(--accent); } }
+.footer-legal a:focus-visible { color: var(--text); outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; transition: none; }
 .site-footer .footer-contacts { justify-self: end; margin: 0; gap: 10px; }
 .site-footer .contact-direct { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; min-height: 40px; margin: 0; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--subtle); color: var(--text); transition: background-color .2s, border-color .2s, color .2s; }
 .site-footer .contact-direct svg, .site-footer .contact-brand-icon { width: 18px; height: 18px; color: inherit; }
@@ -18,7 +18,7 @@
  .site-footer .footer-inner > .footer-copyright, .site-footer .footer-contacts { justify-self: center; }
  .site-footer .contact-direct:first-child .contact-tooltip { left: 0; right: auto; }
 }
-@media (prefers-reduced-motion: reduce) { .site-footer .contact-direct { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .footer-legal a, .site-footer .contact-direct { transition: none; } }
 .version-two .hero .button-disc { translate: -3px 0; }
 .main-specialist { color: var(--muted); font-size: clamp(11px, 1.05vw, 16px); line-height: 1.5; margin-bottom: 22px; max-width: 48ch; }
 .format-estimate p { font-size: clamp(18px, 1.6vw, 23px); margin-top: 7px; line-height: 1.3; white-space: nowrap; }
