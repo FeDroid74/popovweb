@@ -1,11 +1,13 @@
 import { mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { templateTerms } from './template-terms.mjs';
 
 export const privacyVersion = '2026-10-06';
 const operator = 'Попов Федор Владимирович';
 const email = 'fedorpopov7@yandex.ru';
 const documents = {
   ru: {
+    terms: templateTerms.ru,
     privacy: { title: 'Политика конфиденциальности', sections: [
       ['Оператор и связь', `Персональные данные посетителей PopovWeb обрабатывает ${operator}, Российская Федерация. По вопросам обработки данных, доступа, исправления и удаления: ${email}.`],
       ['Какие данные используются', 'В форме заявки вы указываете имя и один контакт для ответа: имя пользователя Telegram, номер телефона WhatsApp или адрес электронной почты. По желанию можно добавить описание проекта. Также передаются выбранный формат сайта, язык формы и подтверждение согласия. Не указывайте паспортные, платёжные, медицинские данные и сведения о третьих лицах.'],
@@ -24,6 +26,7 @@ const documents = {
     ] },
   },
   en: {
+    terms: templateTerms.en,
     privacy: { title: 'Privacy policy', sections: [
       ['Controller and contact', `Fedor Vladimirovich Popov (${operator}), Russian Federation, operates PopovWeb and handles enquiries. Contact for privacy requests: ${email}.`],
       ['Enquiry data', 'The form requests your name and one reply channel: a Telegram username, WhatsApp telephone number or email address. A project description is optional. The selected website format, form language and consent confirmation are also submitted. Please do not include identity documents, payment or health information, or third-party personal data.'],
@@ -46,10 +49,11 @@ const escape = text => text.replaceAll('&','&amp;').replaceAll('<','&lt;').repla
 const markup = text => escape(text).replace(/https:\/\/[^\s]+(?=\s|$)/g, url => { const clean=url.replace(/\.$/,''); return `<a href="${clean}">${clean}</a>${url.endsWith('.')?'.':''}`; }).replaceAll(email, `<a href="mailto:${email}">${email}</a>`);
 export async function buildLegal(root) {
   const dir=resolve(root,'documents'); await mkdir(dir,{recursive:true});
-  for (const locale of ['ru','en']) for (const kind of ['privacy','consent']) {
+  for (const locale of ['ru','en']) for (const kind of ['privacy','consent','terms']) {
     const doc=documents[locale][kind], name=`${kind}-${locale}`;
-    const plain=[doc.title,`PopovWeb · ${privacyVersion}`,...doc.sections.flatMap(([h,p])=>['',h,p])].join('\n');
+    const version=doc.version || privacyVersion;
+    const plain=[doc.title,`PopovWeb · ${version}`,...doc.sections.flatMap(([h,p])=>['',h,p])].join('\n');
     await writeFile(resolve(dir,`${name}.txt`),plain+'\n');
-    await writeFile(resolve(dir,`${name}.html`),`<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, follow"><title>${doc.title} — PopovWeb</title><link rel="icon" href="../assets/favicon.svg?v=vw-3"><link rel="stylesheet" href="../fonts.css"><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#1b1d1a;color:#f4f4f0;font:16px/1.75 Manrope,system-ui,sans-serif}main{max-width:860px;margin:auto;padding:40px 24px 80px}nav{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:1px solid #393c36;padding-bottom:24px}a{color:inherit;text-underline-offset:5px}a:hover{color:#fc6833}a:focus-visible{outline:2px solid #fc6833;outline-offset:5px}header{padding:44px 0 24px}h1{font-size:clamp(30px,6vw,48px);line-height:1.18;letter-spacing:-.04em;font-weight:500;margin:10px 0 22px}h2{font-size:22px;font-weight:500;margin:32px 0 10px}p{margin:0 0 16px;overflow-wrap:anywhere;color:#c6c8bf}.date{color:#fc6833;font-size:13px}@media print{:root{color-scheme:light}body{background:#fff;color:#111}p{color:#222}nav{display:none}main{max-width:none;padding:0}h2{break-after:avoid}a{color:inherit}.date{color:#333}}</style></head><body><main><nav><a href="${locale==='ru'?'../':'../en/'}">← PopovWeb</a><a href="${name}.txt" download>${locale==='ru'?'Скачать документ (.txt)':'Download document (.txt)'}</a><a href="${kind}-${locale==='ru'?'en':'ru'}.html" hreflang="${locale==='ru'?'en':'ru'}">${locale==='ru'?'English':'Русский'}</a></nav><header><div class="date">${privacyVersion}</div><h1>${doc.title}</h1></header>${doc.sections.map(([h,p])=>`<section><h2>${h}</h2><p>${markup(p)}</p></section>`).join('')}<p><a href="${kind==='privacy'?'consent':'privacy'}-${locale}.html">${documents[locale][kind==='privacy'?'consent':'privacy'].title}</a></p></main></body></html>`);
+    await writeFile(resolve(dir,`${name}.html`),`<!doctype html><html lang="${locale}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex, follow"><title>${doc.title} — PopovWeb</title><link rel="icon" href="../assets/favicon.svg?v=vw-3"><link rel="stylesheet" href="../fonts.css"><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:#1b1d1a;color:#f4f4f0;font:16px/1.75 Manrope,system-ui,sans-serif}main{max-width:860px;margin:auto;padding:40px 24px 80px}nav{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;border-bottom:1px solid #393c36;padding-bottom:24px}a{color:inherit;text-underline-offset:5px}a:hover{color:#fc6833}a:focus-visible{outline:2px solid #fc6833;outline-offset:5px}header{padding:44px 0 24px}h1{font-size:clamp(30px,6vw,48px);line-height:1.18;letter-spacing:-.04em;font-weight:500;margin:10px 0 22px}h2{font-size:22px;font-weight:500;margin:32px 0 10px}p{margin:0 0 16px;overflow-wrap:anywhere;color:#c6c8bf}.date{color:#fc6833;font-size:13px}@media print{:root{color-scheme:light}body{background:#fff;color:#111}p{color:#222}nav{display:none}main{max-width:none;padding:0}h2{break-after:avoid}a{color:inherit}.date{color:#333}}</style></head><body><main><nav><a href="${locale==='ru'?'../':'../en/'}">← PopovWeb</a><a href="${name}.txt" download>${locale==='ru'?'Скачать документ (.txt)':'Download document (.txt)'}</a><a href="${kind}-${locale==='ru'?'en':'ru'}.html" hreflang="${locale==='ru'?'en':'ru'}">${locale==='ru'?'English':'Русский'}</a></nav><header><div class="date">${version}</div><h1>${doc.title}</h1></header>${doc.sections.map(([h,p])=>`<section><h2>${h}</h2><p>${markup(p)}</p></section>`).join('')}<p><a href="${kind==='privacy'?'consent':'privacy'}-${locale}.html">${documents[locale][kind==='privacy'?'consent':'privacy'].title}</a></p></main></body></html>`);
   }
 }

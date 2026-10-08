@@ -3,7 +3,10 @@
 .site-footer { padding-block: 28px; }
 .site-footer .footer-inner { display: grid; grid-template-columns: minmax(0,1fr) auto minmax(0,1fr); align-items: center; gap: 24px; }
 .footer-copyright { line-height: 1.6; }
-.footer-privacy { justify-self: center; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.footer-legal { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; justify-self: center; gap: 4px 24px; }
+.footer-legal a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 8px; color: var(--muted); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.footer-legal a:hover { color: var(--accent); }
+.footer-legal a:focus-visible { color: var(--text); outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 2px; }
 .site-footer .footer-contacts { justify-self: end; margin: 0; gap: 10px; }
 .site-footer .contact-direct { position: relative; display: inline-flex; align-items: center; justify-content: center; flex: none; width: 40px; height: 40px; min-height: 40px; margin: 0; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--subtle); color: var(--text); transition: background-color .2s, border-color .2s, color .2s; }
 .site-footer .contact-direct svg, .site-footer .contact-brand-icon { width: 18px; height: 18px; color: inherit; }
