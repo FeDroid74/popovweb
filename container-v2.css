@@ -66,6 +66,16 @@ html { scroll-padding-top: 116px; }
 }
 .mobile-nav { margin-top: 12px; }
 
+/* Keep the compact controls, but make the surrounding space clickable too.
+   Horizontal targets stay inside their own slots so adjacent actions cannot overlap. */
+.nav-actions > :is(.theme-toggle, .locale-switch) { position: relative; flex-shrink: 0; touch-action: manipulation; }
+.nav-actions > :is(.theme-toggle, .locale-switch)::after {
+  content: ''; position: absolute; left: 50%; top: 50%;
+  width: max(100%, 44px); height: max(100%, 48px);
+  transform: translate(-50%, -50%);
+}
+.nav-actions > :is(.theme-toggle, .locale-switch) > * { pointer-events: none; }
+
 .hero {
   height: calc(100svh - var(--frame-gutter) * 2);
   min-height: 600px;
