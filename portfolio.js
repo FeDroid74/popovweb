@@ -1,3 +1,4 @@
+import { toMe } from './montenegrin.js';
 const root = document.documentElement;
 const work = document.querySelector('[data-portfolio]');
 const tabs = [...work.querySelectorAll('[role="tab"]')];
@@ -9,11 +10,11 @@ let category = 'sites';
 root.addEventListener('popovweb:restore-portfolio', event => activate(event.detail));
 
 function translate() {
-  const locale = root.lang === 'ru' ? 'ru' : 'en';
+  const locale = root.lang === 'me' ? 'me' : root.lang === 'ru' ? 'ru' : 'en';
   work.querySelectorAll('[data-portfolio-ru]').forEach(node => {
     node.textContent = node.getAttribute(`data-portfolio-${locale}`);
   });
-  work.querySelector('[role="tablist"]').setAttribute('aria-label', locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category');
+  work.querySelector('[role="tablist"]').setAttribute('aria-label', root.lang === 'me' ? toMe(locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category') : (locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category'));
 }
 
 function activate(value, { updateUrl = false, animate = false } = {}) {

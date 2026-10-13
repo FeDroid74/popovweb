@@ -14,7 +14,7 @@ await mkdir(output, { recursive: true });
 // Explicit production manifest: local experiments and archives never enter a deployment.
 const candidates = [
   'fonts.css', 'styles.css', 'studio.css',
-  'app.js', 'translations.js', 'studio.js', 'studio-copy.js', 'rotor.js',
+  'montenegrin.js', 'app.js', 'translations.js', 'studio.js', 'studio-copy.js', 'rotor.js',
   'container-v2.css', 'header-v2.js', 'hero-grid-v2.js',
   'contact-v2.js', 'contact-copy.js', 'contact-validation.js', 'ui-v2.bundle.js', 'ui-v2.bundle.js.LEGAL.txt',
   'locale-transition.js', 'locale-transition.css',

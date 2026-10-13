@@ -77,3 +77,5 @@ test('separately hosted API accepts only configured website origins and supports
   assert.equal(headers['Access-Control-Allow-Origin'],'https://fedroid74.github.io');
   assert.equal(headers['Access-Control-Allow-Methods'],'POST');
 });
+
+test('Montenegrin enquiries are accepted while unknown locales are rejected', () => { assert.equal(validateEnquiry({...enquiry, language:'me'}),true); assert.equal(validateEnquiry({...enquiry,language:'xx'}),false); });

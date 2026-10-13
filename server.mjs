@@ -14,9 +14,10 @@ const server = createServer(async (req,res) => {
   try {
     const name = decodeURIComponent(new URL(req.url,'http://localhost').pathname);
     if (name === '/api/contact') return await contactHandler(req, res);
+    if (name === '/me') { res.writeHead(308, { Location: '/me/' }); return res.end(); }
     if (name === '/en') { res.writeHead(308, { Location: '/en/' }); return res.end(); }
-    if (['/', '/index.html', '/en/', '/en/index.html'].includes(name)) {
-      const body = await renderHome(name.startsWith('/en/') ? 'en' : 'ru');
+    if (['/', '/index.html', '/en/', '/en/index.html', '/me/', '/me/index.html'].includes(name)) {
+      const body = await renderHome(name.startsWith('/me/') ? 'me' : name.startsWith('/en/') ? 'en' : 'ru');
       res.writeHead(200, { 'Content-Type': mime['.html'], 'Cache-Control': 'no-cache', 'X-Content-Type-Options': 'nosniff' });
       return res.end(req.method === 'HEAD' ? undefined : body);
     }

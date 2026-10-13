@@ -1,3 +1,4 @@
+import { toMe } from '../montenegrin.js';
 import { parse, parseFragment, serialize } from 'parse5';
 import { readFile, writeFile, mkdir } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
@@ -57,15 +58,41 @@ export function deployment(env = process.env) {
 }
 
 export async function renderHome(locale, config = deployment({})) {
+  if (locale === 'me') {
+    const document = parse(await renderHome('en', config), { scriptingEnabled: false });
+    walk(document, node => {
+      if (node.nodeName === '#text' && !['script', 'style'].includes(node.parentNode?.tagName)) node.value = toMe(node.value);
+      if (!node.tagName) return;
+      if (node.tagName === 'html') setAttr(node, 'lang', 'me');
+      for (const item of [...node.attrs]) {
+        if (['aria-label', 'alt', 'placeholder', 'title'].includes(item.name)) item.value = toMe(item.value);
+        if (['data-en','data-portfolio-en','data-aria-en','data-alt-en'].includes(item.name)) setAttr(node, item.name.replace('-en','-me'), toMe(item.value));
+        if (['href','content'].includes(item.name)) item.value = item.value.replace(/\/en\/(#.*)?$/, '/me/$1');
+      }
+      if (node.tagName === 'title') text(node, 'Izrada sajtova | PopovWeb, Fedor Popov');
+      if (['description','og:description','twitter:description'].includes(attr(node,'name') || attr(node,'property'))) setAttr(node,'content','Izrađujem sajtove za poslovanje: struktura, dizajn i razvoj. Odredišne stranice, sajtovi kompanija i internet prodavnice. SEO i Google Ads.');
+      if (['og:title','twitter:title'].includes(attr(node,'property') || attr(node,'name'))) setAttr(node,'content','Izrada sajtova | PopovWeb, Fedor Popov');
+      if (attr(node,'property') === 'og:locale') setAttr(node,'content','me_ME');
+      if (attr(node,'rel') === 'alternate' && attr(node,'hreflang') === 'en') setAttr(node,'href', config.base ? config.base + 'en/' : '../en/');
+      if (attr(node,'data-locale') === 'en') { node.attrs = node.attrs.filter(a => a.name !== 'aria-current'); setAttr(node,'href','../en/'); }
+      if (attr(node,'data-document')) setAttr(node,'href', `../documents/${attr(node,'data-document')}-me.html`);
+      if (attr(node,'data-consent-link') !== undefined) setAttr(node,'href','../documents/consent-me.html');
+      if (attr(node,'data-locale') === 'me') setAttr(node,'aria-current','page');
+      if (attr(node,'data-locale-from') !== undefined) text(node,'EN');
+      if (attr(node,'data-locale-to') !== undefined) text(node,'ME');
+    });
+    return serialize(document);
+  }
   if (!['ru', 'en'].includes(locale)) throw new Error('Unknown locale');
   let template = await readFile(resolve(root, 'pages/home.html'), 'utf8');
   template = template.replace('<!-- CASE_CARDS -->', renderCaseCards(locale)).replace('<!-- CASE_DIALOGS -->', renderCaseDialogs(locale));
+  template = template.replace(/<a class="language-toggle locale-switch"[\s\S]*?<\/a>/, `<nav class="language-picker" aria-label="Language"><a data-locale="ru" href="./">RU</a><a data-locale="en" href="./en/">EN</a><a data-locale="me" href="./me/">ME</a></nav>`);
   const document = parse(template, { scriptingEnabled: false });
   const meta = metadata[locale];
   const prefix = locale === 'en' ? '../' : './';
-  const paths = { ru: '', en: 'en/' };
-  const localUrls = { ru: prefix + paths.ru, en: prefix + paths.en };
-  const urls = config.base ? { ru: config.base + paths.ru, en: config.base + paths.en } : localUrls;
+  const paths = { ru: '', en: 'en/', me: 'me/' };
+  const localUrls = Object.fromEntries(Object.entries(paths).map(([key,path]) => [key,prefix+path]));
+  const urls = config.base ? Object.fromEntries(Object.entries(paths).map(([key,path]) => [key,config.base+path])) : localUrls;
   let head, body;
   walk(document, node => {
     if (!node.tagName) return;
@@ -115,12 +142,14 @@ export async function renderHome(locale, config = deployment({})) {
     const linkLocale = attr(node, 'data-locale');
     if (linkLocale) {
       setAttr(node, 'href', localUrls[linkLocale]);
+      setAttr(node, 'hreflang', linkLocale);
+      setAttr(node, 'aria-label', {ru:'Русский',en:'English',me:'Crnogorski'}[linkLocale]);
       if (linkLocale === locale) setAttr(node, 'aria-current', 'page');
     }
   });
   const headTags = [
     `<meta name="robots" content="${config.indexable ? 'index, follow' : 'noindex, nofollow'}">`,
-    ...['ru', 'en', 'x-default'].map(lang => `<link rel="alternate" hreflang="${lang}" href="${escape(urls[lang === 'x-default' ? 'ru' : lang])}">`),
+    ...['ru', 'en', 'me', 'x-default'].map(lang => `<link rel="alternate" hreflang="${lang}" href="${escape(urls[lang === 'x-default' ? 'ru' : lang])}">`),
     `<meta property="og:type" content="website">`,
     `<meta property="og:site_name" content="PopovWeb">`,
     `<meta property="og:title" content="${escape(meta.title)}">`,
@@ -148,7 +177,7 @@ export async function renderHome(locale, config = deployment({})) {
 
 export function sitemap(config) {
   if (!config.base || !config.indexable) return null;
-  const paths = ['', 'en/'];
+  const paths = ['', 'en/', 'me/'];
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${paths.map(path => `  <url><loc>${escape(config.base + path)}</loc></url>`).join('\n')}\n</urlset>\n`;
 }
 export function robots(config) {
@@ -157,7 +186,7 @@ export function robots(config) {
 
 export async function buildPages(destination = root, config = deployment({})) {
   await buildLegal(destination);
-  for (const [locale, file] of [['ru', 'index.html'], ['en', 'en/index.html']]) {
+  for (const [locale, file] of [['ru', 'index.html'], ['en', 'en/index.html'], ['me', 'me/index.html']]) {
     const path = resolve(destination, file);
     await mkdir(dirname(path), { recursive: true });
     await writeFile(path, await renderHome(locale, config));
@@ -165,5 +194,5 @@ export async function buildPages(destination = root, config = deployment({})) {
 }
 if (process.argv[1] && resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   await buildPages();
-  console.log('Generated local RU and EN pages. Indexing remains disabled.');
+  console.log('Generated local RU, EN and ME pages. Indexing remains disabled.');
 }

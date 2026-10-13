@@ -51,15 +51,15 @@ test('language links, social links, anchors, and assets work from a nested hosti
     const nodes = elements(await renderHome(locale, local));
     const current = new URL(locale === 'ru' ? 'https://host.test/popovweb/' : 'https://host.test/popovweb/en/');
     const ids = new Set(nodes.map(n => attr(n, 'id')).filter(Boolean));
-    const switches = nodes.filter(n => attr(n, 'data-locale-switch') !== undefined);
-    assert.equal(switches.length, 1);
+    const switches = nodes.filter(n => attr(n, 'data-locale'));
+    assert.equal(switches.length, 3);
     assert.equal(switches[0].tagName, 'a');
-    assert.equal(attr(switches[0], 'data-locale'), locale === 'ru' ? 'en' : 'ru');
-    assert.equal(attr(switches[0], 'hreflang'), locale === 'ru' ? 'en' : 'ru');
+    assert.deepEqual(switches.map(n => attr(n,'data-locale')), ['ru','en','me']);
+    assert.equal(attr(switches[0], 'hreflang'), 'ru');
     assert.ok(attr(switches[0], 'aria-label'));
     for (const node of nodes) {
       const lang = attr(node, 'data-locale');
-      if (lang) assert.equal(new URL(attr(node, 'href'), current).pathname, `/popovweb/${lang === 'en' ? 'en/' : ''}`);
+      if (lang) assert.equal(new URL(attr(node, 'href'), current).pathname, `/popovweb/${lang === 'ru' ? '' : lang + '/'}`);
       for (const key of ['src', 'href']) {
         const value = attr(node, key);
         if (value?.startsWith('#')) assert.ok(ids.has(value.slice(1)), `Missing anchor ${value}`);
@@ -83,7 +83,7 @@ test('production metadata uses only the configured domain, with reciprocal local
     assert.equal(attr(nodes.find(n => attr(n, 'property') === 'og:url'), 'content'), expected);
     assert.equal(attr(nodes.find(n => attr(n, 'property') === 'og:image'), 'content'), `${config.base}assets/social-${locale}.png`);
     const alternatives = nodes.filter(n => attr(n, 'rel') === 'alternate');
-    assert.deepEqual(alternatives.map(n => [attr(n, 'hreflang'), attr(n, 'href')]), [ ['ru', config.base], ['en', config.base + 'en/'], ['x-default', config.base] ]);
+    assert.deepEqual(alternatives.map(n => [attr(n, 'hreflang'), attr(n, 'href')]), [ ['ru', config.base], ['en', config.base + 'en/'], ['me', config.base + 'me/'], ['x-default', config.base] ]);
   }
   assert.match(sitemap(config), /https:\/\/portfolio\.example\/studio\/en\//);
   assert.doesNotMatch(sitemap(config), /github|localhost|v2|v3/);
@@ -112,3 +112,17 @@ test('arrival boot consumes only a fresh transfer for the exact destination; dir
     assert.ok(removed);
   }
 });
+
+ test('Montenegrin Latin page has translated content, reciprocal links and working assets', async () => {
+ const nodes=elements(await renderHome('me',local));
+ const url=new URL('https://host.test/popovweb/me/');
+ assert.equal(attr(nodes.find(n=>n.tagName==='html'),'lang'),'me');
+ const content=nodes.filter(n=>n.nodeName==='#text'&&!['script','style','noscript'].includes(n.parentNode?.tagName)).map(n=>n.value).join(' ');
+ assert.match(content,/Sajtovi koji/);assert.match(content,/Česta pitanja/);assert.match(content,/Pošalji upit/);
+ assert.doesNotMatch(content,/[А-Яа-яЁё]|Websites that|Your name|Send enquiry/);
+ for(const n of nodes){
+ if(attr(n,'data-locale')) assert.equal(new URL(attr(n,'href'),url).pathname,`/popovweb/${attr(n,'data-locale')==='ru'?'':attr(n,'data-locale')+'/'} ` .trim());
+ for(const key of ['src','href']){const v=attr(n,key);if(v?.startsWith('../')&&!v.endsWith('/'))await access(resolve(root,new URL(v,url).pathname.slice('/popovweb/'.length)));}
+ if(attr(n,'data-en')!==undefined) assert.ok(attr(n,'data-me')!==undefined);
+ }
+ });

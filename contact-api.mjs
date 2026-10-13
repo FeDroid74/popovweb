@@ -7,7 +7,7 @@ export function validateEnquiry(body) {
   for (const [key, limit] of Object.entries(limits)) {
     if (typeof body[key] !== 'string' || body[key].length > limit || /\u0000/.test(body[key])) return false;
   }
-  return Boolean(body.name.trim()) && !/[\r\n]/.test(body.name) && ['ru', 'en'].includes(body.language) && ['telegram', 'whatsapp', 'email'].includes(body.method) && !contactError(body.method, body.contact);
+  return Boolean(body.name.trim()) && !/[\r\n]/.test(body.name) && ['ru', 'en', 'me'].includes(body.language) && ['telegram', 'whatsapp', 'email'].includes(body.method) && !contactError(body.method, body.contact);
 }
 
 export function createContactHandler({ token, chatId, allowedOrigins = [], send = fetch }) {

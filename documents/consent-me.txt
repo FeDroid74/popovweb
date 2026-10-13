@@ -1,0 +1,11 @@
+Saglasnost za obradu ličnih podataka
+PopovWeb · 2026-10-06
+
+Rukovalac i svrha
+Označavanjem posebnog polja i slanjem upita dajem saglasnost Fedoru Vladimiroviču Popovu (Попов Федор Владимирович, Ruska Federacija, fedorpopov7@yandex.ru) da obrađuje podatke koje navodim radi odgovora i razgovora o izradi sajta.
+
+Podaci i radnje
+Saglasnost obuhvata ime, izabrani Telegram/WhatsApp/email kontakt, opis projekta, izabrani tip sajta, jezik upita i zapis o saglasnosti. Obrada uključuje prijem, evidentiranje, organizovanje, čuvanje, ispravku, korišćenje za odgovor i brisanje, automatski ili bez automatizacije. Povezana integracija šalje upit rukovaocu putem Telegram Bot API-ja. Saglasnost ne dopušta javno objavljivanje ni reklamne poruke.
+
+Trajanje i povlačenje
+Saglasnost važi do ispunjenja svrhe ili povlačenja putem fedorpopov7@yandex.ru. Tada obrada prestaje i podaci se brišu u zakonskim rokovima, osim ako postoji drugi pravni osnov. Verzija saglasnosti: 2026-10-06.

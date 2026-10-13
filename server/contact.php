@@ -21,7 +21,7 @@ function popov_valid_enquiry($body): bool {
         if (strlen(mb_convert_encoding($value, 'UTF-16LE', 'UTF-8')) / 2 > $limit || preg_match('/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/u', $value)) return false;
     }
     if (trim($body['name']) === '' || preg_match('/[\r\n]/', $body['name'] . $body['plan'])) return false;
-    if (!in_array($body['language'] ?? null, ['ru', 'en'], true) || !in_array($body['method'] ?? null, ['telegram', 'whatsapp', 'email'], true)) return false;
+    if (!in_array($body['language'] ?? null, ['ru', 'en', 'me'], true) || !in_array($body['method'] ?? null, ['telegram', 'whatsapp', 'email'], true)) return false;
     $contact = popov_normalize_contact($body['method'], $body['contact']);
     $patterns = ['telegram' => '/^[a-z0-9_]{3,32}$/iD', 'whatsapp' => '/^\+[1-9]\d{6,14}$/D', 'email' => '/^[^\s@]+@[^\s@.]+(?:\.[^\s@.]+)+$/uD'];
     return preg_match($patterns[$body['method']], $contact) === 1;

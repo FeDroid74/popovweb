@@ -1,9 +1,10 @@
+import { toMe } from './montenegrin.js';
 const root = document.documentElement;
 function translateServices() {
   document.querySelectorAll('[data-main-copy], .v2-pricing [data-ru], .faq [data-ru]').forEach(element => {
-    element.textContent = element.dataset[root.lang === 'ru' ? 'ru' : 'en'];
+    element.textContent = element.dataset[root.lang === 'me' ? 'me' : root.lang === 'ru' ? 'ru' : 'en'];
   });
-  document.querySelector('.format-tabs').setAttribute('aria-label', root.lang === 'ru' ? 'Задача сайта' : 'Website goal');
+  document.querySelector('.format-tabs').setAttribute('aria-label', root.lang === 'me' ? toMe(root.lang === 'ru' ? 'Задача сайта' : 'Website goal') : (root.lang === 'ru' ? 'Задача сайта' : 'Website goal'));
 
 }
 translateServices();

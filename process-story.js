@@ -1,3 +1,4 @@
+import { toMe } from './montenegrin.js';
 const section = document.querySelector('#process-story');
 
 if (section) {
@@ -41,7 +42,7 @@ if (section) {
   let height = 1;
   const sizes = new Map();
   const placement = new Map();
-  let lang = root.lang === 'ru' ? 'ru' : 'en';
+  let lang = root.lang === 'me' ? 'me' : root.lang === 'ru' ? 'ru' : 'en';
 
   function object(element, x, y, scale, rotation, opacity) {
     // Fit the rotated object, not just its untransformed box. No clipped entrances.
@@ -92,7 +93,7 @@ if (section) {
     next.disabled = index === 3;
     position.textContent = `${String(index + 1).padStart(2, '0')} / 04`;
     const title = buttons[index].querySelector('strong').textContent;
-    stage.setAttribute('aria-label', `${title}. ${buttons[index].querySelector('.journey-step-description').textContent}`);
+    stage.setAttribute('aria-label', root.lang === 'me' ? toMe(`${title}. ${buttons[index].querySelector('.journey-step-description').textContent}`) : (`${title}. ${buttons[index].querySelector('.journey-step-description').textContent}`));
   }
 
   function updateControls() {
@@ -240,11 +241,11 @@ if (section) {
   }
 
   function translate() {
-    lang = root.lang === 'ru' ? 'ru' : 'en';
+    lang = root.lang === 'me' ? 'me' : root.lang === 'ru' ? 'ru' : 'en';
     section.querySelectorAll('[data-ru]').forEach(element => { element.textContent = element.dataset[lang]; });
-    section.querySelector('.journey-steps').setAttribute('aria-label', lang === 'ru' ? 'Этапы работы' : 'Project stages');
-    prev.setAttribute('aria-label', lang === 'ru' ? 'Предыдущий этап' : 'Previous stage');
-    next.setAttribute('aria-label', lang === 'ru' ? 'Следующий этап' : 'Next stage');
+    section.querySelector('.journey-steps').setAttribute('aria-label', root.lang === 'me' ? toMe(lang === 'ru' ? 'Этапы работы' : 'Project stages') : (lang === 'ru' ? 'Этапы работы' : 'Project stages'));
+    prev.setAttribute('aria-label', root.lang === 'me' ? toMe(lang === 'ru' ? 'Предыдущий этап' : 'Previous stage') : (lang === 'ru' ? 'Предыдущий этап' : 'Previous stage'));
+    next.setAttribute('aria-label', root.lang === 'me' ? toMe(lang === 'ru' ? 'Следующий этап' : 'Next stage') : (lang === 'ru' ? 'Следующий этап' : 'Next stage'));
     active = -1;
     measure();
     selectCopy(current < .22 ? 0 : current < .46 ? 1 : current < .76 ? 2 : 3);

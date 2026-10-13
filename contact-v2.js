@@ -28,7 +28,7 @@ let currentMethod = methodInput.value;
 let proposedEmail = '';
 
 
-const text = key => copy[root.lang === 'ru' ? 'ru' : 'en'][key];
+const text = key => copy[root.lang === 'me' ? 'me' : root.lang === 'ru' ? 'ru' : 'en'][key];
 // A draft lives only during an explicit language navigation, never in a request URL.
 form.addEventListener('popovweb:save-draft', event => {
   Object.assign(event.detail, { name: nameInput.value, message: messageInput.value, method: currentMethod, values: { ...values, [currentMethod]: contactInput.value } });
@@ -130,7 +130,7 @@ form.addEventListener('submit', async event => {
     return;
   }
   if (!consentInput.checked) {
-    consentError.textContent = root.lang === 'ru' ? 'Нужно согласие на обработку заявки.' : 'Please consent to processing your enquiry.';
+    consentError.textContent = root.lang === 'me' ? 'Potrebna je saglasnost za obradu upita.' : root.lang === 'ru' ? 'Нужно согласие на обработку заявки.' : 'Please consent to processing your enquiry.';
     consentError.hidden = false;
     consentInput.setAttribute('aria-invalid', 'true');
     (form.querySelector('.site-checkbox') || consentInput).focus();
@@ -156,9 +156,9 @@ function translate() {
   const ru = root.lang === 'ru';
   const consentLink = form.querySelector('[data-consent-link]');
   if (consentLink) {
-    form.querySelector('[data-consent-prefix]').textContent = ru ? 'Даю согласие на ' : 'I consent to ';
-    consentLink.textContent = ru ? 'обработку персональных данных' : 'personal data processing';
-    consentLink.href = `./documents/consent-${ru ? 'ru' : 'en'}.html`;
+    form.querySelector('[data-consent-prefix]').textContent = root.lang === 'me' ? 'Dajem saglasnost za ' : ru ? 'Даю согласие на ' : 'I consent to ';
+    consentLink.textContent = root.lang === 'me' ? 'obradu ličnih podataka' : ru ? 'обработку персональных данных' : 'personal data processing';
+    consentLink.href = new URL(`./documents/consent-${root.lang === 'me' ? 'me' : ru ? 'ru' : 'en'}.html`, import.meta.url).href;
   }
   form.querySelectorAll('[data-contact-text]').forEach(node => node.textContent = text(node.dataset.contactText));
   form.setAttribute('aria-label', text('formTitle'));

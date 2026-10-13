@@ -224,3 +224,10 @@
   .format-picker > .pricing-note { margin: 0; color: var(--muted); font-size: 12px; line-height: 1.75; }
   .pricing-context { grid-template-columns: 1fr; }
 }
+
+/* Three compact locale links stay usable in the mobile header. */
+.language-picker { display:flex; align-items:center; gap:10px; font-size:13px; flex-shrink:0; }
+.language-picker a { text-decoration:none; color:var(--muted, #a5a69f); padding:8px 0; }
+.language-picker a[aria-current="page"] { color:var(--accent, #fc6833); }
+.language-picker a:focus-visible { outline:2px solid #fc6833; outline-offset:3px; border-radius:3px; }
+@media(max-width:400px) { .language-picker { gap:7px; font-size:11px; } .nav-actions { gap:8px; } }
