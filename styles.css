@@ -102,3 +102,20 @@
 @media(max-width:959px){
   .footer-inner{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
 }
+
+/* VELORA product card */
+#templates .feature-copy h3{margin-bottom:16px}
+#templates .feature-description{margin-bottom:22px}
+#templates .template-meta{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:20px;margin:0 0 24px}
+#templates .template-style{display:inline-flex;align-self:flex-start;align-items:center;padding:8px 14px;border:1px solid var(--border);border-radius:999px;background:var(--card);color:var(--muted);font-size:13px;line-height:1.3}
+#templates .template-price-box{display:grid;gap:5px}
+#templates .template-price-label{color:var(--muted);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+#templates .template-price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+#templates .template-price{font-size:34px;line-height:1.1;font-weight:600;letter-spacing:-.04em}
+#templates .template-price-note{font-size:13px;color:var(--muted)}
+#templates .template-actions{display:flex;flex-wrap:wrap;align-items:center;gap:18px}
+#templates .template-preview-link{display:inline-flex;align-items:center;gap:7px;font-size:14px;color:var(--text);text-underline-offset:4px}
+#templates .template-preview-link svg{height:14px;width:14px;transition:transform .2s ease}
+@media(hover:hover) and (pointer:fine){#templates .template-preview-link:hover{text-decoration:underline}#templates .template-preview-link:hover svg{transform:translate(2px,-2px)}}
+@media(max-width:479px){#templates .template-meta{align-items:flex-start;flex-direction:column}#templates .template-price{font-size:32px}#templates .template-actions{gap:14px}}
+@media(prefers-reduced-motion:reduce){#templates .template-preview-link svg{transition:none}}
