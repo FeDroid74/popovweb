@@ -1,7 +1,7 @@
 const root = document.documentElement;
 const work = document.querySelector('[data-portfolio]');
 const tabs = [...work.querySelectorAll('[role="tab"]')];
-const panel = work.querySelector('[role="tabpanel"]');
+const panel = work.querySelector('#portfolio-panel');
 const cards = [...panel.children];
 const reduced = matchMedia('(prefers-reduced-motion: reduce)');
 let animation;
@@ -13,19 +13,19 @@ function translate() {
   work.querySelectorAll('[data-portfolio-ru]').forEach(node => {
     node.textContent = node.getAttribute(`data-portfolio-${locale}`);
   });
-  work.querySelector('[role="tablist"]').setAttribute('aria-label', locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category');
+  work.querySelector('[role="tablist"]')?.setAttribute('aria-label', locale === 'ru' ? 'Раздел портфолио' : 'Portfolio category');
 }
 
 function activate(value, { updateUrl = false, animate = false } = {}) {
   const changed = category !== value;
-  category = value === 'templates' ? value : 'sites';
+  category = tabs.some(tab => tab.dataset.portfolioTab === value) ? value : 'sites';
   tabs.forEach(tab => {
     const active = tab.dataset.portfolioTab === category;
     tab.setAttribute('aria-selected', String(active));
     tab.tabIndex = active ? 0 : -1;
   });
   cards.forEach(card => { card.hidden = card.dataset.portfolioCategory !== category; });
-  panel.setAttribute('aria-labelledby', `portfolio-tab-${category}`);
+  panel.setAttribute('aria-labelledby', tabs.length ? `portfolio-tab-${category}` : 'work-title');
   translate();
   animation?.cancel();
   if (changed && animate && !reduced.matches) {

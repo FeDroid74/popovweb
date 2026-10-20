@@ -45,15 +45,14 @@ test('all cases open as labelled dialogs with valid assets in both locales and a
     }
   }
 });
-test('portfolio keeps the four websites and Framer template without promotion',async()=>{
+test('production portfolio keeps all four websites without template sales',async()=>{
   const elements=nodes(await renderHome('ru'));
   const projects=elements.filter(n=>attr(n,'data-portfolio-category')==='sites');
   assert.deepEqual(projects.map(project=>nodes(project).find(n=>n.tagName==='h3').childNodes[0].value),cases.map(item=>item.title));
-  assert.deepEqual(elements.filter(n=>attr(n,'data-portfolio-tab')).map(n=>attr(n,'data-portfolio-tab')),['sites','templates']);
-  const template=elements.find(n=>attr(n,'data-portfolio-category')==='templates');
-  assert.equal(attr(template,'id'),'templates');
-  const source=await readFile(resolve(root,'pages/home.html'),'utf8');
-  assert.match(source,/https:\/\/cute-plans-049750\.framer\.app\//);
+  assert.equal(elements.some(n=>attr(n,'data-portfolio-tab')),false);
+  assert.equal(elements.some(n=>attr(n,'data-portfolio-category')==='templates'),false);
+  assert.equal(elements.some(n=>attr(n,'id')==='templates'),false);
+  assert.doesNotMatch(await renderHome('ru'), /app\.lava\.top|cute-plans-049750|VELORA/);
   assert.equal(elements.some(n=>attr(n,'data-portfolio-category')==='promotion'),false);
 });
 test('case pages are removed and no longer listed in the sitemap',async()=>{
