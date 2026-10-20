@@ -116,10 +116,22 @@ GitHub Pages остаётся статическим сайтом: repository va
 
 ## Индексация
 
-Сборка использует домен `https://popovweb.com/`, корень `/`, закрытую индексацию
-и PHP-форму. На сервере также остаётся временный `X-Robots-Tag` в `.htaccess`.
-Для открытия индексации нужно отдельно обновить настройки сборки,
-проверку `scripts/check-timeweb.mjs` и убрать этот заголовок.
+С 20 октября 2026 production-сборка использует `SITE_INDEXABLE=true`, домен
+`https://popovweb.com/`, корень `/` и PHP-форму. Главные страницы `/` и `/en/`
+публикуются с `index, follow`; `robots.txt` разрешает обход и указывает
+`https://popovweb.com/sitemap.xml`. Карта содержит только две главные страницы.
+Правовые документы и страница 404 сохраняют `noindex, follow`.
+
+В серверном `.htaccess` заголовок `X-Robots-Tag: noindex, nofollow` применяется
+только к хостам вне `popovweb.com` и `www.popovweb.com`, включая технический домен
+Timeweb. Остальные серверные настройки сохраняются. Деплой не перезаписывает
+`.htaccess`; его изменение сохранено в серверной резервной копии перед запуском.
+
+GitHub Pages из ветки `test` по-прежнему использует `SITE_INDEXABLE=false`,
+`Disallow: /` и не содержит карты сайта. Сгенерированные HTML в корне репозитория
+тоже остаются локальными превью с `noindex`: итоговую политику задаёт workflow
+при production-сборке. `scripts/check-timeweb.mjs` проверяет открытие только
+двух главных страниц и правильные адреса в карте сайта.
 Токен Telegram никогда не должен попадать в браузерную сборку или GitHub-репозиторий.
 
 Документация: [Timeweb SSH/SFTP](https://timeweb.com/ru/docs/virtualnyj-hosting/podklyuchenie-k-serveru-hostinga/podklyuchenie-po-sftp/).

@@ -79,6 +79,7 @@ test('production metadata uses only the configured domain, with reciprocal local
   for (const locale of ['ru', 'en']) {
     const nodes = elements(await renderHome(locale, config));
     const expected = config.base + (locale === 'en' ? 'en/' : '');
+    assert.equal(attr(nodes.find(n => attr(n, 'name') === 'robots'), 'content'), 'index, follow');
     assert.equal(attr(nodes.find(n => attr(n, 'rel') === 'canonical'), 'href'), expected);
     assert.equal(attr(nodes.find(n => attr(n, 'property') === 'og:url'), 'content'), expected);
     assert.equal(attr(nodes.find(n => attr(n, 'property') === 'og:image'), 'content'), `${config.base}assets/social-${locale}.png`);
@@ -90,9 +91,16 @@ test('production metadata uses only the configured domain, with reciprocal local
   assert.match(robots(config), /Allow: \/\nSitemap: https:\/\/portfolio\.example\/studio\/sitemap.xml/);
 });
 
-test('preview builds stay closed; indexing cannot be enabled without a real HTTPS base', () => {
+test('preview builds stay closed; indexing cannot be enabled without a real HTTPS base', async () => {
   assert.equal(sitemap(local), null);
   assert.equal(robots(local), 'User-agent: *\nDisallow: /\n');
+  const preview = deployment({ SITE_URL: 'https://fedroid74.github.io/popovweb/', SITE_BASE_PATH: '/popovweb/', SITE_INDEXABLE: 'false' });
+  assert.equal(sitemap(preview), null);
+  assert.equal(robots(preview), 'User-agent: *\nDisallow: /\n');
+  for (const locale of ['ru', 'en']) {
+    const nodes = elements(await renderHome(locale, preview));
+    assert.equal(attr(nodes.find(n => attr(n, 'name') === 'robots'), 'content'), 'noindex, nofollow');
+  }
   assert.throws(() => deployment({ SITE_INDEXABLE: 'true' }));
   for (const SITE_URL of ['http://example.com', 'https://localhost', 'https://example.com/?a=b']) assert.throws(() => deployment({ SITE_URL }));
   assert.throws(() => deployment({ CONTACT_ENDPOINT: '//evil.example' }));
