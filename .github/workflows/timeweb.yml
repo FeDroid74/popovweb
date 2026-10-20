@@ -34,8 +34,8 @@ jobs:
           SITE_TARGET: timeweb
           SITE_BASE_PATH: /
           SITE_URL: https://popovweb.com/
-          # Indexing remains a separate launch step.
-          SITE_INDEXABLE: 'false'
+          # Only the production build is open to search engines; Pages stays noindex.
+          SITE_INDEXABLE: 'true'
           CONTACT_ENDPOINT: /api/contact.php
           CONTACT_DISABLED: 'false'
       - name: Check deployment files
