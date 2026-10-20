@@ -1,4 +1,3 @@
-import { toMe } from './montenegrin.js';
 import { ru } from './translations.js';
 import { initStudio } from './studio.js?v=vw-1';
 
@@ -22,13 +21,13 @@ function updateControls() {
   const isRu = root.lang === 'ru';
   const isLight = root.dataset.theme === 'light';
   const themeLabel = isRu ? (isLight ? 'Включить тёмную тему' : 'Включить светлую тему') : (isLight ? 'Switch to dark theme' : 'Switch to light theme');
-  themeButton.setAttribute('aria-label', root.lang === 'me' ? toMe(themeLabel) : themeLabel);
-  themeButton.title = root.lang === 'me' ? toMe(themeLabel) : themeLabel;
+  themeButton.setAttribute('aria-label', themeLabel);
+  themeButton.title = themeLabel;
   themeButton.setAttribute('aria-pressed', String(isLight));
   const languageLabel = isRu ? 'Switch to English' : 'Переключить на русский';
   if (languageButton) { languageButton.setAttribute('aria-label', languageLabel); languageButton.title = languageLabel; }
   const menuOpen = menuButton.getAttribute('aria-expanded') === 'true';
-  menuButton.setAttribute('aria-label', root.lang === 'me' ? toMe(menuOpen ? 'Close menu' : 'Open menu') : isRu ? (menuOpen ? 'Закрыть меню' : 'Открыть меню') : (menuOpen ? 'Close menu' : 'Open menu'));
+  menuButton.setAttribute('aria-label', isRu ? (menuOpen ? 'Закрыть меню' : 'Открыть меню') : (menuOpen ? 'Close menu' : 'Open menu'));
   document.querySelector('meta[name="theme-color"]').content = isLight ? '#F5F5F2' : '#1B1C1A';
 }
 function setLanguage(language) {

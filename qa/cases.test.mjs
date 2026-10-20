@@ -58,7 +58,7 @@ test('portfolio keeps the four websites and Framer template without promotion',a
 });
 test('case pages are removed and no longer listed in the sitemap',async()=>{
   assert.doesNotMatch(sitemap(config),/\/cases\//);
-  assert.equal((sitemap(config).match(/<loc>/g)||[]).length,3);
+  assert.equal((sitemap(config).match(/<loc>/g)||[]).length,2);
   for(const item of cases) for(const locale of ['','en/']) {
     await assert.rejects(access(resolve(root,`${locale}cases/${item.slug}.html`)),{code:'ENOENT'});
   }

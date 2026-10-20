@@ -1,4 +1,3 @@
-import { toMe } from './montenegrin.js';
 import { stackTools } from './studio-copy.js';
 
 export function initStudio(){
@@ -6,7 +5,7 @@ export function initStudio(){
   const motion=matchMedia('(prefers-reduced-motion: reduce)');
   const touch=matchMedia('(pointer: coarse)');
   const isRu=()=>root.lang==='ru';
-  const label=(ru,en)=>root.lang==='me'?toMe(en):isRu()?ru:en;
+  const label=(ru,en)=>isRu()?ru:en;
   // Three concentric orbits, with independent speed and direction.
   const stage=document.querySelector('.orbit-stage');
   if(!stage)return;

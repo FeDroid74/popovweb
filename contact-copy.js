@@ -1,6 +1,4 @@
-import { meContact } from './montenegrin.js';
 export const contactCopy = {
-  me: meContact,
   ru: {
     formTitle: 'Обсудить проект', name: 'Ваше имя', contact: 'Как с вами связаться?', method: 'Способ связи',
     message: 'Несколько слов о проекте', optional: 'Необязательно', submit: 'Отправить заявку',
