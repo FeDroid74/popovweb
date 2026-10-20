@@ -17,11 +17,11 @@
   },
   "ultra-cleaning": {
     "file": "original-desktop.png",
-    "source": "popovweb_cases_for_codex.zip/assets/ultra-cleaning/full-ru.png",
+    "source": "cleankrd.png supplied by the owner on 2026-10-20",
     "kind": "original-file",
-    "width": 398,
-    "height": 2048,
-    "sha256": "d6bbc68c3b5474874d0dbf2b26c5dc21d89fef3fe74d0b78139e947d7f695172"
+    "width": 1280,
+    "height": 6585,
+    "sha256": "13bbee294dbd597a8373799dc376c82f007ddfd26d28590ffd287139c0004214"
   },
   "royal-trees": {
     "file": "original-desktop.png",

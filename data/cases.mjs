@@ -2,11 +2,12 @@
 // Add a record here and matching assets to publish another case in both locales.
 export const cases = [
   {
-    slug: 'ultra-cleaning', title: 'Ultra Cleaning 24', live: 'https://www.cleankrd23.ru/',
-    preview: 'reference-rebuilt-desktop.png', mockup: 'reference-rebuilt-desktop.png',
+    slug: 'ultra-cleaning', title: 'Ultra Cleaning 23', live: 'https://www.cleankrd23.ru/',
+    preview: 'upscaled-desktop.png', mockup: 'upscaled-desktop.png',
+    mediaBasename: 'ultra-cleaning-23',
     hideDetails: true,
-    mediaNote: { ru: 'Макет адаптирован под Ultra Cleaning по референсу владельца.', en: 'Mockup adapted for Ultra Cleaning from the owner’s reference.' },
-    originalCapture: false,
+    mediaNote: { ru: 'Исходный скриншот Cleankrd23 от владельца, увеличенный в 2 раза без дорисовки.', en: 'The owner’s original Cleankrd23 screenshot, enlarged 2× without generative changes.' },
+    originalCapture: true,
     ru: {
       badge: 'Клининг · сайт услуг',
       subtitle: 'Клининговые услуги · Краснодар',

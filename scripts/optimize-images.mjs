@@ -15,12 +15,13 @@ async function save(name, pipeline, source) {
 for (const item of cases) {
   const source = resolve(root, `assets/cases/${item.slug}/${item.mockup}`);
   const image = sharp(source);
+  const basename = item.mediaBasename || item.slug;
   const { width, height } = await image.metadata();
   const crop = { left: 0, top: 0, width, height: Math.min(height, Math.round(width * 4 / 7)) };
   manifest.cases[item.slug] = {
-    full: await save(`${item.slug}-full.webp`, image.clone(), source),
-    card: await save(`${item.slug}-card.webp`, image.clone().extract(crop).resize({ width: 1200, withoutEnlargement: true }), source),
-    small: await save(`${item.slug}-card-small.webp`, image.clone().extract(crop).resize({ width: 640 }), source),
+    full: await save(`${basename}-full.webp`, image.clone(), source),
+    card: await save(`${basename}-card.webp`, image.clone().extract(crop).resize({ width: 1200, withoutEnlargement: true }), source),
+    small: await save(`${basename}-card-small.webp`, image.clone().extract(crop).resize({ width: 640 }), source),
   };
 }
 for (const [key, file] of [['hero', 'fedor-hero-selected.png'], ['about', 'fedor-about-macbook.jpg']]) {
