@@ -2,25 +2,25 @@
   "cases": {
     "ultra-cleaning": {
       "full": {
-        "file": "assets/optimized/ultra-cleaning-full.webp",
-        "width": 1164,
-        "height": 7941,
-        "bytes": 990126,
-        "sourceBytes": 8445509
+        "file": "assets/optimized/ultra-cleaning-23-full.webp",
+        "width": 2560,
+        "height": 13170,
+        "bytes": 1793486,
+        "sourceBytes": 12984165
       },
       "card": {
-        "file": "assets/optimized/ultra-cleaning-card.webp",
-        "width": 1164,
-        "height": 665,
-        "bytes": 91102,
-        "sourceBytes": 8445509
+        "file": "assets/optimized/ultra-cleaning-23-card.webp",
+        "width": 1200,
+        "height": 686,
+        "bytes": 133696,
+        "sourceBytes": 12984165
       },
       "small": {
-        "file": "assets/optimized/ultra-cleaning-card-small.webp",
+        "file": "assets/optimized/ultra-cleaning-23-card-small.webp",
         "width": 640,
         "height": 366,
-        "bytes": 40162,
-        "sourceBytes": 8445509
+        "bytes": 51222,
+        "sourceBytes": 12984165
       }
     },
     "brivillage": {

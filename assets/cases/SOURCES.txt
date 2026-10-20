@@ -1,19 +1,17 @@
-Portfolio materials supplied by Fedor Popov in popovweb_cases_for_codex.zip.
-Updated locally on 2026-10-05. No publication performed.
+Portfolio materials supplied by Fedor Popov.
 
-ULTRA CLEANING 24
-preview-restored.webp: AI reconstruction of the supplied preview.webp.
-Generated with the built-in image_gen tool, not the CLI.
-Source output: exec-8ceaafe9-3377-4080-b862-491aa7823986.png.
-Prompt specification: Restore the supplied website screenshot at high resolution,
-keeping its original composition, red Cyrillic logo, white interior, cleaner in
-red shirt and black apron, turquoise gloves, two CTA buttons and four benefit
-cards. Preserve readable Russian text and the positions of every major element.
-Do not add new awards, numerical claims, logos or decorative elements.
-This is a reconstruction, not a recovered browser screenshot. Fine details and
-photographic likeness may differ. It is identified on the home and case pages.
-Full-page original captures remain unchanged and are not enlarged in the viewer.
-A local PNG copy is kept at design/case-restoration/ultra-preview-generated.png.
+ULTRA CLEANING 23 / CLEANKRD23 — updated 2026-10-20
+original-desktop.png is a byte-for-byte copy of the owner's cleankrd.png,
+1280 x 6585 pixels. Its SHA-256 is recorded in data/case-originals.json.
+upscaled-desktop.png is a deterministic Lanczos3 2x enlargement to 2560 x 13170.
+No AI generation, OCR, text replacement, photo replacement or layout rebuilding.
+Reproduce with: node scripts/upscale-ultra.mjs && npm run images:optimize
+The same original design supplies both the responsive card and full-page viewer.
+The earlier adapted reference-rebuilt-desktop.png is rejected and removed.
+Its data/case-rebuilds.json record and old optimized delivery copies are removed.
+The public title is corrected from Ultra Cleaning 24 to Ultra Cleaning 23.
+
+OTHER PROJECT SOURCE NOTES (2026-10-05)
 
 BRIVILLAGE
 archive-preview.webp, archive-cabins.webp, archive-infrastructure.webp are fresh

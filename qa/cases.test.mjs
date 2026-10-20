@@ -100,7 +100,7 @@ test('every case uses the same scrolling image at all viewport sizes, without in
       assert.equal(pictures.length,1);
       for(const picture of pictures) {
         assert.equal(attr(picture,'src'),undefined,'Full images must not download before the dialog opens');
-        assert.ok(attr(picture,'data-case-src').endsWith(`/${item.slug}-full.webp`));
+        assert.ok(attr(picture,'data-case-src').endsWith(`/${item.mediaBasename || item.slug}-full.webp`));
         assert.equal(attr(picture,'draggable'),'false');
         assert.equal(attr(picture,'class'),'case-mockup-original');
         assert.ok(Number(attr(picture,'height'))>Number(attr(picture,'width'))*2);
